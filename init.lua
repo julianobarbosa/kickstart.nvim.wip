@@ -278,6 +278,18 @@ if not vim.uri then
   }
 end
 
+-- Add compatibility layer for deprecated health module
+if not vim.deprecated then
+  vim.deprecated = {}
+end
+if not vim.deprecated.health then
+  vim.deprecated.health = {
+    report_ok = function(...) return vim.health and vim.health.report_ok and vim.health.report_ok(...) end,
+    report_warn = function(...) return vim.health and vim.health.report_warn and vim.health.report_warn(...) end,
+    report_error = function(...) return vim.health and vim.health.report_error and vim.health.report_error(...) end,
+  }
+end
+
 -- Configure diagnostic display
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -658,15 +670,24 @@ require('lazy').setup({
 
           local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+--
             buffer = event.buf,
+--
             group = highlight_augroup,
+--
             callback = vim.lsp.buf.document_highlight,
+--
           })
 
+--
           vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+--
             buffer = event.buf,
+--
             group = highlight_augroup,
+--
             callback = vim.lsp.buf.clear_references,
+--
           })
 
           vim.api.nvim_create_autocmd('LspDetach', {
