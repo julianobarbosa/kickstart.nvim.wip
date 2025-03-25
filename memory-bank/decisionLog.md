@@ -80,3 +80,20 @@ Implement an enhanced mode state management system with the following key compon
 - Implementation planning in progress
 - Initial architecture documented
 - Ready for code mode implementation
+
+
+## Decision
+Adopted `uv` as the preferred Python dependency management tool
+
+## Rationale
+- Faster dependency resolution
+- More reliable package installation
+- Better error messages
+- Modern, actively maintained alternative to pip
+
+## Implementation Details
+- Added detailed uv installation and usage instructions
+- Deprecated the older pip-based dependency installation method
+- Organized virtual environment management sections for clarity
+
+[2025-03-25 16:06:07] - Updated Python dependency management strategy

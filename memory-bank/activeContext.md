@@ -39,4 +39,12 @@ Created dedicated LSP configuration file and prepared for server testing.
    - Server initialization
    - Language support
    - Diagnostic features
+
+[2025-03-25 15:41:50] - User initiated UMB update with task 'hello'
+
+
+## Important Reminders
+
+*   Always activate a Python virtual environment before installing dependencies or running Python code.
+
    - Completion functionality
