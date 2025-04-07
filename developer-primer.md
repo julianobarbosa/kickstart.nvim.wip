@@ -10,21 +10,21 @@ flowchart TD
     A --> C[Mode System]
     A --> D[Configuration]
     A --> E[Real-time Updates]
-    
+
     B --> B1[activeContext.md]
     B --> B2[productContext.md]
     B --> B3[progress.md]
     B --> B4[decisionLog.md]
-    
+
     C --> C1[Architect Mode]
     C --> C2[Code Mode]
     C --> C3[Ask Mode]
     C --> C4[Debug Mode]
-    
+
     D --> D1[.clinerules Files]
     D --> D2[Mode Switching]
     D --> D3[Tool Access]
-    
+
     E --> E1[Event Monitor]
     E --> E2[Update Queue]
     E --> E3[Sync Manager]

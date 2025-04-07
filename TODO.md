@@ -4,7 +4,7 @@
 - [ ] Replace ASCII diagram with a visual flowchart image (line 744).
 
 ## README.md
-- [ ] Add notes for Install Recipes, Backup configuration, and plugin documentation (lines 36, 42, 59, 69, 114).
+- [x] Add notes for Install Recipes, Backup configuration, and plugin documentation (lines 36, 42, 59, 69, 114).
 
 ## init.lua
 - [ ] Run `:Tutor` in Neovim as the first step (line 46).
@@ -23,7 +23,7 @@
 - [ ] Install new plugins and specify dependencies (lines 30, 34).
 
 ## lua/kickstart/plugins/gitsigns.lua
-- [ ] Add recommended keymaps for gitsigns (line 2).
+- [x] Add recommended keymaps for gitsigns (line 2).
 
 ## lua/keymaps.lua
 - [ ] Update terminal emulator mappings (line 39).
