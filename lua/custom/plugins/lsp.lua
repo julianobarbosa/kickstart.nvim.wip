@@ -49,15 +49,39 @@ return {
       -- Setup neovim lua configuration
       --require('neodev').setup()
 
-      -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.documentHighlight = true
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      -- Combine LSP and nvim-cmp capabilities
+      -- Initialize capabilities with proper LSP structures
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      capabilities.textDocument.documentHighlight = {
+        dynamicRegistration = true
+      }
 
-      -- Setup each language server
+      -- Configure on_attach function for document highlight
+      local on_attach = function(client, bufnr)
+        if client.server_capabilities.documentHighlightProvider then
+          vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
+          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+            group = 'lsp_document_highlight',
+            buffer = bufnr,
+            callback = vim.lsp.buf.document_highlight,
+          })
+          vim.api.nvim_create_autocmd('CursorMoved', {
+            group = 'lsp_document_highlight',
+            buffer = bufnr,
+            callback = vim.lsp.buf.clear_references,
+          })
+        end
+      end
+
+      -- Setup each language server using the recommended new approach
+      local lspconfig = require('lspconfig')
       for server_name, server_config in pairs(servers) do
-        server_config.capabilities = capabilities
-        require('lspconfig')[server_name].setup(server_config)
+        local config = {
+          capabilities = capabilities,
+          on_attach = on_attach,
+          settings = server_config.settings,
+        }
+        lspconfig[server_name].setup(config)
       end
     end,
   },
