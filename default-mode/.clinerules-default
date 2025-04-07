@@ -104,7 +104,7 @@ mode_collaboration: |
         * global_mode_access
         * mode_independent_actions
         * system_wide_commands
-        
+
 mode_triggers:
   architect:
     - condition: needs_architectural_changes
@@ -130,9 +130,9 @@ mode_triggers:
     - condition: global_mode_access
     - condition: mode_independent_actions
     - condition: system_wide_commands
-    
+
 memory_bank:
-  default:  
+  default:
     strategy:
       initialization:
         check_for_memory_bank:
@@ -247,7 +247,7 @@ memory_bank:
             Use insert_content to *append* new patterns or use apply_diff to modify existing entries if warranted. Always include a timestamp.
           format: "[YYYY-MM-DD HH:MM:SS] - [Description of Pattern/Change]"
 
-    umb:  
+    umb:
       trigger: "^(Update Memory Bank|UMB)$"
       steps:
         - action: "halt_current_task"
