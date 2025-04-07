@@ -1,3 +1,10 @@
+# Changelog Updates
+
+[2025-04-07 16:13] - Fixed LSP document highlighting
+- Added textDocument.documentHighlight capability to LSP client configuration
+- Resolved error in CursorHold autocommands
+
+
 ---
 last_updated: 2025-04-07 10:57
 version: 1.0.0

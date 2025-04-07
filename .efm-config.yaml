@@ -1,0 +1,18 @@
+version: 2
+root-markers:
+  - .git/
+  - .markdownlint.json
+
+tools:
+  markdown-markdownlint: &markdown-markdownlint
+    lint-command: './node_modules/.bin/markdownlint -s'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c %m'
+    lint-ignore-exit-code: true
+    format-command: 'markdownlint -f'
+    format-stdin: true
+
+languages:
+  markdown:
+    - <<: *markdown-markdownlint

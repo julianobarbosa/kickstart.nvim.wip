@@ -1,7 +1,8 @@
 return {
   {
-    'neovim/nvim-lspconfig',
+    'mickael-menu/zk-nvim',
     dependencies = {
+      'neovim/nvim-lspconfig',
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'hrsh7th/cmp-nvim-lsp',
@@ -36,6 +37,7 @@ return {
         terraformls = {},
         yamlls = {},
         ansiblels = {},
+        marksman = {},
       }
 
       -- Ensure the servers are installed
@@ -49,6 +51,7 @@ return {
 
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
       local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.documentHighlight = true
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
       -- Setup each language server
