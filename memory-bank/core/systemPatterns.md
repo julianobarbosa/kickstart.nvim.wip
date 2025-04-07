@@ -1,3 +1,11 @@
+---
+last_updated: 2025-04-07 10:57
+version: 1.0.0
+status: active
+related_files: [core/productContext.md, core/dependencies.md, decisions/relationships.md]
+tags: [architecture, patterns, design, structure]
+---
+
 # Neovim Configuration System Patterns
 
 ## Architecture Overview
@@ -57,7 +65,6 @@
 3. Extensive use of built-in LSP capabilities
 4. Integration between complementary tools (LSP, DAP, Linters)
 
-
 ## Python Virtual Environments
 
 It is highly recommended to use Python virtual environments for this project to isolate dependencies and ensure reproducibility.
@@ -80,7 +87,6 @@ source .venv/bin/activate
 deactivate
 ```
 
-<!-- The following section is deprecated. Use uv instead. -->
 ### Installing Dependencies
 
 It is recommended to use `uv` for faster dependency resolution and installation.

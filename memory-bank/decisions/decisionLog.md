@@ -1,3 +1,11 @@
+---
+last_updated: 2025-04-07 10:57
+version: 1.0.0
+status: active
+related_files: [decisions/relationships.md, core/systemPatterns.md]
+tags: [decisions, architecture, rationale, planning]
+---
+
 # Architectural Decisions Log
 
 ## 2025-02-17 - Enhanced Mode State Management Architecture

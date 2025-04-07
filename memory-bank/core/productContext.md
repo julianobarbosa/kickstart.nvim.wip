@@ -1,3 +1,11 @@
+---
+last_updated: 2025-04-07 10:57
+version: 1.0.0
+status: active
+related_files: [core/systemPatterns.md, core/dependencies.md]
+tags: [product, context, requirements, goals]
+---
+
 # Neovim Configuration Product Context
 
 ## Purpose

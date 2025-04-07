@@ -1,3 +1,11 @@
+---
+last_updated: 2025-04-07 10:57
+version: 1.0.0
+status: active
+related_files: [tracking/progress.md, tracking/changelog.md]
+tags: [context, current, active, tasks]
+---
+
 ## Current Session Context
 [2025-03-24 19:51] - LSP Configuration and Testing
 
@@ -42,9 +50,6 @@ Created dedicated LSP configuration file and prepared for server testing.
 
 [2025-03-25 15:41:50] - User initiated UMB update with task 'hello'
 
-
 ## Important Reminders
-
-*   Always activate a Python virtual environment before installing dependencies or running Python code.
-
+* Always activate a Python virtual environment before installing dependencies or running Python code.
    - Completion functionality
