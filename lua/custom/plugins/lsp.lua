@@ -51,22 +51,39 @@ return {
       --require('neodev').setup()
 
       -- Combine LSP and nvim-cmp capabilities
-      -- Initialize capabilities with proper LSP structures
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      -- Initialize capabilities with proper LSP structures and explicit documentHighlight support
+      local capabilities = vim.tbl_deep_extend('force',
+        require('cmp_nvim_lsp').default_capabilities(),
+        {
+          textDocument = {
+            documentHighlight = {
+              dynamicRegistration = true
+            }
+          }
+        }
+      )
 
-      -- Configure on_attach function for document highlight
+      -- Configure on_attach function for document highlight with proper capability checking
       local on_attach = function(client, bufnr)
-        if client.server_capabilities.documentHighlightProvider then
-          vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
+        -- Check if the LSP server supports document highlighting
+        if client.supports_method('textDocument/documentHighlight') then
+          local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
+          
+          -- Set up autocommands for document highlighting
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-            group = 'lsp_document_highlight',
+            group = group,
             buffer = bufnr,
-            callback = vim.lsp.buf.document_highlight,
+            callback = function()
+              vim.lsp.buf.document_highlight()
+            end,
           })
+          
           vim.api.nvim_create_autocmd('CursorMoved', {
-            group = 'lsp_document_highlight',
+            group = group,
             buffer = bufnr,
-            callback = vim.lsp.buf.clear_references,
+            callback = function()
+              vim.lsp.buf.clear_references()
+            end,
           })
         end
       end
