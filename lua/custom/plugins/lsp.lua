@@ -9,6 +9,7 @@ return {
       'folke/neodev.nvim',
     },
     config = function()
+      local lspconfig = require('lspconfig')
       require('mason').setup({
         ui = {
           border = 'rounded',
@@ -69,10 +70,8 @@ return {
           })
         end
       end
-      end
 
       -- Setup each language server using the recommended new approach
-      local lspconfig = require('lspconfig')
       for server_name, server_config in pairs(servers) do
         local config = {
           capabilities = capabilities,
@@ -81,9 +80,6 @@ return {
         }
         lspconfig[server_name].setup(config)
       end
-    end,
-  },
-}
 
       -- Disable document highlight in Fugitive commit buffers
       vim.api.nvim_create_autocmd('FileType', {
@@ -100,3 +96,6 @@ return {
           })
         end,
       })
+    end,
+  }
+}
