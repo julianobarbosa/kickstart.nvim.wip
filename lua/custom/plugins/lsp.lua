@@ -52,9 +52,6 @@ return {
       -- Combine LSP and nvim-cmp capabilities
       -- Initialize capabilities with proper LSP structures
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      capabilities.textDocument.documentHighlight = {
-        dynamicRegistration = true
-      }
 
       -- Configure on_attach function for document highlight
       local on_attach = function(client, bufnr)
