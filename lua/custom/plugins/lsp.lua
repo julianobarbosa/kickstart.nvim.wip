@@ -69,6 +69,7 @@ return {
           })
         end
       end
+      end
 
       -- Setup each language server using the recommended new approach
       local lspconfig = require('lspconfig')
@@ -83,3 +84,19 @@ return {
     end,
   },
 }
+
+      -- Disable document highlight in Fugitive commit buffers
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'gitcommit',
+        callback = function(args)
+          local bufnr = args.buf
+          vim.api.nvim_create_autocmd({'CursorHold', 'CursorHoldI', 'CursorMoved'}, {
+            buffer = bufnr,
+            callback = function()
+              -- Override highlight and clear to no-ops
+              vim.lsp.buf.document_highlight = function() end
+              vim.lsp.buf.clear_references = function() end
+            end,
+          })
+        end,
+      })
