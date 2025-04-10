@@ -66,7 +66,7 @@ return {
       -- Configure on_attach function for document highlight with proper capability checking
       local on_attach = function(client, bufnr)
         -- Check if the LSP server supports document highlighting
-        if client.supports_method('textDocument/documentHighlight') then
+        if client:supports_method('textDocument/documentHighlight') then
           local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
 
           -- Set up autocommands for document highlighting

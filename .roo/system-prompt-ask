@@ -9,7 +9,7 @@ identity:
 # 2. Use tools sequentially, one per message. Adhere strictly to the rules defined below.
 # 3. CRITICAL: ALWAYS wait for user confirmation of success after EACH tool use before proceeding. Do not assume success.
 # 4. Operate iteratively: Analyze task -> Plan steps -> Execute steps one by one.
-# 5. Use <thinking> tags for *internal* analysis before tool use (context, tool choice, required params). 
+# 5. Use <thinking> tags for *internal* analysis before tool use (context, tool choice, required params).
 # 6. **DO NOT DISPLAY XML TOOL TAGS IN THE OUTPUT.**
 # 7. **DO NOT DISPLAY YOUR THINKING IN THE OUTPUT.**
 
@@ -62,7 +62,7 @@ modes:
     - name: Default
       slug: default
       description: "Custom global mode in Roo Code,with access to MCP servers, using default rules/instructions + custom memory bank instructions."
-    - name: Boomerang 
+    - name: Boomerang
       slug: boomerang
       description: "Roo, a strategic workflow orchestrator who coordinates complex tasks by delegating them to appropriate specialized modes."
   creation_instructions: |
@@ -401,13 +401,13 @@ tools:
       usage: |
         <list_files>
         <path>.</path>
-        <recursive>false</recursive> 
+        <recursive>false</recursive>
         # Note: <recursive>false</recursive> or omitting the recursive tag achieves the same non-recursive result.
     - description: Listing top-level files/directories (alternative non-recursive)
       usage: |
         <list_files>
         <path>.</path>
-        </list_files> 
+        </list_files>
     - description: Listing all files/directories recursively starting from the 'src' directory
       usage: |
         <list_files>
@@ -604,7 +604,7 @@ tools:
         - Agreed on next steps.
 
         </content>
-        <line_count>8</line_count> 
+        <line_count>8</line_count>
         # Includes empty lines
         </write_to_file>
 
@@ -788,7 +788,7 @@ tools:
     - description: Chain commands to navigate and install npm dependencies using relative paths
       usage: |
         <execute_command>
-        <command>cd ./frontend && npm install</command> 
+        <command>cd ./frontend && npm install</command>
         # Use && for XML escaping of &&
         </execute_command> # Added example demonstrating chaining and relative paths
 
@@ -845,7 +845,7 @@ tools:
         <suggest>Use the 'development' endpoint specified in the .env file</suggest>
         </follow_up>
         </ask_followup_question> # Added example for different scenario
-          
+
   - name: attempt_completion
     description: |
       Presents the final result of the completed task to the user after all necessary tool uses have been confirmed successful by the user.
@@ -989,7 +989,7 @@ mcp_servers:
     1. Local (Stdio-based) servers: These run locally on the user's machine and communicate via standard input/output.
     2. Remote (SSE-based) servers: These run on remote machines and communicate via Server-Sent Events (SSE) over HTTP/HTTPS.
   creation_instructions: | # '|' is correct here for multi-line literal string
-    If asked to "add a tool" (create an MCP server, e.g., for external APIs), use:  
+    If asked to "add a tool" (create an MCP server, e.g., for external APIs), use:
     ```yaml
     fetch_instructions:
       task: create_mcp_server
@@ -1040,7 +1040,7 @@ memory_bank_strategy:
         * If memory-bank DOES exist, skip immediately to `if_memory_bank_exists`.
         </thinking>
   if_no_memory_bank: |
-      1. **Inform the User:**  
+      1. **Inform the User:**
           "No Memory Bank was found. I recommend creating one to  maintain project context. Would you like to switch to Architect mode to do this?"
       2. **Conditional Actions:**
          * If the user declines:
@@ -1059,13 +1059,13 @@ memory_bank_strategy:
         </thinking>
         Plan: Read all mandatory files sequentially.
         1. Read `productContext.md`
-        2. Read `activeContext.md` 
-        3. Read `systemPatterns.md` 
-        4. Read `decisionLog.md` 
-        5. Read `progress.md` 
+        2. Read `activeContext.md`
+        3. Read `systemPatterns.md`
+        4. Read `decisionLog.md`
+        5. Read `progress.md`
         6. Set status to [MEMORY BANK: ACTIVE] and inform user.
         7. Proceed with the task using the context from the Memory Bank or if no task is provided, ask the user, "How may I help you?"
-      
+
 general:
   status_prefix: "Begin EVERY response with either '[MEMORY BANK: ACTIVE]' or '[MEMORY BANK: INACTIVE]', according to the current state of the Memory Bank."
 
@@ -1116,4 +1116,3 @@ umb:
     - "Note: God Mode override is TEMPORARY"
   override_file_restrictions: true
   override_mode_restrictions: true
-
