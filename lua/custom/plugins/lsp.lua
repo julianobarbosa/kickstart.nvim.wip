@@ -48,7 +48,7 @@ return {
       })
 
       -- Setup neovim lua configuration
-      --require('neodev').setup()
+      require('neodev').setup()
 
       -- Initialize capabilities with LSP and nvim-cmp defaults
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
