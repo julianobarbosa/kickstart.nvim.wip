@@ -50,43 +50,80 @@ return {
       -- Setup neovim lua configuration
       --require('neodev').setup()
 
-      -- Combine LSP and nvim-cmp capabilities
-      -- Initialize capabilities with proper LSP structures and explicit documentHighlight support
-      local capabilities = vim.tbl_deep_extend('force',
-        require('cmp_nvim_lsp').default_capabilities(),
-        {
-          textDocument = {
-            documentHighlight = {
-              dynamicRegistration = true
-            }
-          }
-        }
-      )
+      -- Initialize capabilities with LSP and nvim-cmp defaults
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      -- Configure on_attach function for document highlight with proper capability checking
+      -- Configure on_attach function (minimal version since highlighting is handled by LspAttach)
       local on_attach = function(client, bufnr)
-        -- Check if the LSP server supports document highlighting
-        if client:supports_method('textDocument/documentHighlight') then
-          local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
+        -- Empty on_attach as document highlighting is now handled by LspAttach
+      end
 
-          -- Set up autocommands for document highlighting
+      -- Set up document highlighting via LspAttach
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true }),
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          local buffer = args.buf
+
+          -- Validate buffer and client
+          if not (buffer and vim.api.nvim_buf_is_valid(buffer) and client) then
+            return
+          end
+
+          -- Check for required capabilities using proper LSP protocol methods
+          local capabilities = client.server_capabilities
+          if not capabilities or not capabilities.documentHighlightProvider then
+            vim.notify(string.format(
+              "LSP server '%s' does not support document highlighting",
+              client.name
+            ), vim.log.levels.DEBUG)
+            return
+          end
+
+          -- Set up highlighting with error handling
+          local highlight_group = vim.api.nvim_create_augroup('lsp_document_highlight_' .. buffer, { clear = true })
+
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-            group = group,
-            buffer = bufnr,
+            group = highlight_group,
+            buffer = buffer,
             callback = function()
-              vim.lsp.buf.document_highlight()
+              -- Validate both buffer and client still exist
+              if not (buffer and vim.api.nvim_buf_is_valid(buffer) and client.attached_buffers[buffer]) then
+                return
+              end
+
+              -- Protected call for document highlight
+              local status, err = pcall(vim.lsp.buf.document_highlight)
+              if not status then
+                vim.notify(string.format(
+                  "Error in document highlight: %s",
+                  err
+                ), vim.log.levels.WARN)
+              end
             end,
           })
 
           vim.api.nvim_create_autocmd('CursorMoved', {
-            group = group,
-            buffer = bufnr,
+            group = highlight_group,
+            buffer = buffer,
             callback = function()
-              vim.lsp.buf.clear_references()
+              -- Validate both buffer and client still exist
+              if not (buffer and vim.api.nvim_buf_is_valid(buffer) and client.attached_buffers[buffer]) then
+                return
+              end
+
+              -- Protected call for clearing references
+              local status, err = pcall(vim.lsp.buf.clear_references)
+              if not status then
+                vim.notify(string.format(
+                  "Error clearing document highlights: %s",
+                  err
+                ), vim.log.levels.WARN)
+              end
             end,
           })
-        end
-      end
+        end,
+      })
 
       -- Setup each language server using the recommended new approach
       for server_name, server_config in pairs(servers) do
