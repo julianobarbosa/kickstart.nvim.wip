@@ -68,7 +68,7 @@ return {
         -- Check if the LSP server supports document highlighting
         if client.supports_method('textDocument/documentHighlight') then
           local group = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
-          
+
           -- Set up autocommands for document highlighting
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
             group = group,
@@ -77,7 +77,7 @@ return {
               vim.lsp.buf.document_highlight()
             end,
           })
-          
+
           vim.api.nvim_create_autocmd('CursorMoved', {
             group = group,
             buffer = bufnr,
