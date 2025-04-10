@@ -149,7 +149,16 @@ end)
 -- Enable break indent
 vim.opt.breakindent = true
 
--- Save undo history
+-- Configure swapfile and undo history
+-- Set swapfile directory and options
+vim.opt.directory = vim.fn.stdpath('data') .. '/swap//'
+vim.opt.swapfile = true
+-- Create swap directory if it doesn't exist
+local swap_dir = vim.fn.stdpath('data') .. '/swap'
+if vim.fn.isdirectory(swap_dir) == 0 then
+  vim.fn.mkdir(swap_dir, 'p')
+end
+
 vim.opt.undofile = true
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
@@ -289,9 +298,15 @@ if not vim.deprecated then
 end
 if not vim.deprecated.health then
   vim.deprecated.health = {
-    report_ok = function(...) return vim.health and vim.health.report_ok and vim.health.report_ok(...) end,
-    report_warn = function(...) return vim.health and vim.health.report_warn and vim.health.report_warn(...) end,
-    report_error = function(...) return vim.health and vim.health.report_error and vim.health.report_error(...) end,
+    report_ok = function(...)
+      return vim.health and vim.health.report_ok and vim.health.report_ok(...)
+    end,
+    report_warn = function(...)
+      return vim.health and vim.health.report_warn and vim.health.report_warn(...)
+    end,
+    report_error = function(...)
+      return vim.health and vim.health.report_error and vim.health.report_error(...)
+    end,
   }
 end
 
@@ -940,6 +955,7 @@ require('lazy').setup({
         'jq',
         'json-lsp',
         'jsonlint',
+        'lua-language-server',
         'markdownlint',
         'mypy',
         'powershell-editor-services',

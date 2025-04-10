@@ -6,7 +6,6 @@ return {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'hrsh7th/cmp-nvim-lsp',
-      'folke/neodev.nvim',
     },
     config = function()
       local lspconfig = require('lspconfig')
@@ -16,11 +15,19 @@ return {
           icons = {
             package_installed = '✓',
             package_pending = '➜',
-            package_uninstalled = '✗'
-          }
+            package_uninstalled = '✗',
+          },
         },
         log_level = vim.log.levels.INFO,
         max_concurrent_installers = 4,
+        -- Configure Python environment
+        PATH = 'prepend',
+        pip = {
+          install_args = {
+            '--target',
+            vim.fn.expand('~/.venv/tools3/lib/python3.11/site-packages'),
+          },
+        },
       })
 
       local servers = {
@@ -33,12 +40,10 @@ return {
           },
         },
         pyright = {},
+        ruff = {},
         bashls = {},
-        dockerls = {},
         terraformls = {},
         yamlls = {},
-        ansiblels = {},
-        marksman = {},
       }
 
       -- Ensure the servers are installed
@@ -46,9 +51,6 @@ return {
         ensure_installed = vim.tbl_keys(servers),
         automatic_installation = true,
       })
-
-      -- Setup neovim lua configuration
-      require('neodev').setup()
 
       -- Initialize capabilities with LSP and nvim-cmp defaults
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -73,10 +75,10 @@ return {
           -- Check for required capabilities using proper LSP protocol methods
           local capabilities = client.server_capabilities
           if not capabilities or not capabilities.documentHighlightProvider then
-            vim.notify(string.format(
-              "LSP server '%s' does not support document highlighting",
-              client.name
-            ), vim.log.levels.DEBUG)
+            vim.notify(
+              string.format("LSP server '%s' does not support document highlighting", client.name),
+              vim.log.levels.DEBUG
+            )
             return
           end
 
@@ -95,10 +97,7 @@ return {
               -- Protected call for document highlight
               local status, err = pcall(vim.lsp.buf.document_highlight)
               if not status then
-                vim.notify(string.format(
-                  "Error in document highlight: %s",
-                  err
-                ), vim.log.levels.WARN)
+                vim.notify(string.format('Error in document highlight: %s', err), vim.log.levels.WARN)
               end
             end,
           })
@@ -115,10 +114,7 @@ return {
               -- Protected call for clearing references
               local status, err = pcall(vim.lsp.buf.clear_references)
               if not status then
-                vim.notify(string.format(
-                  "Error clearing document highlights: %s",
-                  err
-                ), vim.log.levels.WARN)
+                vim.notify(string.format('Error clearing document highlights: %s', err), vim.log.levels.WARN)
               end
             end,
           })
@@ -140,7 +136,7 @@ return {
         pattern = 'gitcommit',
         callback = function(args)
           local bufnr = args.buf
-          vim.api.nvim_create_autocmd({'CursorHold', 'CursorHoldI', 'CursorMoved'}, {
+          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'CursorMoved' }, {
             buffer = bufnr,
             callback = function()
               -- Override highlight and clear to no-ops
@@ -151,5 +147,5 @@ return {
         end,
       })
     end,
-  }
+  },
 }

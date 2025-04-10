@@ -1,5 +1,5 @@
 ---
-last_updated: 2025-04-07 10:57
+last_updated: 2025-04-10 14:54
 version: 1.0.0
 status: active
 related_files: [core/systemPatterns.md, core/dependencies.md]
@@ -17,22 +17,31 @@ This Neovim configuration exists to provide a robust, efficient, and maintainabl
 3. Consistent code linting across projects
 4. Efficient text editing through auto-pairing
 5. Configuration organization and maintenance
+6. Language server integration and management
 
 ## Expected Functionality
 1. Plugin Management
    - Organized plugin configurations in separate files
    - Clear dependency management
    - Easy plugin addition and removal
+   - Managed through mason.nvim for LSP servers and tools
 
 2. Development Tools
    - Integrated debugging capabilities
    - Code linting and static analysis
    - Automatic bracket/quote pairing
+   - Language server support:
+     * Python (pyright, ruff-lsp)
+     * Lua (lua-language-server)
+     * Shell (bash-language-server)
+     * Infrastructure (terraform-ls)
+     * YAML (yaml-language-server)
 
 3. Configuration Structure
    - Modular organization
    - Clear separation of concerns
    - Easy maintenance and updates
+   - Environment-aware setup (see systemPatterns.md)
 
 ## User Experience Goals
 1. Fast and responsive editing experience
@@ -40,3 +49,8 @@ This Neovim configuration exists to provide a robust, efficient, and maintainabl
 3. Consistent behavior across different file types
 4. Clear error and diagnostic feedback
 5. Smooth debugging experience
+6. Integrated language intelligence:
+   - Code completion
+   - Go to definition
+   - Symbol search
+   - Inline diagnostics

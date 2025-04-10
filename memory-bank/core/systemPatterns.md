@@ -1,115 +1,41 @@
 ---
-last_updated: 2025-04-07 10:57
+last_updated: 2025-04-10 12:23
 version: 1.0.0
 status: active
-related_files: [core/productContext.md, core/dependencies.md, decisions/relationships.md]
-tags: [architecture, patterns, design, structure]
+related_files: [core/productContext.md, core/dependencies.md]
+tags: [system, patterns, configuration, environment]
 ---
 
-# Neovim Configuration System Patterns
+# System Patterns and Environment Configuration
 
-## Architecture Overview
-```
-.
-├── init.lua                 # Main configuration entry point
-└── lua/
-    └── kickstart/
-        └── plugins/        # Plugin-specific configurations
-            ├── debug.lua   # DAP debugging setup
-            ├── lint.lua    # nvim-lint configuration
-            └── autopairs.lua # Auto-pairing setup
-```
+## Python Environment
 
-## Core Patterns
+### Global Tools Virtual Environment
+- Location: `~/.venv/tools3`
+- Activation: `source ~/.venv/tools3/bin/activate`
+- Purpose: Houses global Python tools and LSP servers
+- Used for: Global development tools like:
+  - Language servers (pyright, ruff-lsp)
+  - Code formatters
+  - Development utilities
 
-### Plugin Organization
-- Lazy.nvim for plugin management and lazy loading
-- Modular plugin configuration files
-- Clear separation of concerns per plugin
-- Event-based plugin loading for better startup time
+## Node.js Environment
 
-### LSP Integration
-- Mason.nvim for LSP server management
-- Comprehensive language server configurations
-- Integrated completion with nvim-cmp
-- Automatic server installation and setup
+### Version Management
+- Tool: nvm (Node Version Manager)
+- Purpose: Manages Node.js versions and global npm packages
+- Used for: JavaScript/TypeScript development tools:
+  - Language servers (typescript-language-server, eslint-language-server)
+  - Linters and formatters
+  - Development utilities
 
-### Development Tools Integration
-1. Debugging System
-   - nvim-dap for debug adapter protocol support
-   - Language-specific debug configurations (Go, Python)
-   - Integrated debug UI with nvim-dap-ui
-   - Custom keymaps for debug operations
+## Best Practices
+1. Python Tools:
+   - Use the tools3 virtual environment for global development tools
+   - Keep project-specific dependencies in project-specific virtual environments
+   - Ensure the tools3 environment is activated when installing or updating global Python tools
 
-2. Linting Framework
-   - File-type specific linters
-   - Automatic lint on events (BufEnter, BufWritePost, InsertLeave)
-   - Configurable linter selection per filetype
-   - Integration with LSP diagnostics
-
-3. Code Completion
-   - nvim-cmp as completion engine
-   - LSP-based completions
-   - Snippet integration
-   - Auto-pairs integration for brackets/quotes
-
-## Component Relationships
-1. Plugin Manager (lazy.nvim) → Plugin Configurations
-2. LSP Layer → Language Servers → Code Intelligence
-3. Debug Adapters → DAP UI → User Interface
-4. Linters → Diagnostic Framework → Error Reporting
-
-## Design Decisions
-1. Event-driven plugin loading for performance
-2. Modular configuration for maintainability
-3. Extensive use of built-in LSP capabilities
-4. Integration between complementary tools (LSP, DAP, Linters)
-
-## Python Virtual Environments
-
-It is highly recommended to use Python virtual environments for this project to isolate dependencies and ensure reproducibility.
-
-### Creating a Virtual Environment
-
-```bash
-python3 -m venv .venv
-```
-
-### Activating the Virtual Environment
-
-```bash
-source .venv/bin/activate
-```
-
-### Deactivating the Virtual Environment
-
-```bash
-deactivate
-```
-
-### Installing Dependencies
-
-It is recommended to use `uv` for faster dependency resolution and installation.
-
-```bash
-uv pip install -r requirements.txt
-```
-
-### Installing uv
-
-```bash
-curl -LsSf https://install.astral.sh | sh
-```
-
-### Using uv
-
-```bash
-uv venv .venv
-source .venv/bin/activate
-uv pip install -r requirements.txt
-uv python script.py
-```
-
-### Benefits of uv
-
-`uv` offers significant performance improvements over `pip` due to its efficient dependency resolution and caching mechanisms. It is also designed to be more reliable and provide better error messages.
+2. Node.js Tools:
+   - Use nvm to manage Node.js versions and global packages
+   - Install language servers and development tools globally with npm
+   - Ensure correct Node.js version is active when installing or updating tools

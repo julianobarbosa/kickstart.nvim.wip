@@ -9,6 +9,11 @@ return {
       markdown = true,
       help = true,
     },
+    server_opts_overrides = {
+      capabilities = {
+        documentHighlightProvider = false
+      }
+    }
   },
   build = ':Copilot auth',
   config = function()
