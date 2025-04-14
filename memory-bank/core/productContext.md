@@ -1,5 +1,5 @@
 ---
-last_updated: 2025-04-10 14:54
+last_updated: 2025-04-14 17:57
 version: 1.0.0
 status: active
 related_files: [core/systemPatterns.md, core/dependencies.md]
@@ -54,3 +54,10 @@ This Neovim configuration exists to provide a robust, efficient, and maintainabl
    - Go to definition
    - Symbol search
    - Inline diagnostics
+
+## Daily Automation Procedures
+1. Git Tag Creation
+  - Each day's first operation should use Git Manager to create and push a git tag
+  - Tag format: vYYYY.MM.DD (e.g., v2025.04.14)
+  - Tag message should include the date in human-readable format
+  - Purpose: Track daily development milestones and provide version reference points
