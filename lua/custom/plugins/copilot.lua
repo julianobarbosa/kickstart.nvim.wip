@@ -11,7 +11,7 @@ return {
     },
     server_opts_overrides = {
       capabilities = {
-        documentHighlightProvider = true
+        documentHighlightProvider = false
       }
     }
   },
