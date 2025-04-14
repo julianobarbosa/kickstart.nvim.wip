@@ -7,4 +7,5 @@ nvim
 spell/
 lazy-lock.json
 .aider*
-node_modules/
+node_modules
+.venv
