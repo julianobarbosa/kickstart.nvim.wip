@@ -21,9 +21,14 @@
 return {
   {
     'jackMort/ChatGPT.nvim',
-    event = 'VeryLazy',
+    event = 'VimEnter',
     config = function()
-      -- Validate environment and credentials with enhanced error handling
+      vim.notify("Initializing ChatGPT plugin...", vim.log.levels.INFO)
+      -- Validate environment and credentials with enhanced error handling and state tracking
+      local plugin_state = {
+        initialized = false,
+        credentials_validated = false
+      }
       local function validate_pass_cmd(cmd)
         -- Default fallback values for testing/development
         local fallback_values = {
@@ -53,10 +58,26 @@ return {
       end
 
       -- Secure credential retrieval
-      local api_key = validate_pass_cmd('pass show azure/hypera/oai/idg-dev/token')
-      local api_base = validate_pass_cmd('pass show azure/hypera/oai/idg-dev/base')
-      local api_engine = validate_pass_cmd('pass show azure/hypera/oai/idg-dev/engine')
-      local api_version = validate_pass_cmd('pass show azure/hypera/oai/idg-dev/api-version')
+      -- Validate and track credential state
+      local function validate_credentials()
+        local api_key = validate_pass_cmd('pass show azure/hypera/oai/idg-dev/token')
+        local api_base = validate_pass_cmd('pass show azure/hypera/oai/idg-dev/base')
+        local api_engine = validate_pass_cmd('pass show azure/hypera/oai/idg-dev/engine')
+        local api_version = validate_pass_cmd('pass show azure/hypera/oai/idg-dev/api-version')
+        
+        if api_key and api_base and api_engine and api_version then
+          plugin_state.credentials_validated = true
+          return api_key, api_base, api_engine, api_version
+        else
+          vim.notify("Failed to validate all credentials", vim.log.levels.ERROR)
+          return nil
+        end
+      end
+
+      local api_key, api_base, api_engine, api_version = validate_credentials()
+      if not api_key then
+        return
+      end
 
       -- Validate prompts URL
       local prompts_url = 'https://raw.githubusercontent.com/julianobarbosa/custom-gpt-prompts/main/prompt.csv'
@@ -65,7 +86,23 @@ return {
         prompts_url = nil
       end
 
-      require('chatgpt').setup({
+      -- Initialize plugin with validated credentials
+      if not plugin_state.credentials_validated then
+        vim.notify("Credentials validation required before initialization", vim.log.levels.ERROR)
+        return
+      end
+
+      local ok, chatgpt = pcall(require, 'chatgpt')
+      if not ok then
+        vim.notify("Failed to load ChatGPT plugin", vim.log.levels.ERROR)
+        return
+      end
+
+      -- Configure with validated state
+      plugin_state.initialized = true
+      vim.notify("ChatGPT plugin initialized successfully", vim.log.levels.INFO)
+
+      chatgpt.setup({
         api_key_cmd = api_key and ('echo -n "' .. api_key .. '"') or error("Failed to retrieve API key"),
         api_host_cmd = 'echo -n ""',
         api_type_cmd = 'echo azure',
@@ -95,22 +132,35 @@ return {
         }
       })
 
-      -- Enhanced shutdown handling with proper sequencing
+      -- Enhanced shutdown handling with proper sequencing and error tracing
       local function safe_cleanup()
-        local chatgpt = require('chatgpt')
-        if not chatgpt then return end
+        local ok, chatgpt = pcall(require, 'chatgpt')
+        if not ok then
+          vim.notify("ChatGPT plugin not loaded during cleanup", vim.log.levels.WARN)
+          return
+        end
         
-        -- Ensure cleanup happens in correct order
+        -- Ensure cleanup happens in correct order with error tracking
         vim.schedule(function()
           -- Save context first if enabled
-          if chatgpt.config and chatgpt.config.shutdown.save_context then
-            pcall(chatgpt.save_context)
+          if type(chatgpt.config) == "table" and chatgpt.config.shutdown and chatgpt.config.shutdown.save_context then
+            local save_ok, save_err = pcall(chatgpt.save_context)
+            if not save_ok then
+              vim.notify("Failed to save ChatGPT context: " .. tostring(save_err), vim.log.levels.WARN)
+            end
           end
           
-          -- Set cleanup timeout
-          local timeout = (chatgpt.config and chatgpt.config.shutdown.cleanup_timeout) or 3000
+          -- Set cleanup timeout with validation
+          local timeout = 3000
+          if type(chatgpt.config) == "table" and chatgpt.config.shutdown then
+            timeout = chatgpt.config.shutdown.cleanup_timeout or timeout
+          end
+          
           vim.defer_fn(function()
-            pcall(chatgpt.cleanup)
+            local cleanup_ok, cleanup_err = pcall(chatgpt.cleanup)
+            if not cleanup_ok then
+              vim.notify("ChatGPT cleanup failed: " .. tostring(cleanup_err), vim.log.levels.WARN)
+            end
           end, timeout)
         end)
       end
