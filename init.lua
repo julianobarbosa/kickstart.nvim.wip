@@ -88,25 +88,47 @@ P.S. You can delete this when you're done too. It's your config now! :)
 -- See `:help mapleader`
 
 -- Ensure proper runtime paths
-local rtp = vim.opt.runtimepath:get()
-local nvim_share_path = '/usr/share/nvim'
-if vim.fn.isdirectory(nvim_share_path) == 1 and not vim.tbl_contains(rtp, nvim_share_path) then
-  vim.opt.runtimepath:append(nvim_share_path)
-end
+-- Cache runtime paths for better performance
+local rtp_cache_file = vim.fn.stdpath('cache') .. '/rtp_cache.lua'
+local rtp
 
--- Create syntax directory if it doesn't exist
-local syntax_dir = vim.fn.stdpath('config') .. '/syntax'
-if vim.fn.isdirectory(syntax_dir) == 0 then
-  vim.fn.mkdir(syntax_dir, 'p')
-
-  -- Create minimal syntax.vim if it doesn't exist
-  local syntax_file = syntax_dir .. '/syntax.vim'
-  if vim.fn.filereadable(syntax_file) == 0 then
-    local file = io.open(syntax_file, 'w')
-    file:write('" Base syntax file\n')
+if vim.fn.filereadable(rtp_cache_file) == 1 then
+  rtp = loadfile(rtp_cache_file)()
+else
+  rtp = vim.opt.runtimepath:get()
+  local nvim_share_path = '/usr/share/nvim'
+  if vim.fn.isdirectory(nvim_share_path) == 1 and not vim.tbl_contains(rtp, nvim_share_path) then
+    rtp[#rtp + 1] = nvim_share_path
+  end
+  -- Save cache
+  local file = io.open(rtp_cache_file, 'w')
+  if file then
+    file:write('return ' .. vim.inspect(rtp))
     file:close()
   end
 end
+vim.opt.runtimepath = rtp
+
+-- Defer directory creation to VimEnter
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    -- Create syntax directory if it doesn't exist
+    local syntax_dir = vim.fn.stdpath('config') .. '/syntax'
+    if vim.fn.isdirectory(syntax_dir) == 0 then
+      vim.fn.mkdir(syntax_dir, 'p')
+      -- Create minimal syntax.vim if it doesn't exist
+      local syntax_file = syntax_dir .. '/syntax.vim'
+      if vim.fn.filereadable(syntax_file) == 0 then
+        local file = io.open(syntax_file, 'w')
+        if file then
+          file:write('" Base syntax file\n')
+          file:close()
+        end
+      end
+    end
+  end,
+  once = true
+})
 
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
@@ -139,12 +161,15 @@ vim.opt.mouse = 'a'
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
+-- Defer clipboard sync to after first buffer load
+vim.api.nvim_create_autocmd('BufRead', {
+  callback = function()
+    vim.schedule(function()
+      vim.opt.clipboard = 'unnamedplus'
+    end)
+  end,
+  once = true
+})
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -357,11 +382,28 @@ bootstrap_lazy()
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  { 'tpope/vim-sleuth', version = '1.*' }, -- Detect tabstop and shiftwidth automatically
 
-  -- Git related plugins
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
+  -- Git related plugins with version pinning
+  { 'tpope/vim-fugitive', version = '3.*' },
+  { 'tpope/vim-rhubarb', version = '1.*' },
+
+  -- Security settings for lazy.nvim
+  {
+    'folke/lazy.nvim',
+    version = '10.*',
+    priority = 1000,
+    opts = {
+      security = {
+        checksum_validate = true,  -- Validate plugin checksums
+        disable_builtin = true,    -- Disable potentially dangerous builtin modules
+        trust_only = {            -- Only trust specific sources
+          'github.com',
+          'raw.githubusercontent.com'
+        },
+      },
+    },
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following

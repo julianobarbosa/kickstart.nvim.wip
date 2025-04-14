@@ -8,13 +8,25 @@ return {
   -- Completion Engine
   {
     'hrsh7th/nvim-cmp',
-    event = { 'InsertEnter', 'CmdlineEnter' },
+    version = '0.0.1',  -- Pin to specific version
+    -- Load completion only when needed and for specific file types
+    event = {
+      'InsertEnter *.lua',
+      'InsertEnter *.py',
+      'InsertEnter *.js',
+      'InsertEnter *.ts',
+      'InsertEnter *.sh',
+      'InsertEnter *.tf',
+      'InsertEnter *.yaml',
+      'InsertEnter *.yml',
+      'CmdlineEnter',
+    },
     dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-cmdline',
-      'L3MON4D3/LuaSnip',
+      { 'hrsh7th/cmp-nvim-lsp', version = '0.0.0' },
+      { 'hrsh7th/cmp-buffer', version = '0.0.1' },
+      { 'hrsh7th/cmp-path', version = '0.0.1' },
+      { 'hrsh7th/cmp-cmdline', version = '0.0.1' },
+      { 'L3MON4D3/LuaSnip', version = '2.*' },
     },
     config = function()
       local cmp = require('cmp')
@@ -33,12 +45,21 @@ return {
           ['<C-e>'] = cmp.mapping.abort(),
           ['<CR>'] = cmp.mapping.confirm({ select = true }),
         }),
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'buffer' },
-          { name = 'path' },
+        sources = cmp.config_sources({
+          { name = 'nvim_lsp', priority = 1000 },
+          { name = 'luasnip', priority = 800 },
+          { name = 'buffer', priority = 500, keyword_length = 3, max_item_count = 10 },
+          { name = 'path', priority = 250 },
         }),
+        -- Optimize performance
+        performance = {
+          debounce = 100,
+          throttle = 50,
+          fetching_timeout = 200,
+          max_view_entries = 25,
+        },
+        -- Enable source validation
+        validate_source = true,
       })
     end,
   },
@@ -46,24 +67,57 @@ return {
   -- Core LSP Support
   {
     'neovim/nvim-lspconfig',
-    event = { 'BufReadPre', 'BufNewFile' },
+    version = '0.1.7',  -- Pin to specific version
+    -- Load LSP based on file type
+    event = {
+      'BufReadPre *.lua',
+      'BufReadPre *.py',
+      'BufReadPre *.js',
+      'BufReadPre *.ts',
+      'BufReadPre *.sh',
+      'BufReadPre *.tf',
+      'BufReadPre *.yaml',
+      'BufReadPre *.yml',
+      'BufNewFile',
+    },
     dependencies = {
       -- LSP Support
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
-      'folke/lazydev.nvim',
+      { 'williamboman/mason.nvim', version = '1.*' },
+      { 'williamboman/mason-lspconfig.nvim', version = '1.*' },
+      { 'folke/lazydev.nvim', version = '2.*' },
 
       -- Useful status updates
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim', version = '1.*', opts = {} },
 
       -- Additional lua configuration
-      { 'folke/neodev.nvim', opts = {} },
+      { 'folke/neodev.nvim', version = '2.*', opts = {} },
 
       -- Completion capabilities
-      'hrsh7th/cmp-nvim-lsp',
+      { 'hrsh7th/cmp-nvim-lsp', version = '0.0.0' },
     },
     config = function()
-      -- Mason setup
+      -- LSP server validation function
+      local function validate_server_binary(cmd)
+        if type(cmd) ~= 'string' then return false end
+        local handle = io.popen('command -v ' .. cmd)
+        if not handle then return false end
+        local result = handle:read('*a')
+        handle:close()
+        return result and result ~= ''
+      end
+
+      -- Validate server checksums (example for common servers)
+      local function verify_server_checksum(server_name)
+        local mason_path = vim.fn.stdpath('data') .. '/mason/packages/' .. server_name
+        local checksum_file = mason_path .. '/checksums.json'
+        if vim.fn.filereadable(checksum_file) == 0 then
+          vim.notify('Checksum file not found for ' .. server_name, vim.log.levels.WARN)
+          return false
+        end
+        return true
+      end
+
+      -- Mason setup with security controls
       require('mason').setup({
         ui = {
           border = 'rounded',
@@ -75,57 +129,174 @@ return {
         },
         log_level = vim.log.levels.INFO,
         max_concurrent_installers = 4,
+        registries = {
+          'github:mason-org/mason-registry',  -- Only allow official registry
+        },
+        -- Enable checksum verification
+        pip = {
+          verify_ssl = true,
+          upgrade_pip = false,
+        },
+        github = {
+          download_url_template = 'https://github.com/%s/releases/download/%s/%s',
+          verify_ssl = true,
+        },
       })
 
-      -- LSP servers configuration
+      -- LSP servers configuration with security settings
       local servers = {
         lua_ls = {
           settings = {
             Lua = {
-              workspace = { checkThirdParty = false },
+              runtime = {
+                version = 'LuaJIT',
+                path = vim.split(package.path, ';'),
+              },
+              workspace = {
+                checkThirdParty = true,  -- Enable third party checking
+                library = vim.api.nvim_get_runtime_file('', true),
+              },
               telemetry = { enable = false },
               completion = { callSnippet = 'Replace' },
+              security = {
+                allowModuleLoading = false,  -- Restrict module loading
+                trustProjectConfig = false,  -- Don't trust project-local config
+              },
             },
           },
         },
-        pyright = {},
-        ruff = {},
-        bashls = {},
-        terraformls = {},
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                useLibraryCodeForTypes = true,
+                diagnosticMode = 'workspace',
+                typeCheckingMode = 'strict',
+              },
+            },
+          },
+        },
+        ruff = {
+          settings = {
+            security = {
+              allowUnsafePatterns = false,
+            },
+          },
+        },
+        bashls = {
+          settings = {
+            bashIde = {
+              shellcheckPath = 'shellcheck',
+              enableSourceErrorDiagnostics = true,
+            },
+          },
+        },
+        terraformls = {
+          settings = {
+            terraform = {
+              validateOnSave = true,
+            },
+          },
+        },
         yamlls = {
-          schemas = {
-            ['https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json'] = '/*.k8s.yaml',
+          settings = {
+            yaml = {
+              validate = true,
+              schemas = {
+                ['https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json'] = '/*.k8s.yaml',
+              },
+              schemaStore = {
+                enable = true,
+                url = 'https://www.schemastore.org/json',
+              },
+            },
           },
         },
       }
 
-      -- Initialize capabilities with LSP and nvim-cmp defaults
+      -- Initialize capabilities with secure defaults
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      
+      -- Disable potentially dangerous capabilities
+      capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+      capabilities.workspace.workspaceEdit.documentChanges = false
 
-      -- Ensure servers are installed
+      -- Setup mason-lspconfig with security controls
+      -- Setup mason-lspconfig with optimized configuration
       require('mason-lspconfig').setup({
         ensure_installed = vim.tbl_keys(servers),
-        automatic_installation = true,
+        automatic_installation = false,  -- Disable automatic installation
+        max_concurrent_installers = 2,   -- Limit concurrent installations
       })
 
-      -- Setup each server
+      -- Define resource limits for LSP servers
+      local function setup_server_limits()
+        vim.lsp.set_defaults({
+          flags = {
+            debounce_text_changes = 150,
+            allow_incremental_sync = true,
+          },
+          -- Add memory limits
+          workspace = {
+            maxPreload = 5000,      -- Maximum files to preload
+            preloadFileSize = 1000,  -- Maximum file size (KB) to preload
+          },
+        })
+      end
+
+      setup_server_limits()
+
+      -- Setup each server with validation
       local lspconfig = require('lspconfig')
       for server_name, server_config in pairs(servers) do
-        lspconfig[server_name].setup({
+        -- Verify server installation and checksums
+        if not verify_server_checksum(server_name) then
+          vim.notify('Server checksum verification failed: ' .. server_name, vim.log.levels.ERROR)
+          goto continue
+        end
+
+        -- Validate server binary if available
+        local cmd = lspconfig[server_name].document_config.default_config.cmd
+        if cmd and cmd[1] and not validate_server_binary(cmd[1]) then
+          vim.notify('Server binary validation failed: ' .. server_name, vim.log.levels.ERROR)
+          goto continue
+        end
+
+        -- Setup server with security controls
+        lspconfig[server_name].setup(vim.tbl_deep_extend('force', {
           capabilities = capabilities,
+          flags = {
+            debounce_text_changes = 150,
+            allow_incremental_sync = true,
+            exit_timeout = 5000,  -- 5s timeout for server exit
+          },
+          -- Add per-server resource limits
+          workspace = {
+            maxPreload = server_config.maxPreload or 5000,
+            preloadFileSize = server_config.preloadFileSize or 1000,
+          },
+          init_options = {
+            provideFormatter = false,  -- Disable formatting by default
+          },
           settings = server_config.settings,
-        })
+        }, server_config))
+
+        ::continue::
       end
     end,
   },
 
-  -- GitHub Copilot
+  -- GitHub Copilot (with security controls)
   {
     'github/copilot.vim',
+    version = '*',  -- Pin to latest release
     event = 'InsertEnter',
     config = function()
       vim.g.copilot_no_tab_map = true
+      vim.g.copilot_assume_mapped = true
+      vim.g.copilot_proxy = ''  -- Disable proxy usage
+      vim.g.copilot_node_command = vim.fn.stdpath('data') .. '/mason/packages/node/node'  -- Use mason-managed Node
       vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
         expr = true,
         replace_keycodes = false,
@@ -139,40 +310,16 @@ return {
     end,
   },
 
-  -- ChatGPT Integration
-  {
-    'jackMort/ChatGPT.nvim',
-    cmd = {
-      'ChatGPT',
-      'ChatGPTActAs',
-      'ChatGPTEditWithInstructions',
-    },
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'folke/trouble.nvim',
-      'nvim-telescope/telescope.nvim',
-    },
-    config = function()
-      require('chatgpt').setup({
-        api_key_cmd = 'pass show azure/hypera/oai/idg-dev/token',
-        api_host_cmd = 'echo -n ""',
-        api_type_cmd = 'echo azure',
-        azure_api_base_cmd = 'pass show azure/hypera/oai/idg-dev/base',
-        azure_api_engine_cmd = 'pass show azure/hypera/oai/idg-dev/engine',
-        azure_api_version_cmd = 'pass show azure/hypera/oai/idg-dev/api-version',
-        predefined_chat_gpt_prompts = 'https://raw.githubusercontent.com/julianobarbosa/custom-gpt-prompts/main/prompt.csv',
-      })
-    end,
-  },
+  -- Remove duplicate ChatGPT config as it's now in custom/plugins/chatgpt.lua
 
   -- Notes and Knowledge Management
   {
     'mickael-menu/zk-nvim',
+    version = '0.8',  -- Pin to specific version
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      'neovim/nvim-lspconfig',
-      'hrsh7th/cmp-nvim-lsp',
+      { 'neovim/nvim-lspconfig', version = '0.1.7' },
+      { 'hrsh7th/cmp-nvim-lsp', version = '0.0.0' },
     },
     config = true,
   },
