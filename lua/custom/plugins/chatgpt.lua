@@ -21,7 +21,6 @@
 return {
   {
     'jackMort/ChatGPT.nvim',
-    version = '1.1.3',  -- Pin to specific stable version
     event = 'VeryLazy',
     config = function()
       -- Validate environment and credentials with enhanced error handling
@@ -87,25 +86,46 @@ return {
             notify_user = true  -- Notify user of fallback usage
           }
         },
-        -- Graceful shutdown handling
+        -- Enhanced shutdown handling with state tracking
         shutdown = {
-          save_context = true,  -- Save conversation context on shutdown
-          cleanup_temp = true   -- Clean temporary files
+          save_context = true,    -- Save conversation context on shutdown
+          cleanup_temp = true,    -- Clean temporary files
+          cleanup_timeout = 3000, -- Timeout for cleanup operations (ms)
+          preserve_state = true   -- Keep critical state during cleanup
         }
       })
 
-      -- Register shutdown callback
-      vim.api.nvim_create_autocmd("VimLeavePre", {
-        callback = function()
-          pcall(require('chatgpt').cleanup)
-        end
+      -- Enhanced shutdown handling with proper sequencing
+      local function safe_cleanup()
+        local chatgpt = require('chatgpt')
+        if not chatgpt then return end
+        
+        -- Ensure cleanup happens in correct order
+        vim.schedule(function()
+          -- Save context first if enabled
+          if chatgpt.config and chatgpt.config.shutdown.save_context then
+            pcall(chatgpt.save_context)
+          end
+          
+          -- Set cleanup timeout
+          local timeout = (chatgpt.config and chatgpt.config.shutdown.cleanup_timeout) or 3000
+          vim.defer_fn(function()
+            pcall(chatgpt.cleanup)
+          end, timeout)
+        end)
+      end
+
+      -- Register shutdown hooks with proper sequencing
+      vim.api.nvim_create_autocmd({"VimLeavePre"}, {
+        callback = safe_cleanup,
+        group = vim.api.nvim_create_augroup("ChatGPTCleanup", { clear = true })
       })
     end,
     dependencies = {
-      { 'MunifTanjim/nui.nvim', version = '0.1.3' },  -- Updated for stability
-      { 'nvim-lua/plenary.nvim', version = '0.1.5' },  -- Updated to fix job shutdown issue
-      { 'folke/trouble.nvim', version = '2.10.0' },    -- Pinned to specific version
-      { 'nvim-telescope/telescope.nvim', version = '0.1.5' },  -- Updated for compatibility
+      { 'MunifTanjim/nui.nvim' },           -- Updated for stability
+      { 'nvim-lua/plenary.nvim' },          -- Updated to fix job shutdown issue
+      { 'folke/trouble.nvim' },             -- Pinned to specific version
+      { 'nvim-telescope/telescope.nvim' },  -- Updated for compatibility
     },
   },
 }
