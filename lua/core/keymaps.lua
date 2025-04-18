@@ -48,7 +48,7 @@ local function setup_keymaps()
     WQ = 'wq',
     QW = 'wq',
   }
-  
+
   for from, to in pairs(command_aliases) do
     vim.api.nvim_command(string.format('cmap %s %s', from, to))
   end

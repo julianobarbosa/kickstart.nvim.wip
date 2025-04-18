@@ -22,7 +22,7 @@ function M.get_python_path()
       return py_path
     end
   end
-  
+
   -- Fallback to system python3
   return vim.fn.exepath('python3')
 end
@@ -56,7 +56,7 @@ end
 function M.map(mode, lhs, rhs, opts)
   opts = opts or {}
   opts.noremap = opts.noremap == nil and true or opts.noremap
-  
+
   local status, error = pcall(vim.keymap.set, mode, lhs, rhs, opts)
   if not status then
     vim.notify(string.format('Error setting keymap %s: %s', lhs, error), vim.log.levels.ERROR)

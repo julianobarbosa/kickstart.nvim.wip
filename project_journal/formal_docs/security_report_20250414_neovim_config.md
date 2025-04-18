@@ -37,7 +37,7 @@ Security assessment of the Neovim configuration project focusing on plugin manag
   - Swap files stored in predictable location (data/swap)
   - Runtime path modifications without validation
   - Automatic directory creation without permission checks
-  
+
 - **Editor Settings:**
   - Mouse enabled for all modes ('mouse = a')
   - System clipboard integration enabled

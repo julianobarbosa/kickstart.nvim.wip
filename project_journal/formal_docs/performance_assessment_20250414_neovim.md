@@ -16,7 +16,7 @@ Performance analysis of the Neovim configuration reveals several optimization op
 1. **File System Operations**
    - Redundant directory checks (syntax, swap) during every startup
    - Unnecessary file creation operations in cold starts
-   
+
 2. **Plugin Bootstrap**
    - Sequential plugin loading without prioritization
    - Immediate loading of non-critical components

@@ -17,7 +17,7 @@ local function setup_autocommands()
 
   -- LSP Document Highlight
   local highlight_group = vim.api.nvim_create_augroup('lsp-document-highlight', { clear = true })
-  
+
   -- Create autocommands for LSP document highlighting
   local function setup_document_highlight(client, bufnr)
     if client and client.supports_method('textDocument/documentHighlight') then

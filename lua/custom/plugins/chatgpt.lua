@@ -47,7 +47,7 @@ return {
 
         local result = handle:read("*a")
         local close_ok, _ = handle:close()
-        
+
         if not close_ok or not result or result == "" then
           vim.notify("Warning: Invalid credential value. Using fallback.", vim.log.levels.WARN)
           local key = cmd:match('pass show azure/hypera/oai/idg%-dev/(%w+[-]?%w*)')
@@ -64,7 +64,7 @@ return {
         local api_base = validate_pass_cmd('pass show azure/hypera/oai/idg-dev/base')
         local api_engine = validate_pass_cmd('pass show azure/hypera/oai/idg-dev/engine')
         local api_version = validate_pass_cmd('pass show azure/hypera/oai/idg-dev/api-version')
-        
+
         if api_key and api_base and api_engine and api_version then
           plugin_state.credentials_validated = true
           return api_key, api_base, api_engine, api_version
@@ -139,7 +139,7 @@ return {
           vim.notify("ChatGPT plugin not loaded during cleanup", vim.log.levels.WARN)
           return
         end
-        
+
         -- Ensure cleanup happens in correct order with error tracking
         vim.schedule(function()
           -- Save context first if enabled
@@ -149,13 +149,13 @@ return {
               vim.notify("Failed to save ChatGPT context: " .. tostring(save_err), vim.log.levels.WARN)
             end
           end
-          
+
           -- Set cleanup timeout with validation
           local timeout = 3000
           if type(chatgpt.config) == "table" and chatgpt.config.shutdown then
             timeout = chatgpt.config.shutdown.cleanup_timeout or timeout
           end
-          
+
           vim.defer_fn(function()
             local cleanup_ok, cleanup_err = pcall(chatgpt.cleanup)
             if not cleanup_ok then

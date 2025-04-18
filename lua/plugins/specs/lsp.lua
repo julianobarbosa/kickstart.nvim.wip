@@ -134,8 +134,9 @@ return {
         },
         -- Enable checksum verification
         pip = {
-          verify_ssl = true,
-          upgrade_pip = false,
+          -- Set to false only for troubleshooting SSL issues (not recommended for production)
+          verify_ssl = false,
+          upgrade_pip = true,
         },
         github = {
           download_url_template = 'https://github.com/%s/releases/download/%s/%s',
@@ -217,7 +218,7 @@ return {
       -- Initialize capabilities with secure defaults
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-      
+
       -- Disable potentially dangerous capabilities
       capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
       capabilities.workspace.workspaceEdit.documentChanges = false

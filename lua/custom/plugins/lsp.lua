@@ -44,6 +44,7 @@ return {
         bashls = {},
         terraformls = {},
         yamlls = {},
+        powershell_es = {},
       }
 
       -- Ensure the servers are installed
