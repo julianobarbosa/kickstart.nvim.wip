@@ -1,0 +1,544 @@
+TITLE: Setting up Mason.nvim in Lua
+DESCRIPTION: Basic setup of the Mason.nvim plugin using the setup() function. This enhances Neovim's PATH and registers commands.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_0
+
+LANGUAGE: lua
+CODE:
+require("mason").setup()
+
+----------------------------------------
+
+TITLE: Basic Mason Setup
+DESCRIPTION: Minimal setup configuration for initializing mason.nvim. Should be loaded early and not deferred.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/README.md#2025-04-18_snippet_3
+
+LANGUAGE: lua
+CODE:
+require("mason").setup()
+
+----------------------------------------
+
+TITLE: Configuring Mason.nvim Default Settings in Lua
+DESCRIPTION: Defines the default configuration settings for Mason.nvim package manager including installation directory, PATH handling, logging, concurrent installers, registries, providers, GitHub integration, pip settings, and UI customization options.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/README.md#2025-04-18_snippet_5
+
+LANGUAGE: lua
+CODE:
+---@class MasonSettings
+local DEFAULT_SETTINGS = {
+    ---@since 1.0.0
+    -- The directory in which to install packages.
+    install_root_dir = path.concat { vim.fn.stdpath "data", "mason" },
+
+    ---@since 1.0.0
+    -- Where Mason should put its bin location in your PATH. Can be one of:
+    -- - "prepend" (default, Mason's bin location is put first in PATH)
+    -- - "append" (Mason's bin location is put at the end of PATH)
+    -- - "skip" (doesn't modify PATH)
+    ---@type '"prepend"' | '"append"' | '"skip"'
+    PATH = "prepend",
+
+    ---@since 1.0.0
+    -- Controls to which degree logs are written to the log file. It's useful to set this to vim.log.levels.DEBUG when
+    -- debugging issues with package installations.
+    log_level = vim.log.levels.INFO,
+
+    ---@since 1.0.0
+    -- Limit for the maximum amount of packages to be installed at the same time. Once this limit is reached, any further
+    -- packages that are requested to be installed will be put in a queue.
+    max_concurrent_installers = 4,
+
+    ---@since 1.0.0
+    -- [Advanced setting]
+    -- The registries to source packages from. Accepts multiple entries. Should a package with the same name exist in
+    -- multiple registries, the registry listed first will be used.
+    registries = {
+        "github:mason-org/mason-registry",
+    },
+
+    ---@since 1.0.0
+    -- The provider implementations to use for resolving supplementary package metadata (e.g., all available versions).
+    -- Accepts multiple entries, where later entries will be used as fallback should prior providers fail.
+    -- Builtin providers are:
+    --   - mason.providers.registry-api  - uses the https://api.mason-registry.dev API
+    --   - mason.providers.client        - uses only client-side tooling to resolve metadata
+    providers = {
+        "mason.providers.registry-api",
+        "mason.providers.client",
+    },
+
+    github = {
+        ---@since 1.0.0
+        -- The template URL to use when downloading assets from GitHub.
+        -- The placeholders are the following (in order):
+        -- 1. The repository (e.g. "rust-lang/rust-analyzer")
+        -- 2. The release version (e.g. "v0.3.0")
+        -- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
+        download_url_template = "https://github.com/%s/releases/download/%s/%s",
+    },
+
+    pip = {
+        ---@since 1.0.0
+        -- Whether to upgrade pip to the latest version in the virtual environment before installing packages.
+        upgrade_pip = false,
+
+        ---@since 1.0.0
+        -- These args will be added to `pip install` calls. Note that setting extra args might impact intended behavior
+        -- and is not recommended.
+        --
+        -- Example: { "--proxy", "https://proxyserver" }
+        install_args = {},
+    },
+
+    ui = {
+        ---@since 1.0.0
+        -- Whether to automatically check for new versions when opening the :Mason window.
+        check_outdated_packages_on_open = true,
+
+        ---@since 1.0.0
+        -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|
+        border = "none",
+
+        ---@since 1.11.0
+        -- The backdrop opacity. 0 is fully opaque, 100 is fully transparent.
+        backdrop = 60,
+
+        ---@since 1.0.0
+        -- Width of the window. Accepts:
+        -- - Integer greater than 1 for fixed width.
+        -- - Float in the range of 0-1 for a percentage of screen width.
+        width = 0.8,
+
+        ---@since 1.0.0
+        -- Height of the window. Accepts:
+        -- - Integer greater than 1 for fixed height.
+        -- - Float in the range of 0-1 for a percentage of screen height.
+        height = 0.9,
+
+        icons = {
+            ---@since 1.0.0
+            -- The list icon to use for installed packages.
+            package_installed = "◍",
+            ---@since 1.0.0
+            -- The list icon to use for packages that are installing, or queued for installation.
+            package_pending = "◍",
+            ---@since 1.0.0
+            -- The list icon to use for packages that are not installed.
+            package_uninstalled = "◍",
+        },
+
+        keymaps = {
+            ---@since 1.0.0
+            -- Keymap to expand a package
+            toggle_package_expand = "<CR>",
+            ---@since 1.0.0
+            -- Keymap to install the package under the current cursor position
+            install_package = "i",
+            ---@since 1.0.0
+            -- Keymap to reinstall/update the package under the current cursor position
+            update_package = "u",
+            ---@since 1.0.0
+            -- Keymap to check for new version for the package under the current cursor position
+            check_package_version = "c",
+            ---@since 1.0.0
+            -- Keymap to update all installed packages
+            update_all_packages = "U",
+            ---@since 1.0.0
+            -- Keymap to check which installed packages are outdated
+            check_outdated_packages = "C",
+            ---@since 1.0.0
+            -- Keymap to uninstall a package
+            uninstall_package = "X",
+            ---@since 1.0.0
+            -- Keymap to cancel a package installation
+            cancel_installation = "<C-c>",
+            ---@since 1.0.0
+            -- Keymap to apply language filter
+            apply_language_filter = "<C-f>",
+            ---@since 1.1.0
+            -- Keymap to toggle viewing package installation log
+            toggle_package_install_log = "<CR>",
+            ---@since 1.8.0
+            -- Keymap to toggle the help view
+            toggle_help = "g?",
+        },
+    },
+}
+
+----------------------------------------
+
+TITLE: Configuring Mason Settings in Lua
+DESCRIPTION: This snippet demonstrates the main configuration options for Mason, including PATH handling, logging, installation limits, registries, and providers.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_6
+
+LANGUAGE: lua
+CODE:
+{
+    PATH = "prepend",
+    log_level = vim.log.levels.INFO,
+    max_concurrent_installers = 4,
+    registries = {
+        "github:mason-org/mason-registry",
+    },
+    providers = {
+        "mason.providers.registry-api",
+        "mason.providers.client",
+    },
+}
+
+----------------------------------------
+
+TITLE: Installing Mason with lazy.nvim
+DESCRIPTION: Instructions for installing mason.nvim using the lazy.nvim package manager.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/README.md#2025-04-18_snippet_1
+
+LANGUAGE: lua
+CODE:
+{
+    "williamboman/mason.nvim"
+}
+
+----------------------------------------
+
+TITLE: Installing Mason with Packer
+DESCRIPTION: Instructions for installing mason.nvim using the Packer package manager for Neovim.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/README.md#2025-04-18_snippet_0
+
+LANGUAGE: lua
+CODE:
+use {
+    "williamboman/mason.nvim"
+}
+
+----------------------------------------
+
+TITLE: Installing Mason with vim-plug
+DESCRIPTION: Instructions for installing mason.nvim using the vim-plug package manager.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/README.md#2025-04-18_snippet_2
+
+LANGUAGE: vim
+CODE:
+Plug 'williamboman/mason.nvim'
+
+----------------------------------------
+
+TITLE: Handling Package Events with Mason Registry in Lua
+DESCRIPTION: Demonstrates how to register event handlers for package installation events using the mason-registry module. Shows how to listen for package:handle and package:install:success events.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/reference.md#2025-04-18_snippet_0
+
+LANGUAGE: lua
+CODE:
+local registry = require "mason-registry"
+
+registry:on(
+    "package:handle",
+    vim.schedule_wrap(function(pkg, handle)
+        print(string.format("Installing %s", pkg.name))
+    end)
+)
+
+registry:on(
+    "package:install:success",
+    vim.schedule_wrap(function(pkg, handle)
+        print(string.format("Successfully installed %s", pkg.name))
+    end)
+)
+
+----------------------------------------
+
+TITLE: Configuring UI Settings for Mason
+DESCRIPTION: This snippet shows how to customize the UI settings for Mason, including window dimensions, borders, icons, and keymaps.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_9
+
+LANGUAGE: lua
+CODE:
+ui = {
+    check_outdated_packages_on_open = true,
+    border = "none",
+    backdrop = 60,
+    width = 0.8,
+    height = 0.9,
+    icons = {
+        package_installed = "◍",
+        package_pending = "◍",
+        package_uninstalled = "◍",
+    },
+    keymaps = {
+        toggle_package_expand = "<CR>",
+        install_package = "i",
+        update_package = "u",
+        check_package_version = "c",
+        update_all_packages = "U",
+        check_outdated_packages = "C",
+        uninstall_package = "X",
+        cancel_installation = "<C-c>",
+        apply_language_filter = "<C-f>",
+        toggle_package_install_log = "<CR>",
+        toggle_help = "g?",
+    },
+}
+
+----------------------------------------
+
+TITLE: Configuring Mason Providers for Package Metadata
+DESCRIPTION: This snippet shows how to configure the provider implementations used by Mason for resolving package metadata, particularly useful when facing network issues.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_11
+
+LANGUAGE: lua
+CODE:
+require("mason").setup {
+    providers = {
+        "mason.providers.client",
+        "mason.providers.registry-api",
+    }
+}
+
+----------------------------------------
+
+TITLE: Customizing Mason UI Icons in Lua
+DESCRIPTION: Example of customizing the UI icons used by Mason.nvim for package status indicators.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_4
+
+LANGUAGE: lua
+CODE:
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+
+----------------------------------------
+
+TITLE: Configuring Mason UI Icons
+DESCRIPTION: Example configuration showing how to customize the UI icons used by mason.nvim for package status indication.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/README.md#2025-04-18_snippet_4
+
+LANGUAGE: lua
+CODE:
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+
+----------------------------------------
+
+TITLE: Installing Packages with Mason in Vim
+DESCRIPTION: Examples of installing packages using the :MasonInstall command, including installing multiple packages and specific versions.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_1
+
+LANGUAGE: vim
+CODE:
+:MasonInstall stylua
+
+LANGUAGE: vim
+CODE:
+:MasonInstall stylua lua-language-server
+
+LANGUAGE: vim
+CODE:
+:MasonInstall rust-analyzer@nightly
+
+----------------------------------------
+
+TITLE: Refreshing Mason Registry Asynchronously in Lua
+DESCRIPTION: This snippet demonstrates how to refresh the Mason registry asynchronously and then retrieve all packages. It uses the refresh() function with a callback to ensure the registry is up-to-date before accessing package information.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_13
+
+LANGUAGE: lua
+CODE:
+local registry = require("mason-registry")
+
+registry.refresh(function ()
+    local packages = registry.get_all_packages()
+    ...
+end)
+
+----------------------------------------
+
+TITLE: Refreshing Mason Registry Synchronously in Lua
+DESCRIPTION: This snippet shows how to refresh the Mason registry synchronously and then retrieve all packages. It uses the blocking variant of the refresh() function, which should be used cautiously as it freezes the editor.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_14
+
+LANGUAGE: lua
+CODE:
+local registry = require("mason-registry")
+
+registry.refresh()
+local packages = registry.get_all_packages()
+...
+
+----------------------------------------
+
+TITLE: Using ContextualSpawn in package installation (Lua)
+DESCRIPTION: Example demonstrating how to use the spawn functionality from InstallContext to execute commands asynchronously. Shows spawning an npm install command and handling errors with pcall for non-existent commands.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/reference.md#2025-04-18_snippet_3
+
+LANGUAGE: lua
+CODE:
+Pkg.new {
+    --- ...
+    ---@async
+    ---@param ctx InstallContext
+    install = function(ctx)
+        ctx.spawn.npm { "install", "some-package" }
+        -- Calls to spawn will raise an error if it exits with a non-OK exit code or signal.
+        pcall(function()
+            ctx.spawn.commandoesntexist {}
+        end)
+    end,
+}
+
+----------------------------------------
+
+TITLE: Configuring Mason Registries in Lua
+DESCRIPTION: Example of configuring custom registries for Mason.nvim, including both custom and default registries.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_3
+
+LANGUAGE: lua
+CODE:
+require("mason").setup {
+    registries = {
+        "lua:my-registry",
+        "github:mason-org/mason-registry",
+    },
+}
+
+----------------------------------------
+
+TITLE: Default Mason Settings in Lua
+DESCRIPTION: The default settings for Mason.nvim, including installation directory and PATH configuration options.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_5
+
+LANGUAGE: lua
+CODE:
+---@class MasonSettings
+local DEFAULT_SETTINGS = {
+    ---@since 1.0.0
+    -- The directory in which to install packages.
+    install_root_dir = path.concat { vim.fn.stdpath "data", "mason" },
+
+    ---@since 1.0.0
+    -- Where Mason should put its bin location in your PATH. Can be one of:
+    -- - "prepend" (default, Mason's bin location is put first in PATH)
+
+----------------------------------------
+
+TITLE: Setting Mason Log Level for Debugging
+DESCRIPTION: This snippet demonstrates how to set Mason's log level to DEBUG for troubleshooting installation or uninstallation issues.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_12
+
+LANGUAGE: lua
+CODE:
+require("mason").setup {
+    log_level = vim.log.levels.DEBUG
+}
+
+----------------------------------------
+
+TITLE: Using InstallContext.stdio_sink in package installation (Lua)
+DESCRIPTION: Example of using the stdio_sink property to send stdout and stderr output to be presented to the user during package installation.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/reference.md#2025-04-18_snippet_2
+
+LANGUAGE: lua
+CODE:
+Pkg.new {
+    --- ...
+    ---@async
+    ---@param ctx InstallContext
+    install = function(ctx)
+        ctx.stdio_sink.stdout "I am doing stuff\n"
+        ctx.stdio_sink.stderr "Something went wrong!\n"
+    end,
+}
+
+----------------------------------------
+
+TITLE: Using Package.Lang for Language Identifiers in Lua
+DESCRIPTION: Demonstrates how to use the Package.Lang metatable to access language identifiers. Any key is automatically indexed on first access and returns the language name.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/reference.md#2025-04-18_snippet_1
+
+LANGUAGE: lua
+CODE:
+print(vim.inspect(Package.Lang)) -- prints {}
+local lang = Package.Lang.SomeMadeUpLanguage
+print(lang) -- prints "SomeMadeUpLanguage"
+print(vim.inspect(Package.Lang)) -- prints { SomeMadeUpLanguage = "SomeMadeUpLanguage" }
+
+----------------------------------------
+
+TITLE: Configuring GitHub Download Settings for Mason
+DESCRIPTION: This snippet shows how to configure the GitHub download URL template for Mason. It allows customization of the URL used to download assets from GitHub releases.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_7
+
+LANGUAGE: lua
+CODE:
+github = {
+    download_url_template = "https://github.com/%s/releases/download/%s/%s",
+}
+
+----------------------------------------
+
+TITLE: Customizing GitHub Download URL for Mason
+DESCRIPTION: This snippet demonstrates how to customize the GitHub download URL template used by Mason when downloading assets from GitHub releases.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_10
+
+LANGUAGE: lua
+CODE:
+require("mason").setup {
+    github = {
+        download_url_template = "https://my.mirror.com/%s/releases/download/%s/%s",
+    },
+}
+
+----------------------------------------
+
+TITLE: Configuring Pip Installation Settings for Mason
+DESCRIPTION: This snippet demonstrates how to configure pip-related settings for Mason, including whether to upgrade pip and specifying additional installation arguments.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_8
+
+LANGUAGE: lua
+CODE:
+pip = {
+    upgrade_pip = false,
+    install_args = {},
+}
+
+----------------------------------------
+
+TITLE: Headless Package Installation in Shell
+DESCRIPTION: Command to install packages in headless mode using Neovim from the command line.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/doc/mason.txt#2025-04-18_snippet_2
+
+LANGUAGE: sh
+CODE:
+$ nvim --headless -c "MasonInstall lua-language-server rust-analyzer" -c qall
+
+----------------------------------------
+
+TITLE: Generating Code for mason.nvim on Unix Systems
+DESCRIPTION: Command to generate code for mason.nvim project. This is required when adding or modifying package definitions.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/CONTRIBUTING.md#2025-04-18_snippet_0
+
+LANGUAGE: sh
+CODE:
+make generate
+
+----------------------------------------
+
+TITLE: Running Tests for mason.nvim
+DESCRIPTION: Commands to run tests for the mason.nvim project. Shows both full test suite execution and running specific test files.
+SOURCE: https://github.com/williamboman/mason.nvim/blob/main/CONTRIBUTING.md#2025-04-18_snippet_1
+
+LANGUAGE: sh
+CODE:
+make test
+FILE=tests/mason-core/managers/luarocks_spec.lua make test
