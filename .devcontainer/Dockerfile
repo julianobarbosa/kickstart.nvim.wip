@@ -1,17 +1,7 @@
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.231.6/containers/go/.devcontainer/base.Dockerfile
 
-LABEL Name="nvim-dev-container" \
-      Version="1.0"
-
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    build-essential \
-    python3 \
-    python3-pip \
-    lua5.3 \
-    lua5.3-dev \
-    luarocks
-
-RUN luarocks install luacheck
+# [Choice] Go version (use -bullseye variants on local arm64/Apple Silicon): 1, 1.16, 1.17, 1-bullseye, 1.16-bullseye, 1.17-bullseye, 1-buster, 1.16-buster, 1.17-buster
+ARG VARIANT="1.18-bullseye"
+FROM mcr.microsoft.com/vscode/devcontainers/go:0-${VARIANT}
 
 USER vscode
