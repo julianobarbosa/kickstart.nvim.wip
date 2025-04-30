@@ -50,4 +50,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/tutorial/src/step-14/descrip
   This is some slot content!
 </ChildComp>
 ```
-

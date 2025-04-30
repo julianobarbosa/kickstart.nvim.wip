@@ -312,4 +312,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/api/built-in-directives.md#_
 ```vue-html
 <span v-pre>{{ this will not be compiled }}</span>
 ```
-

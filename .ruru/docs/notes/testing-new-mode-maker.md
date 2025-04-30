@@ -1,7 +1,7 @@
 Lots of improvements to the mode maker... lets try it again!
 
 
-a few questions to get things rolling 
+a few questions to get things rolling
 
 check to see if it exists already
 

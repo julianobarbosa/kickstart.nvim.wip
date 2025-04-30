@@ -111,9 +111,9 @@ customElements.define('some-element', SomeElement)
 // Add the new element type to Vue's GlobalComponents type.
 declare module 'vue' {
   interface GlobalComponents {
-    // Be sure to pass in the Vue component type here 
+    // Be sure to pass in the Vue component type here
     // (SomeComponent, *not* SomeElement).
-    // Custom Elements require a hyphen in their name, 
+    // Custom Elements require a hyphen in their name,
     // so use the hyphenated element name here.
     'some-element': typeof SomeComponent
   }
@@ -322,7 +322,7 @@ type DefineCustomElement<
   // specifically reads prop definitions from the `$props` type. Note that we
   // combine the element's props with the global HTML props and Vue's special
   // props.
-  /** @deprecated Do not use the $props property on a Custom Element ref, 
+  /** @deprecated Do not use the $props property on a Custom Element ref,
     this is for template prop types only. */
   $props: HTMLAttributes &
     Partial<Pick<ElementType, SelectedAttributes>> &
@@ -331,7 +331,7 @@ type DefineCustomElement<
   // Use $emit to specifically define event types. Vue specifically reads event
   // types from the `$emit` type. Note that `$emit` expects a particular format
   // that we map `Events` to.
-  /** @deprecated Do not use the $emit property on a Custom Element ref, 
+  /** @deprecated Do not use the $emit property on a Custom Element ref,
     this is for template prop types only. */
   $emit: VueEmit<Events>
 }
@@ -407,4 +407,3 @@ const ExampleElement = defineCustomElement(Example)
 // register
 customElements.define('my-example', ExampleElement)
 ```
-

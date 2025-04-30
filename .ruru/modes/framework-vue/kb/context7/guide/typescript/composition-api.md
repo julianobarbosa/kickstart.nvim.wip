@@ -477,4 +477,3 @@ import { reactive } from 'vue'
 // inferred type: { title: string }
 const book = reactive({ title: 'Vue 3 Guide' })
 ```
-

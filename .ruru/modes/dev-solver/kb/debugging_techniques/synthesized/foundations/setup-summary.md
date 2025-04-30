@@ -6,7 +6,7 @@ tags = ["debugging", "setup", "configuration", "ide", "tools"]
 
 # Debugging Setup Summary
 
-Setting up for debugging primarily involves configuring the development environment and tools specific to the programming language, framework, and runtime being used. 
+Setting up for debugging primarily involves configuring the development environment and tools specific to the programming language, framework, and runtime being used.
 
 *   **Integrated Development Environments (IDEs):** Modern IDEs (e.g., VS Code, Visual Studio, IntelliJ IDEA, PyCharm) often have built-in debugging support. Setup typically involves:
     *   Ensuring the correct language extensions/plugins are installed.

@@ -351,4 +351,3 @@ function useFeature(maybeRefOrGetter) {
   const value = toValue(maybeRefOrGetter)
 }
 ```
-

@@ -274,4 +274,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/essentials/event-handl
 <button @click="count++">Add 1</button>
 <p>Count is: {{ count }}</p>
 ```
-

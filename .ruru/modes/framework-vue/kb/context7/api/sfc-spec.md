@@ -72,4 +72,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/api/sfc-spec.md#_snippet_4
 <!-- import a file from the installed "todomvc-app-css" npm package -->
 <style src="todomvc-app-css/index.css" />
 ```
-

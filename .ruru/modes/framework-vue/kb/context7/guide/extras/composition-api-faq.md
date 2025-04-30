@@ -28,4 +28,3 @@ onMounted(() => {
   <button @click="increment">Count is: {{ count }}</button>
 </template>
 ```
-

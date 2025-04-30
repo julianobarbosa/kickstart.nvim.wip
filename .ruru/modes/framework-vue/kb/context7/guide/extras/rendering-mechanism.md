@@ -79,4 +79,3 @@ createElementVNode("div", {
   class: _normalizeClass({ active: _ctx.active })
 }, null, 2 /* CLASS */)
 ```
-

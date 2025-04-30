@@ -364,4 +364,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/api/application.md#_snippet_
 // retrieve a registered directive
 const myDirective = app.directive('myDirective')
 ```
-

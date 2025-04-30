@@ -310,4 +310,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/essentials/computed.md
 ```vue-html
 <p>{{ calculateBooksMessage() }}</p>
 ```
-

@@ -139,4 +139,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/api/built-in-components.md#_
 <Teleport to=".some-class" />
 <Teleport to="[data-teleport]" />
 ```
-

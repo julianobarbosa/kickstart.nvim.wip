@@ -217,4 +217,3 @@ const app = createSSRApp({
 // hydration instead of mounting new DOM nodes.
 app.mount('#app')
 ```
-

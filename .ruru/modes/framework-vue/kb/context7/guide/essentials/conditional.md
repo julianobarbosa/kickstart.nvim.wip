@@ -53,4 +53,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/essentials/conditional
 ```vue-html
 <h1 v-show="ok">Hello!</h1>
 ```
-

@@ -31,4 +31,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/api/ssr.md#_snippet_3
 // inside a Node.js http handler
 pipeToNodeWritable(app, {}, res)
 ```
-

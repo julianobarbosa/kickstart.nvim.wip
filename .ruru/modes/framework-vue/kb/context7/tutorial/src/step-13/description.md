@@ -46,4 +46,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/tutorial/src/step-13/descrip
 ```vue-html
 <child-comp @response="(msg) => childMsg = msg"></child-comp>
 ```
-

@@ -44,37 +44,37 @@ Locate or add the `vertex-ai-mcp-server` entry within the `servers` object in `.
       "command": "node",
       "args": [
         // Ensure this path correctly points to the executable within the installed package
-        "node_modules/vertex-ai-mcp-server/build/index.js" 
+        "node_modules/vertex-ai-mcp-server/build/index.js"
       ],
       "env": {
         // --- Required GCP/Vertex Config ---
         // Replace with your actual GCP Project ID
-        "GOOGLE_CLOUD_PROJECT": "YOUR_PROJECT_ID", 
+        "GOOGLE_CLOUD_PROJECT": "YOUR_PROJECT_ID",
         // Replace with the GCP region for your Vertex AI resources (e.g., "us-central1")
-        "GOOGLE_CLOUD_LOCATION": "YOUR_GCP_REGION", 
+        "GOOGLE_CLOUD_LOCATION": "YOUR_GCP_REGION",
         // Replace with the absolute or relative path to your GCP service account key file
         "GOOGLE_APPLICATION_CREDENTIALS": "/path/to/your/gcp_credentials.json",
-        
+
         // --- Vertex AI Model Config ---
-        // Specify the desired Vertex AI model ID 
+        // Specify the desired Vertex AI model ID
         "VERTEX_AI_MODEL_ID": "gemini-2.5-pro-exp-03-25", // Or your preferred model like gemini-1.5-pro-preview-0409 etc.
         // Controls randomness (0.0 = deterministic)
-        "VERTEX_AI_TEMPERATURE": "0.0", 
+        "VERTEX_AI_TEMPERATURE": "0.0",
         // Enable/disable streaming responses
-        "VERTEX_AI_USE_STREAMING": "true", 
+        "VERTEX_AI_USE_STREAMING": "true",
         // Maximum tokens for the model's response
         "VERTEX_AI_MAX_OUTPUT_TOKENS": "65535", // Adjust based on model limits/needs
-        
+
         // --- Optional Retry Config ---
         // Number of times to retry failed API calls
         "VERTEX_AI_MAX_RETRIES": "3",
         // Initial delay between retries in milliseconds
-        "VERTEX_AI_RETRY_DELAY_MS": "1000" 
+        "VERTEX_AI_RETRY_DELAY_MS": "1000"
       },
       // Set to true to temporarily disable this server without removing the config
-      "disabled": false, 
+      "disabled": false,
       // List tools allowed to run without explicit user approval per call (use with caution)
-      "alwaysAllow": [ 
+      "alwaysAllow": [
         "answer_query_websearch",
         "answer_query_direct",
         "explain_topic_with_docs",
@@ -95,9 +95,9 @@ Locate or add the `vertex-ai-mcp-server` entry within the `servers` object in `.
         "save_topic_explanation",
         "save_answer_query_direct",
         "save_answer_query_websearch"
-       ], 
+       ],
       // Maximum time in seconds to wait for the server to respond to a tool request
-      "timeout": 3600 
+      "timeout": 3600
     }
     // ... other server configurations ...
   }

@@ -107,4 +107,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/essentials/application
 ```HTML
 <div id="app"></div>
 ```
-

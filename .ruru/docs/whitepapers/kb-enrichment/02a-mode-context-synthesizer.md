@@ -73,8 +73,8 @@ responsible_mode_for_creation = "prime-coordinator" # Or util-mode-maintainer
     # --- Model Configuration (Example) ---
     # model_preference = ["gemini-2.5-pro-latest"]
     # temperature = 0.0
-    # top_k = 
-    # top_p = 
+    # top_k =
+    # top_p =
 
     # --- Relationships ---
     delegator = ["roo-commander"] # Primarily delegated to by the coordinator

@@ -9,4 +9,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/tutorial/src/step-5/descript
 ```vue-html
 <input v-model="text">
 ```
-

@@ -101,4 +101,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/api/composition-api-helpers.
 ```typescript
 function useId(): string
 ```
-

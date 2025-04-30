@@ -486,4 +486,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/components/v-model.md#
   @input="searchText = $event.target.value"
 />
 ```
-

@@ -21,4 +21,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/tutorial/src/step-11/descrip
 ```HTML
 <ChildComp />
 ```
-

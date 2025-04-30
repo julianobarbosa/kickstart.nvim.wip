@@ -86,4 +86,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/api/built-in-special-element
 ```vue-html
 <component :is="href ? 'a' : 'span'"></component>
 ```
-

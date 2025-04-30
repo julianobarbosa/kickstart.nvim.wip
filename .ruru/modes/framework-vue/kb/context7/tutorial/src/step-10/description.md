@@ -16,4 +16,3 @@ watch(count, (newCount) => {
   console.log(`new count is: ${newCount}`)
 })
 ```
-

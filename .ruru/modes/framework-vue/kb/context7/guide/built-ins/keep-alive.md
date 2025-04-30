@@ -128,4 +128,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/built-ins/keep-alive.m
   <component :is="view" />
 </KeepAlive>
 ```
-

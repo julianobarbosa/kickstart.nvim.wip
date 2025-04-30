@@ -42,4 +42,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/tutorial/src/step-4/descript
 ```vue-html
 <button @click="increment">{{ count }}</button>
 ```
-

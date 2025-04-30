@@ -82,4 +82,3 @@ const currentView = computed(() => {
   <component :is="currentView" />
 </template>
 ```
-

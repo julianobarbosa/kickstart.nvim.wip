@@ -15,4 +15,3 @@ import { onMounted } from 'vue'
 onMounted(load)
 </script>
 ```
-

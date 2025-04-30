@@ -61,4 +61,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/tutorial/src/step-7/descript
 ```js
 this.todos.push(newTodo)
 ```
-

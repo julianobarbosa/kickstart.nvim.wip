@@ -129,4 +129,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/best-practices/perform
   :id="item.id"
   :active-id="activeId" />
 ```
-

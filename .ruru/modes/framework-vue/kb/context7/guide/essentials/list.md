@@ -341,4 +341,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/essentials/list.md#_sn
 const parentMessage = ref('Parent')
 const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
 ```
-

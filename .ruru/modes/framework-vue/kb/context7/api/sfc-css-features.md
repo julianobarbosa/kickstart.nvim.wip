@@ -181,4 +181,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/api/sfc-css-features.md#_sni
   <div class="example" data-v-f3f3eg9>hi</div>
 </template>
 ```
-

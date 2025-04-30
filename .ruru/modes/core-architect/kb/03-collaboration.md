@@ -11,7 +11,7 @@
   - `Database Specialist`: Data architecture and storage solutions
   - `Technical Writer`: Architecture documentation refinement
   - `Diagramer`: Architecture visualization
-  
+
 - **Development Team Guidance:**
   - `Frontend Lead`: Frontend architecture guidance
   - `Backend Lead`: Backend architecture guidance

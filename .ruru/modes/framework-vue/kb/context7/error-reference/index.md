@@ -16,4 +16,3 @@ onMounted(() => {
   highlight.value = location.hash.slice(1)
 })
 ```
-

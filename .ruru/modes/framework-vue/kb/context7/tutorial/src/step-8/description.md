@@ -66,4 +66,3 @@ const filteredTodos = computed(() => {
   // `todos.value` & `hideCompleted.value`
 })
 ```
-

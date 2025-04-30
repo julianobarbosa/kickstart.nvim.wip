@@ -22,7 +22,7 @@ looks ok
 
 curious to see what it actually puts in the kb folder../.
 
-i probabkly should have picked a different emoji, like an actual bun.... 
+i probabkly should have picked a different emoji, like an actual bun....
 
 not sure why it asked for permission, i think its because its using the oh its because we are using prime documenter, it is a more cautios writer
 

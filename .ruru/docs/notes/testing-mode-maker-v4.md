@@ -4,7 +4,7 @@ ok we have got the basic parameters figured out
 
 time for the vertec ai mcp to be used for research!
 
-sometimes these queries take a little while, depends on how long vertex needs 
+sometimes these queries take a little while, depends on how long vertex needs
 
 looks promising so far
 

@@ -359,16 +359,16 @@ Okay, I will read the file `.docs/notes/changing-the-organising-of-mode-sources.
 <file><path>.docs/notes/changing-the-organising-of-mode-sources.md</path>
 <content lines="1-50">
  1 | ive been thinking about how we will work with mode context and custom instructions and i think it is becoming apparent to me that we have created far to much custom instruction context for each mode and that we might want to shift from monolithic updates to the modes contexts to just ongoing improvements.
- 2 | 
+ 2 |
  3 | so for example,
- 4 | 
+ 4 |
  5 | what if we have a root .mode folder
  6 | and we dont nest the modes, we just name them as folders of the mode names, eg
  7 | .mode/accessibility-specialist
  8 | .mode/angular-developer
  9 | .mode/animejs-specialist
 10 | etc
-11 | 
+11 |
 12 | and whatever we put in there can be potentially looked up by the mode when it is doing some work, it could check its readme in its custom-instructions folder eg
 13 | .modes/angular-developer/custom-instructions/README.md
 14 | except we change the custom-instructions to be 'kb'
@@ -378,9 +378,9 @@ Okay, I will read the file `.docs/notes/changing-the-organising-of-mode-sources.
 18 | and we can keep the context and examples folders, the user might put things there or we might in the future
 19 | so anyway the mode would decide when its checked the readme if any of the files in the /kb are going to be helpful for its assigned task and if it thinks so it would read the relevant ones into its context
 20 | and that could be a workspace level .roo/rules because that same rule would work fine for any mode, almost like before beginning work it checks its knowledgebase to see if it has something useful
-21 | 
+21 |
 22 | i think we should revise the naming conventions for the modes eg
-23 | 
+23 |
 24 | roo-commander
 25 | manager-projects
 26 | manager-products
@@ -394,11 +394,11 @@ Okay, I will read the file `.docs/notes/changing-the-organising-of-mode-sources.
 34 | design-mui
 35 | design-shadcn
 36 | etc
-37 | 
+37 |
 38 | and i would like us to try harder to not use the same emoji for more than one mode, so start with roo commander, it gets the crown, and then we go to the manager level, pick the most appropriate emoji, and one by one we check the mode and decide on an emoji and if its taken we pick something else
-39 | 
+39 |
 40 | that actually feels and reads kind of naturally to me, and i think with shorter names its less cluttered and dispenses with all the words like specialist and developer that take up so much character usage.
-41 | 
+41 |
 42 | and i think we dont even need the footgun modes but we can have mode folders for the default modes like
 43 | .mode/code
 44 | .mode/debug
@@ -406,7 +406,7 @@ Okay, I will read the file `.docs/notes/changing-the-organising-of-mode-sources.
 46 | .mode/architect
 47 | and the sub folders for each, context, kb, examples
 48 | in case we want to have some custom context for those modes
-49 | 
+49 |
 50 | what do you think? what would you do differently? any problems with this ideas?
 </content>
 </file>
@@ -687,9 +687,9 @@ Always adhere to this format for all tool uses to ensure proper parsing and exec
 
 # Next Steps
 
-If you have completed the user's task, use the attempt_completion tool. 
-If you require additional information from the user, use the ask_followup_question tool. 
-Otherwise, if you have not completed the task and do not need additional information, then proceed with the next step of the task. 
+If you have completed the user's task, use the attempt_completion tool.
+If you require additional information from the user, use the ask_followup_question tool.
+Otherwise, if you have not completed the task and do not need additional information, then proceed with the next step of the task.
 (This is an automated message, so do not respond to it conversationally.)
 <environment_details>
 # VSCode Visible Files
@@ -1101,23 +1101,23 @@ Okay, I will read the file `.docs/notes/changing-the-organising-of-mode-sources-
 <file><path>.docs/notes/changing-the-organising-of-mode-sources-qna.md</path>
 <content lines="1-19">
  1 | Q: How would we manage mode versions or logical groupings (e.g., frontend, backend, utility) in a flat structure? We might need a separate manifest file (e.g., .mode/manifest.toml) to track mode metadata, versions, and relationships.
- 2 | 
+ 2 |
  3 | A: we will make a manifest file, and that will be part of the information availble to all the modes to lookup and each mode will have a subset of that as part of their context so they know who they are usually delegating to and if its a multi agent workflow or task then they can lookup the sub agents from the manifest and work out what agents are going to likely be required. Clear naming will be helpful. also i forsee that some time in the future be in a database, so by doing it this way it will not be so difficult to transition to that. also it lets us include in the readme file some external links that the mode could consult if it wants to as well.
- 4 | 
+ 4 |
  5 | Q: Mechanism: The core challenge is how a mode determines which KB files are relevant for a given task. This requires a well-defined mechanism. Will it be based on keywords in the task? A predefined index in kb/README.md? Will the mode itself need sophisticated logic, or will the underlying system handle KB retrieval? This needs careful design to be effective and reliable.
- 6 | 
+ 6 |
  7 | A: I agree, and i think that this is where we work out a clever prompt that lets the mode self assess based on what it has been asked to do as to what part of its kb would be helpful. It should still be able to fuinction even without kb input but its about increasing its specific knowledge to help keep it focused, and also there could be new information not in its training data for example. it cant be rigid rules, we will need to give the most independence to decide based on some factors you can work out a good prompt.
- 8 | 
+ 8 |
  9 | Q: We need a well-defined and consistently applied set of prefixes (e.g., core-, manager-, lead-, dev-, design-, data-, test-, infra-, util-).
-10 | 
+10 |
 11 | A: i agree, lets discuss this in more detail and be confident, your suggestions sound ok to me, and i think actually even that short word helps with the context for the ai and human as to what the mode is for
-12 | 
-13 | 
+12 |
+13 |
 14 | Q: This is a significant architectural change. I recommend we create a formal proposal or ADR (Architecture Decision Record) in the .decisions/ folder to document the chosen path, rationale, and implementation plan before starting the work.
-15 | 
+15 |
 16 | A: absolutely, there is no rush, we should plan this out very carefully.
-17 | 
-18 | 
+17 |
+18 |
 19 | What else should we consider if anything?
 </content>
 </file>
@@ -1331,44 +1331,44 @@ I will now read the template README to find the appropriate ADR template file.
 <file><path>.templates/toml-md/README.md</path>
 <content lines="1-148">
   1 | # TOML+Markdown (TOML MD) Templates
-  2 | 
+  2 |
   3 | This directory contains standardized templates for various document types used within this workspace. These templates leverage the **TOML+Markdown (TOML MD)** format, combining structured TOML frontmatter for machine-readable metadata with flexible Markdown for human-readable content.
-  4 | 
+  4 |
   5 | ## Purpose & Rationale
-  6 | 
+  6 |
   7 | The TOML MD format is used across the workspace (including but not limited to MDTM task files, ADRs, documentation, context sources, meeting notes, etc.) to achieve several key benefits:
-  8 | 
+  8 |
   9 | 1.  **Enhanced Machine Readability:** TOML frontmatter provides structured `key = value` metadata that is easily and reliably parsed by scripts, IDE extensions, reporting tools, and AI assistants. This allows for automation, filtering, validation, and more accurate context understanding by AI without needing to parse the entire Markdown body first. Unlike YAML, TOML's simpler syntax avoids common indentation errors.
  10 | 2.  **Improved Human Readability:** The main body of the document uses standard Markdown (including GFM features like checklists), which is familiar, easy to write, and renders well in most environments.
  11 | 3.  **Co-location & Context:** Storing documents like tasks, ADRs, and context sources directly within the Git repository keeps information close to the code and other artifacts it relates to. The TOML frontmatter (e.g., `related_docs`, `related_tasks`) and inline Markdown links provide rich contextual connections.
  12 | 4.  **Consistency:** Using standardized templates ensures that documents of the same type have a consistent structure and metadata schema, making them easier to find, understand, and process programmatically.
  13 | 5.  **Lifecycle Management:** TOML fields like `status`, `version`, `created_date`, `updated_date`, `last_reviewed`, and `owner` allow for tracking the state and history of documents directly within the file.
  14 | 6.  **Precise AI Guidance:** Metadata fields like `context_type`, `target_audience`, and `granularity` in context source files help guide AI assistants on how and when to use specific information effectively.
- 15 | 
+ 15 |
  16 | ## Usage Instructions
- 17 | 
+ 17 |
  18 | 1.  **Identify Need:** Determine the type of document you need to create (e.g., a new feature task, an architecture decision, meeting notes).
  19 | 2.  **Select Template:** Choose the appropriate template file from the list below that matches your document type.
  20 | 3.  **Copy & Rename:** Copy the template file to the relevant directory in the workspace (e.g., copy `01_mdtm_feature.md` to `.tasks/FEATURE_XXX/NNN_➕_description.md`, copy `07_adr.md` to `.decisions/ADR-NNN_description.md`). Follow established naming conventions for the specific document type (e.g., MDTM naming convention).
  21 | 4.  **Fill TOML Frontmatter:** Carefully fill in the required (`<< REQUIRED >>`) and relevant optional fields in the TOML block at the beginning of the file. Pay attention to data types (strings in quotes `""`, arrays in `[]`, dates as `"YYYY-MM-DD"`). Remove any placeholder comments like `<< ... >>`.
  22 | 5.  **Write Markdown Body:** Replace the placeholder content in the Markdown section with your specific information, following the structure provided by the template's headings.
  23 | 6.  **Commit:** Add and commit the new file to Git.
- 24 | 
+ 24 |
  25 | **Key Principles:**
  26 | *   **Consistency:** Adhere strictly to the TOML field names, data types, and standardized values (e.g., for `status`, `priority`, `type`) defined in the templates and supporting documentation (like the MDTM guide).
  27 | *   **Completeness:** Fill in required TOML fields accurately. Provide sufficient detail in the Markdown body.
  28 | *   **Updates:** Keep the `updated_date` field current when making significant changes. Maintain the accuracy of the `status` field.
- 29 | 
+ 29 |
  30 | ## Available Templates
- 31 | 
+ 31 |
  32 | Templates are organized into subdirectories within `.templates/`:
- 33 | 
+ 33 |
  34 | *   **`.templates/toml-md/`**: Contains general-purpose TOML+MD templates for tasks, ADRs, documentation, simple SOPs, etc.
  35 | *   **`.templates/modes/`**: Contains templates and specifications specifically for defining Roo Commander modes (v7.1+).
  36 | *   **`.templates/workflows/`**: Contains templates for defining complex, multi-step workflows or detailed SOPs.
- 37 | 
+ 37 |
  38 | ### General Templates (`.templates/toml-md/`)
- 39 | 
+ 39 |
  40 | *   **`00_boilerplate.md`**: A generic starting point with common metadata fields. See `00_boilerplate.README.md` for schema and usage details.
  41 | *   **`01_mdtm_feature.md`**: For defining and tracking new user-facing features (MDTM Task). See `01_mdtm_feature.README.md` for schema and usage details.
  42 | *   **`02_mdtm_bug.md`**: For reporting, tracking, and resolving bugs (MDTM Task). See `02_mdtm_bug.README.md` for schema and usage details.
@@ -1386,15 +1386,15 @@ I will now read the template README to find the appropriate ADR template file.
  54 | *   **`14_standard_guideline.md`**: For defining coding standards, style guides, or operational guidelines. Typically stored in `.docs/standards/`. See `14_standard_guideline.README.md` for schema and usage details.
  55 | *   **`15_sop.md`**: For defining *simple* Standard Operating Procedures. Typically stored in `.processes/` or `.docs/standards/`. See `15_sop.README.md` for schema and usage details. (For complex workflows, use the template in `.templates/workflows/`).
  56 | *   **`16_ai_rule.md`**: A minimalist template for defining rules intended for AI context injection (e.g., in `.roo/rules/`). See `16_ai_rule.README.md` for schema and usage details.
- 57 | 
+ 57 |
  58 | ### Workflow Templates (`.templates/workflows/`)
- 59 | 
+ 59 |
  60 | *   **`00_workflow_boilerplate.md`**: A comprehensive boilerplate for defining complex, multi-agent workflows or detailed SOPs, including preconditions, postconditions, step-specific error handling, and validation tracking. Use this for documents intended for the `.workflows/` directory or complex processes in `.processes/`.
- 61 | 
+ 61 |
  62 | ## Creating New Templates
- 63 | 
+ 63 |
  64 | If none of the existing templates fit your needs, you can create a new one:
- 65 | 
+ 65 |
  66 | 1.  **Start with Boilerplate:** Copy `00_boilerplate.md` to a new file in this directory, using a descriptive name (e.g., `15_new_template_type.md`).
  67 | 2.  **Define Purpose:** Clearly understand the specific type of document this new template will represent.
  68 | 3.  **Customize TOML:**
@@ -1408,9 +1408,9 @@ I will now read the template README to find the appropriate ADR template file.
  76 |     *   Include examples (e.g., code blocks, checklists) where appropriate.
  77 | 5.  **Document:** Update this README file to include your new template in the "Available Templates" list with a brief description.
  78 | 6.  **Schema (Optional but Recommended):** Consider formally documenting the schema for your new template's TOML frontmatter (e.g., in `.docs/schemas/`).
- 79 | 
+ 79 |
  80 | **Example Boilerplate Structure (from `00_boilerplate.md`):**
- 81 | 
+ 81 |
  82 | ```markdown
  83 | # TOML Frontmatter Starts Here (No Delimiters)
  84 | # --- Basic Metadata ---
@@ -1421,14 +1421,14 @@ I will now read the template README to find the appropriate ADR template file.
  89 | updated_date = ""     # << YYYY-MM-DD >>
  90 | version = "1.0"       # << Document content version or related software version >>
  91 | tags = []             # << LIST_RELEVANT_KEYWORDS >>
- 92 | 
+ 92 |
  93 | # --- Ownership & Context ---
  94 | # author = "🧑‍💻 User:Name" # Optional: Who created this?
  95 | # owner = "Team:Name"     # Optional: Who maintains this?
  96 | # related_docs = []     # Optional: List paths/URLs to related documents/specs
  97 | # related_tasks = []    # Optional: List related MDTM task IDs
  98 | # parent_doc = ""       # Optional: Path/ID of parent document for hierarchy
- 99 | 
+ 99 |
 100 | # --- Document Type Specific Fields ---
 101 | # Add fields specific to the type of document this template represents
 102 | # e.g., for a guide:
@@ -1436,33 +1436,33 @@ I will now read the template README to find the appropriate ADR template file.
 104 | # estimated_time = "~15 minutes"
 105 | # prerequisites = ["Basic knowledge of X"]
 106 | # learning_objectives = ["Understand Y", "Be able to Z"]
-107 | 
+107 |
 108 | # --- AI Interaction Hints (Optional) ---
 109 | # context_type = "reference" # e.g., reference, tutorial, conceptual, best_practices
 110 | # target_audience = ["all"]  # e.g., ["react-specialist", "junior-developer"]
 111 | # granularity = "overview"   # e.g., overview, detailed, specific_example
-112 | 
+112 |
 113 | # TOML Frontmatter Ends Before Markdown Body
 114 | # ==========================================
-115 | 
+115 |
 116 | # << HUMAN_READABLE_TITLE >>
-117 | 
+117 |
 118 | ## Overview / Purpose 🎯
-119 | 
+119 |
 120 | *   Briefly explain the purpose of this document.
 121 | *   What problem does it solve or what information does it provide?
-122 | 
+122 |
 123 | ## Content Section 1 📝
-124 | 
+124 |
 125 | *   Use standard Markdown for content.
 126 | *   Employ headings, lists, code blocks, etc., as needed.
-127 | 
+127 |
 128 | ## Content Section 2 ✅
-129 | 
+129 |
 130 | *   Use GFM checklists if applicable: `- [ ] Item 1`
-131 | 
+131 |
 132 | ## Diagrams / Visuals 📊 (Optional)
-133 | 
+133 |
 134 | \`\`\`mermaid
 135 | graph TD
 136 |     A[Start] --> B(Process);
@@ -1470,13 +1470,13 @@ I will now read the template README to find the appropriate ADR template file.
 138 |     C -->|Yes| D[End];
 139 |     C -->|No| B;
 140 | \`\`\`
-141 | 
+141 |
 142 | ## Key Learnings / Summary 💡 (Optional)
-143 | 
+143 |
 144 | *   Summarize important takeaways or discoveries.
-145 | 
+145 |
 146 | ## Related Links 🔗 (Optional)
-147 | 
+147 |
 148 | *   [Link Text](URL or path)
 </content>
 </file>
@@ -1695,46 +1695,46 @@ Now, I will read the content of this template file to understand its structure a
  9 | tags = []
 10 | # supersedes_adr = ""
 11 | +++
-12 | 
+12 |
 13 | # ADR-XXX: << SHORT_DESCRIPTION_OF_DECISION >>
-14 | 
+14 |
 15 | **Status:** << proposed | accepted | rejected | deprecated | superseded >>
-16 | 
+16 |
 17 | **(Optional) Date:** << YYYY-MM-DD >>
-18 | 
+18 |
 19 | ## Context 🤔
-20 | 
+20 |
 21 | *   Describe the problem, challenge, or architectural force.
 22 | *   Background? Constraints?
 23 | *   Alternatives considered (briefly)?
-24 | 
+24 |
 25 | ## Decision ✅ / ❌
-26 | 
+26 |
 27 | *   State the chosen decision clearly.
 28 | *   (If rejected, state what and why).
-29 | 
+29 |
 30 | ## Rationale / Justification 💡
-31 | 
+31 |
 32 | *   Explain *why* this decision was made.
 33 | *   Pros/cons vs. alternatives.
 34 | *   Evidence/benchmarks?
 35 | *   Trade-offs?
-36 | 
+36 |
 37 | ## Consequences / Implications ➡️
-38 | 
+38 |
 39 | *   Results (positive/negative)?
 40 | *   Impact on components, teams, practices, infra, cost, security?
 41 | *   New work required? (Link to tasks?)
 42 | *   Risks introduced? Mitigation?
-43 | 
+43 |
 44 | ## Alternatives Considered (Optional Detail) 📝
-45 | 
+45 |
 46 | *   (Optional: Detail other options evaluated)
 47 |     *   **Alternative 1:** Description, Pros, Cons.
 48 |     *   **Alternative 2:** Description, Pros, Cons.
-49 | 
+49 |
 50 | ## Related Links 🔗 (Optional)
-51 | 
+51 |
 52 | *   Links to spikes, prototypes, docs, implementation tasks.
 </content>
 </file>
@@ -3052,7 +3052,7 @@ Before I do that, let's clarify the remaining points:
 2. What is the purpose of the `.roo/rules/<mode-name>` folders you mentioned? Should mode content live there, or entirely within `v7.2/<mode-slug>/`?
 3. What is the exact filename of the existing build script in `.dev_tools/v7.1/`?'] Result:
 <answer>
-What is the purpose of the .roo/rules/<mode-name> folders you mentioned? 
+What is the purpose of the .roo/rules/<mode-name> folders you mentioned?
 its where we will be putting each modes mode specific instruction, which we will need to create because that is how we will be explaining to the mode about making a decision to lookup its kb and we might add other files in the future
 ref: /home/jeremy/vscode/roo-commander/.docs/roo-code/custom-instructions.md
 and to make sure you understand what custom modes are
@@ -3275,12 +3275,12 @@ First, reading `.docs/roo-code/custom-instructions.md`.
 <file><path>.docs/roo-code/custom-instructions.md</path>
 <content lines="1-157">
   1 | # Custom Instructions
-  2 | 
+  2 |
   3 | Custom Instructions allow you to personalize how Roo behaves, providing specific guidance that shapes responses, coding style, and decision-making processes.
-  4 | 
+  4 |
   5 | :::info Instruction File Locations
   6 | You can provide custom instructions using dedicated files or directories within your workspace. This allows for better organization and version control.
-  7 | 
+  7 |
   8 | **Workspace-Wide Instructions:** Apply to all modes in the project.
   9 | *   **Preferred Method: Directory (`.roo/rules/`)**
  10 |     ```
@@ -3297,7 +3297,7 @@ First, reading `.docs/roo-code/custom-instructions.md`.
  21 |     ├── .roorules           # Workspace-wide rules (single file)
  22 |     └── ... (other project files)
  23 |     ```
- 24 | 
+ 24 |
  25 | **Mode-Specific Instructions:** Apply only to a specific mode (e.g., `code`).
  26 | *   **Preferred Method: Directory (`.roo/rules-{modeSlug}/`)**
  27 |     ```
@@ -3316,33 +3316,33 @@ First, reading `.docs/roo-code/custom-instructions.md`.
  40 |     ```
  41 | The directory methods take precedence if they exist and contain files. See [Workspace-Level Instructions](#workspace-level-instructions) and [Mode-Specific Instructions](#mode-specific-instructions) for details.
  42 | :::
- 43 | 
+ 43 |
  44 | ## What Are Custom Instructions?
- 45 | 
+ 45 |
  46 | Custom Instructions define specific behaviors, preferences, and constraints beyond Roo's basic role definition. Examples include coding style, documentation standards, testing requirements, and workflow guidelines.
- 47 | 
+ 47 |
  48 | ## Setting Custom Instructions
- 49 | 
+ 49 |
  50 | ### Global Custom Instructions
- 51 | 
+ 51 |
  52 | These instructions apply across all workspaces and maintain your preferences regardless of which project you're working on.
- 53 | 
+ 53 |
  54 | **How to set them:**
- 55 | 
+ 55 |
  56 | <img src="/img/custom-instructions/custom-instructions.png" alt="Roo Code Prompts tab showing global custom instructions interface" width="600" />
  57 | 1.  **Open Prompts Tab:** Click the <Codicon name="notebook" /> icon in the Roo Code top menu bar
  58 | 2.  **Find Section:** Find the "Custom Instructions for All Modes" section
  59 | 3.  **Enter Instructions:** Enter your instructions in the text area
  60 | 4.  **Save Changes:** Click "Done" to save your changes
- 61 | 
+ 61 |
  62 | ### Workspace-Level Instructions
- 63 | 
+ 63 |
  64 | These instructions only apply within your current workspace, allowing you to customize Roo Code's behavior for specific projects.
- 65 | 
+ 65 |
  66 | #### Workspace-Wide Instructions via Files/Directories
- 67 | 
+ 67 |
  68 | Workspace-wide instructions apply to all modes within the current project and can be defined using files:
- 69 | 
+ 69 |
  70 | *   **Preferred Method: Directory-Based (`.roo/rules/`)**
  71 |     *   Create a directory named `.roo/rules/` in your workspace root.
  72 |     *   Place instruction files (e.g., `.md`, `.txt`) inside. Roo Code reads files recursively, appending their content to the system prompt in **alphabetical order** based on filename.
@@ -3350,23 +3350,23 @@ First, reading `.docs/roo-code/custom-instructions.md`.
  74 | *   **Fallback Method: File-Based (`.roorules`)**
  75 |     *   If `.roo/rules/` doesn't exist or is empty, Roo Code looks for a single `.roorules` file in the workspace root.
  76 |     *   If found, its content is loaded.
- 77 | 
+ 77 |
  78 | #### Mode-Specific Instructions
- 79 | 
+ 79 |
  80 | Mode-specific instructions can be set in two independent ways that can be used simultaneously:
- 81 | 
+ 81 |
  82 | 1.  **Using the Prompts Tab:**
- 83 | 
+ 83 |
  84 |     <img src="/img/custom-instructions/custom-instructions-2.png" alt="Roo Code Prompts tab showing mode-specific custom instructions interface" width="600" />
  85 |     * **Open Tab:** Click the <Codicon name="notebook" /> icon in the Roo Code top menu bar
  86 |     * **Select Mode:** Under the Modes heading, click the button for the mode you want to customize
  87 |     * **Enter Instructions:** Enter your instructions in the text area under "Mode-specific Custom Instructions (optional)"
  88 |     * **Save Changes:** Click "Done" to save your changes
- 89 | 
+ 89 |
  90 |         :::info Global Mode Rules
  91 |         If the mode itself is global (not workspace-specific), any custom instructions you set for it will also apply globally for that mode across all workspaces.
  92 |         :::
- 93 | 
+ 93 |
  94 | 2.  **Using Rule Files/Directories:** Provide mode-specific instructions via files:
  95 |     *   **Preferred Method: Directory-Based (`.roo/rules-{modeSlug}/`)**
  96 |         *   Create a directory named `.roo/rules-{modeSlug}/` (e.g., `.roo/rules-docs-writer/`) in your workspace root.
@@ -3375,47 +3375,47 @@ First, reading `.docs/roo-code/custom-instructions.md`.
  99 |     *   **Fallback Method: File-Based (`.roorules-{modeSlug}`)**
 100 |         *   If `.roo/rules-{modeSlug}/` doesn't exist or is empty, Roo Code looks for a single `.roorules-{modeSlug}` file (e.g., `.roorules-code`) in the workspace root.
 101 |         *   If found, its content is loaded for that mode.
-102 | 
+102 |
 103 | Instructions from the Prompts tab, the mode-specific directory/file, and the workspace-wide directory/file are all combined. See the section below for the exact order.
-104 | 
+104 |
 105 | ## How Instructions are Combined
-106 | 
+106 |
 107 | Instructions are placed in the system prompt in this exact format:
-108 | 
+108 |
 109 | ```
 110 | ====
 111 | USER'S CUSTOM INSTRUCTIONS
-112 | 
+112 |
 113 | The following additional instructions are provided by the user, and should be followed to the best of your ability without interfering with the TOOL USE guidelines.
-114 | 
+114 |
 115 | [Language Preference (if set)]
-116 | 
+116 |
 117 | [Global Instructions (from Prompts Tab)]
-118 | 
+118 |
 119 | [Mode-specific Instructions (from Prompts Tab for the current mode)]
-120 | 
+120 |
 121 | Mode-Specific Instructions (from Files/Directories):
 122 | [Contents of files in .roo/rules-{modeSlug}/ (if directory exists and is not empty)]
 123 | [Contents of .roorules-{modeSlug} file (if .roo/rules-{modeSlug}/ does not exist or is empty, and file exists)]
-124 | 
+124 |
 125 | Workspace-Wide Instructions (from Files/Directories):
 126 | [Contents of files in .roo/rules/ (if directory exists and is not empty)]
 127 | [Contents of .roorules file (if .roo/rules/ does not exist or is empty, and file exists)]
-128 | 
+128 |
 129 | ====
 130 | ```
-131 | 
+131 |
 132 | *Note: The exact order ensures that more specific instructions (mode-level) appear before more general ones (workspace-wide), and directory-based rules take precedence over file-based fallbacks within each level.*
-133 | 
+133 |
 134 | ## Rules about .rules files
-135 | 
+135 |
 136 | * **File Location:** The preferred method uses directories within `.roo/` (`.roo/rules/` and `.roo/rules-{modeSlug}/`). The fallback method uses single files (`.roorules` and `.roorules-{modeSlug}`) located directly in the workspace root.
 137 | * **Empty Files:** Empty or missing rule files are silently skipped
 138 | * **Source Headers:** Each rule file's contents are included with a header indicating its source
 139 | * **Rule Interaction:** Mode-specific rules complement global rules rather than replacing them
-140 | 
+140 |
 141 | ## Examples of Custom Instructions
-142 | 
+142 |
 143 | * "Always use spaces for indentation, with a width of 4 spaces"
 144 | * "Use camelCase for variable names"
 145 | * "Write unit tests for all new functions"
@@ -3423,13 +3423,13 @@ First, reading `.docs/roo-code/custom-instructions.md`.
 147 | * "Focus on code readability and maintainability"
 148 | * "Prioritize using the most common library in the community"
 149 | * "When adding new features to websites, ensure they are responsive and accessible"
-150 | 
+150 |
 151 | :::tip Pro Tip: File-Based Team Standards
 152 | When working in team environments, using the `.roo/rules/` directory structure (and potentially `.roo/rules-{modeSlug}/` directories for specific modes) under version control is the recommended way to standardize Roo's behavior across your team. This allows for better organization of multiple instruction files and ensures consistent code style, documentation practices, and development workflows. The older `.roorules` file method can still be used but offers less flexibility.
 153 | :::
-154 | 
+154 |
 155 | ## Combining with Custom Modes
-156 | 
+156 |
 157 | For advanced customization, combine with [Custom Modes](/features/custom-modes) to create specialized environments with specific tool access, file restrictions, and tailored instructions.
 </content>
 </file>
@@ -3641,12 +3641,12 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
 <file><path>.docs/roo-code/custom-modes.md</path>
 <content lines="1-318">
   1 | # Custom Modes
-  2 | 
+  2 |
   3 | Roo Code allows you to create **custom modes** to tailor Roo's behavior to specific tasks or workflows. Custom modes can be either **global** (available across all projects) or **project-specific** (defined within a single project). Each mode—including custom ones—remembers the last model you used with it, automatically selecting that model when you switch to the mode. This lets you maintain different preferred models for different types of tasks without manual reconfiguration.
-  4 | 
+  4 |
   5 | :::info Mode-Specific Instruction File Locations
   6 | You can provide instructions for custom modes using dedicated files or directories within your workspace. This allows for better organization and version control compared to only using the JSON `customInstructions` property.
-  7 | 
+  7 |
   8 | **Preferred Method: Directory (`.roo/rules-{mode-slug}/`)**
   9 | ```
  10 | .
@@ -3656,7 +3656,7 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
  14 | │       └── 02-formatting.txt
  15 | └── ... (other project files)
  16 | ```
- 17 | 
+ 17 |
  18 | **Fallback Method: Single File (`.roorules-{mode-slug}`)**
  19 | ```
  20 | .
@@ -3665,31 +3665,31 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
  23 | ```
  24 | The directory method takes precedence if it exists and contains files. See [Mode-Specific Instructions via Files/Directories](#mode-specific-instructions-via-filesdirectories) for details.
  25 | :::
- 26 | 
+ 26 |
  27 | ## Why Use Custom Modes?
- 28 | 
+ 28 |
  29 | *   **Specialization:** Create modes optimized for specific tasks, like "Documentation Writer," "Test Engineer," or "Refactoring Expert"
  30 | *   **Safety:** Restrict a mode's access to sensitive files or commands. For example, a "Review Mode" could be limited to read-only operations
  31 | *   **Experimentation:** Safely experiment with different prompts and configurations without affecting other modes
  32 | *   **Team Collaboration:** Share custom modes with your team to standardize workflows
- 33 | 
+ 33 |
  34 |     <img src="/img/custom-modes/custom-modes.png" alt="Overview of custom modes interface" width="400" />
  35 |     *Roo Code's interface for creating and managing custom modes.*
- 36 | 
+ 36 |
  37 | ## What's Included in a Custom Mode?
- 38 | 
+ 38 |
  39 | Custom modes allow you to define:
- 40 | 
+ 40 |
  41 | *   **A unique name and slug:** For easy identification
  42 | *   **A role definition:** Placed at the beginning of the system prompt, this defines Roo's core expertise and personality for the mode. This placement is crucial as it shapes Roo's fundamental understanding and approach to tasks
  43 | *   **Custom instructions:** Added near the end of the system prompt, these provide specific guidelines that modify or refine Roo's behavior for the mode. You can define these using the `customInstructions` JSON property, and/or by adding instruction files to a dedicated directory (see below). The preferred method for file-based instructions is now using a **`.roo/rules-{mode-slug}/` directory**, which allows for better organization and takes precedence over the older `.roorules-{mode-slug}` file method. This structured placement allows for more nuanced control over Roo's responses.
  44 | *   **Allowed tools:** Which Roo Code tools the mode can use (e.g., read files, write files, execute commands)
  45 | *   **File restrictions:** (Optional) Limit file access to specific file types or patterns (e.g., only allow editing `.md` files)
- 46 | 
+ 46 |
  47 | ## Custom Mode Configuration (JSON Format)
- 48 | 
+ 48 |
  49 | Both global and project-specific configurations use the same JSON format. Each configuration file contains a `customModes` array of mode definitions:
- 50 | 
+ 50 |
  51 | ```json
  52 | {
  53 |   "customModes": [
@@ -3703,30 +3703,30 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
  61 |   ]
  62 | }
  63 | ```
- 64 | 
+ 64 |
  65 | ### Required Properties
- 66 | 
+ 66 |
  67 | #### `slug`
  68 | * A unique identifier for the mode
  69 | * Use lowercase letters, numbers, and hyphens
  70 | * Keep it short and descriptive
  71 | * Example: `"docs-writer"`, `"test-engineer"`
- 72 | 
+ 72 |
  73 | #### `name`
  74 | * The display name shown in the UI
  75 | * Can include spaces and proper capitalization
  76 | * Example: `"Documentation Writer"`, `"Test Engineer"`
- 77 | 
+ 77 |
  78 | #### `roleDefinition`
  79 | * Detailed description of the mode's role and capabilities
  80 | * Defines Roo's expertise and personality for this mode
  81 | * Example: `"You are a technical writer specializing in clear documentation"`
- 82 | 
+ 82 |
  83 | #### `groups`
  84 | * Array of allowed tool groups
  85 | * Available groups: `"read"`, `"edit"`, `"browser"`, `"command"`, `"mcp"`
  86 | * Can include file restrictions for the `"edit"` group
- 87 | 
+ 87 |
  88 | ##### File Restrictions Format
  89 | ```json
  90 | ["edit", {
@@ -3734,76 +3734,76 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
  92 |   "description": "Markdown files only"
  93 | }]
  94 | ```
- 95 | 
+ 95 |
  96 | ### Understanding File Restrictions
- 97 | 
+ 97 |
  98 | The `fileRegex` property uses regular expressions to control which files a mode can edit:
- 99 | 
+ 99 |
 100 | * `\\.md$` - Match files ending in ".md"
 101 | * `\\.(test|spec)\\.(js|ts)$` - Match test files (e.g., "component.test.js")
 102 | * `\\.(js|ts)$` - Match JavaScript and TypeScript files
-103 | 
+103 |
 104 | Common regex patterns:
 105 | * `\\.` - Match a literal dot
 106 | * `(a|b)` - Match either "a" or "b"
 107 | * `$` - Match the end of the filename
-108 | 
+108 |
 109 | [Learn more about regular expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)
-110 | 
+110 |
 111 | ### Optional Properties
-112 | 
+112 |
 113 | #### `customInstructions`
 114 | * Additional behavioral guidelines for the mode
 115 | * Example: `"Focus on explaining concepts and providing examples"`
-116 | 
+116 |
 117 | ### Mode-Specific Instructions via Files/Directories
-118 | 
+118 |
 119 | In addition to the `customInstructions` property in JSON, you can provide mode-specific instructions via files in your workspace. This is particularly useful for:
-120 | 
+120 |
 121 | *   Organizing lengthy or complex instructions into multiple, manageable files.
 122 | *   Managing instructions easily with version control.
 123 | *   Allowing non-technical team members to modify instructions without editing JSON.
-124 | 
+124 |
 125 | There are two ways Roo Code loads these instructions, with a clear preference for the newer directory-based method:
-126 | 
+126 |
 127 | **1. Preferred Method: Directory-Based Instructions (`.roo/rules-{mode-slug}/`)**
-128 | 
+128 |
 129 | *   **Structure:** Create a directory named `.roo/rules-{mode-slug}/` in your workspace root. Replace `{mode-slug}` with your mode's slug (e.g., `.roo/rules-docs-writer/`).
 130 | *   **Content:** Place one or more files (e.g., `.md`, `.txt`) containing your instructions inside this directory. You can organize instructions further using subdirectories; Roo Code reads files recursively, appending their content to the system prompt in **alphabetical order** based on filename.
 131 | *   **Loading:** All instruction files found within this directory structure will be loaded and applied to the specified mode.
-132 | 
+132 |
 133 | **2. Fallback (Backward Compatibility): File-Based Instructions (`.roorules-{mode-slug}`)**
-134 | 
+134 |
 135 | *   **Structure:** If the `.roo/rules-{mode-slug}/` directory **does not exist or is empty**, Roo Code will look for a single file named `.roorules-{mode-slug}` in your workspace root (e.g., `.roorules-docs-writer`).
 136 | *   **Loading:** If found, the content of this single file will be loaded as instructions for the mode.
-137 | 
+137 |
 138 | **Precedence:**
-139 | 
+139 |
 140 | *   The **directory-based method (`.roo/rules-{mode-slug}/`) takes precedence**. If this directory exists and contains files, any corresponding root-level `.roorules-{mode-slug}` file will be **ignored** for that mode.
 141 | *   This ensures that projects migrated to the new directory structure behave predictably, while older projects using the single-file method remain compatible.
-142 | 
+142 |
 143 | **Combining with JSON `customInstructions`:**
-144 | 
+144 |
 145 | *   Instructions loaded from either the directory or the fallback file are combined with the `customInstructions` property defined in the mode's JSON configuration.
 146 | *   Typically, the content from the files/directories is appended after the content from the JSON `customInstructions` property.
-147 | 
+147 |
 148 | ## Configuration Precedence
-149 | 
+149 |
 150 | Mode configurations are applied in this order:
-151 | 
+151 |
 152 | 1. Project-level mode configurations (from `.roomodes`)
 153 | 2. Global mode configurations (from `custom_modes.json`)
 154 | 3. Default mode configurations
-155 | 
+155 |
 156 | This means that project-specific configurations will override global configurations, which in turn override default configurations.
 157 | *   **Note on Instruction Files:** Within the loading of mode-specific instructions from the filesystem, the directory `.roo/rules-{mode-slug}/` takes precedence over the single file `.roorules-{mode-slug}` found in the workspace root.
-158 | 
+158 |
 159 | ## Creating Custom Modes
-160 | 
+160 |
 161 | You have three options for creating custom modes:
-162 | 
+162 |
 163 | ### 1. Ask Roo! (Recommended)
-164 | 
+164 |
 165 | You can quickly create a basic custom mode by asking Roo Code to do it for you. For example:
 166 | ```
 167 | Create a new mode called "Documentation Writer". It should only be able to read files and write Markdown files.
@@ -3811,20 +3811,20 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
 169 | Roo Code will guide you through the process. However, for fine-tuning modes or making specific adjustments, you'll want to use the Prompts tab or manual configuration methods described below.
 170 | :::info
 171 | #### Custom Mode Creation Settings
-172 | When enabled, Roo allows you to create custom modes using prompts like 'Make me a custom mode that...'. Disabling this reduces your system prompt by about 700 tokens when this feature isn't needed. When disabled you can still manually create custom modes using the + button above or by editing the related config JSON. 
+172 | When enabled, Roo allows you to create custom modes using prompts like 'Make me a custom mode that...'. Disabling this reduces your system prompt by about 700 tokens when this feature isn't needed. When disabled you can still manually create custom modes using the + button above or by editing the related config JSON.
 173 | <img src="/img/custom-modes/custom-modes-1.png" alt="Enable Custom Mode Creation Through Prompts setting" width="600" />
 174 | You can find this setting within the prompt settings by clicking the <Codicon name="notebook" /> icon in the Roo Code top menu bar.
 175 | :::
-176 | 
+176 |
 177 | ### 2. Using the Prompts Tab
-178 | 
+178 |
 179 | 1.  **Open Prompts Tab:** Click the <Codicon name="notebook" /> icon in the Roo Code top menu bar
 180 | 2.  **Create New Mode:** Click the <Codicon name="add" /> button to the right of the Modes heading
 181 | 3.  **Fill in Fields:**
-182 | 
+182 |
 183 |         <img src="/img/custom-modes/custom-modes-2.png" alt="Custom mode creation interface in the Prompts tab" width="600" />
 184 |         *The custom mode creation interface showing fields for name, slug, save location, role definition, available tools, and custom instructions.*
-185 | 
+185 |
 186 |     * **Name:** Enter a display name for the mode
 187 |     * **Slug:** Enter a lowercase identifier (letters, numbers, and hyphens only)
 188 |     * **Save Location:** Choose Global (via `custom_modes.json`, available across all workspaces) or Project-specific (via `.roomodes` file in project root)
@@ -3832,15 +3832,15 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
 190 |     * **Available Tools:** Select which tools this mode can use
 191 |     * **Custom Instructions:** (Optional) Add behavioral guidelines specific to this mode (appears at the end of the system prompt)
 192 | 4.  **Create Mode:** Click the "Create Mode" button to save your new mode
-193 | 
+193 |
 194 | Note: File type restrictions can only be added through manual configuration.
-195 | 
+195 |
 196 | ### 3. Manual Configuration
-197 | 
+197 |
 198 | You can configure custom modes by editing JSON files through the Prompts tab:
-199 | 
+199 |
 200 | Both global and project-specific configurations can be edited through the Prompts tab:
-201 | 
+201 |
 202 | 1.  **Open Prompts Tab:** Click the <Codicon name="notebook" /> icon in the Roo Code top menu bar
 203 | 2.  **Access Settings Menu:** Click the <Codicon name="bracket" /> button to the right of the Modes heading
 204 | 3.  **Choose Configuration:**
@@ -3848,11 +3848,11 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
 206 |     * Select "Edit Project Modes" to edit `.roomodes` file (in project root)
 207 | 4.  **Edit Configuration:** Modify the JSON file that opens
 208 | 5.  **Save Changes:** Roo Code will automatically detect the changes
-209 | 
+209 |
 210 | ## Example Configurations
-211 | 
+211 |
 212 | Each example shows different aspects of mode configuration:
-213 | 
+213 |
 214 | ### Basic Documentation Writer
 215 | ```json
 216 | {
@@ -3868,7 +3868,7 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
 226 |   }]
 227 | }
 228 | ```
-229 | 
+229 |
 230 | ### Test Engineer with File Restrictions
 231 | ```json
 232 | {
@@ -3883,7 +3883,7 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
 241 |   }]
 242 | }
 243 | ```
-244 | 
+244 |
 245 | ### Project-Specific Mode Override
 246 | ```json
 247 | {
@@ -3900,27 +3900,27 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
 258 | }
 259 | ```
 260 | By following these instructions, you can create and manage custom modes to enhance your workflow with Roo-Code.
-261 | 
+261 |
 262 | ## Understanding Regex in Custom Modes
-263 | 
+263 |
 264 | Regex patterns in custom modes let you precisely control which files Roo can edit:
-265 | 
+265 |
 266 | ### Basic Syntax
-267 | 
+267 |
 268 | When you specify `fileRegex` in a custom mode, you're creating a pattern that file paths must match:
-269 | 
+269 |
 270 | ```json
 271 | ["edit", { "fileRegex": "\\.md$", "description": "Markdown files only" }]
 272 | ```
-273 | 
+273 |
 274 | ### Important Rules
-275 | 
+275 |
 276 | - **Double Backslashes:** In JSON, backslashes must be escaped with another backslash. So `\.md$` becomes `\\.md$`
 277 | - **Path Matching:** Patterns match against the full file path, not just the filename
 278 | - **Case Sensitivity:** Regex patterns are case-sensitive by default
-279 | 
+279 |
 280 | ### Common Pattern Examples
-281 | 
+281 |
 282 | | Pattern | Matches | Doesn't Match |
 283 | |---------|---------|---------------|
 284 | | `\\.md$` | `readme.md`, `docs/guide.md` | `script.js`, `readme.md.bak` |
@@ -3928,25 +3928,25 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
 286 | | `\\.(css\|scss)$` | `styles.css`, `theme.scss` | `styles.less`, `styles.css.map` |
 287 | | `docs/.*\\.md$` | `docs/guide.md`, `docs/api/reference.md` | `guide.md`, `src/docs/notes.md` |
 288 | | `^(?!.*(test\|spec)).*\\.js$` | `app.js`, `utils.js` | `app.test.js`, `utils.spec.js` |
-289 | 
+289 |
 290 | ### Pattern Building Blocks
-291 | 
+291 |
 292 | - `\\.` - Match a literal dot (period)
 293 | - `$` - Match the end of the string
 294 | - `^` - Match the beginning of the string
 295 | - `.*` - Match any character (except newline) zero or more times
 296 | - `(a|b)` - Match either "a" or "b"
 297 | - `(?!...)` - Negative lookahead (exclude matches)
-298 | 
+298 |
 299 | ### Testing Your Patterns
-300 | 
+300 |
 301 | Before applying a regex pattern to a custom mode:
-302 | 
+302 |
 303 | 1. Test it on sample file paths to ensure it matches what you expect
 304 | 2. Remember that in JSON, each backslash needs to be doubled (`\d` becomes `\\d`)
 305 | 3. Start with simpler patterns and build complexity gradually
-306 | 
-307 | 
+306 |
+307 |
 308 | :::tip
 309 | ### Let Roo Build Your Regex Patterns
 310 | Instead of writing complex regex patterns manually, you can ask Roo to create them for you! Simply describe which files you want to include or exclude:
@@ -3955,7 +3955,7 @@ Now, I will read the second document you referenced, `.docs/roo-code/custom-mode
 313 | ```
 314 | Roo will generate the appropriate pattern with proper escaping for JSON configuration.
 315 | :::
-316 | 
+316 |
 317 | ## Community Gallery
 318 | Ready to explore more? Check out the [Custom Modes Gallery](/community#custom-modes-gallery) to discover and share custom modes created by the community!
 </content>
@@ -4165,13 +4165,13 @@ Now I need to understand the existing build script to adapt it. I will read the 
   1 | const fs = require('fs');
   2 | const path = require('path');
   3 | const TOML = require('@iarna/toml');
-  4 | 
+  4 |
   5 | const modesSourceDir = path.join(__dirname, '..', '..', 'v7.1', 'modes');
   6 | const rulesTargetRootDir = path.join(__dirname, '..', '..', '.roo');
   7 | const roomodesFilePath = path.join(__dirname, '..', '..', '.roomodes');
-  8 | 
+  8 |
   9 | // --- Helper Functions ---
- 10 | 
+ 10 |
  11 | // Function to recursively find all .mode.md files
  12 | function findModeFiles(dir, fileList = []) {
  13 |     const files = fs.readdirSync(dir);
@@ -4186,22 +4186,22 @@ Now I need to understand the existing build script to adapt it. I will read the 
  22 |     });
  23 |     return fileList;
  24 | }
- 25 | 
+ 25 |
  26 | // Function to extract TOML frontmatter
  27 | function extractToml(content) {
  28 |     const match = content.match(/^\+\+\+([\s\S]*?)\+\+\+/);
  29 |     return match ? match[1] : null;
  30 | }
- 31 | 
+ 31 |
  32 | // Function to copy directory recursively (Node.js 16.7.0+)
  33 | function copyDirRecursive(src, dest) {
  34 |     fs.mkdirSync(dest, { recursive: true });
  35 |     const entries = fs.readdirSync(src, { withFileTypes: true });
- 36 | 
+ 36 |
  37 |     for (let entry of entries) {
  38 |         const srcPath = path.join(src, entry.name);
  39 |         const destPath = path.join(dest, entry.name);
- 40 | 
+ 40 |
  41 |         if (entry.isDirectory()) {
  42 |             copyDirRecursive(srcPath, destPath);
  43 |         } else {
@@ -4209,29 +4209,29 @@ Now I need to understand the existing build script to adapt it. I will read the 
  45 |         }
  46 |     }
  47 | }
- 48 | 
+ 48 |
  49 | // --- Main Build Logic ---
  50 | try {
  51 |     console.log(`Starting dev build process for v7.1 modes...`);
  52 |     console.log(`Source modes directory: ${modesSourceDir}`);
  53 |     console.log(`Target rules root directory: ${rulesTargetRootDir}`);
  54 |     console.log(`Target .roomodes file: ${roomodesFilePath}`);
- 55 | 
+ 55 |
  56 |     const modeFiles = findModeFiles(modesSourceDir);
  57 |     console.log(`\nFound ${modeFiles.length} potential mode files.`);
- 58 | 
+ 58 |
  59 |     const roomodesArray = [];
  60 |     let processedCount = 0;
  61 |     let errorCount = 0;
- 62 | 
+ 62 |
  63 |     modeFiles.forEach(filePath => {
  64 |         const modeFileName = path.basename(filePath);
  65 |         const modeDir = path.dirname(filePath);
  66 |         const modeId = modeFileName.replace('.mode.md', '');
  67 |         const targetRulesDir = path.join(rulesTargetRootDir, `rules-${modeId}`);
- 68 | 
+ 68 |
  69 |         console.log(`\nProcessing: ${modeFileName} (ID: ${modeId})`);
- 70 | 
+ 70 |
  71 |         try {
  72 |             // 1. Read and Parse TOML
  73 |             const content = fs.readFileSync(filePath, 'utf8');
@@ -4241,7 +4241,7 @@ Now I need to understand the existing build script to adapt it. I will read the 
  77 |                 return; // Skip this file
  78 |             }
  79 |             const data = TOML.parse(tomlString);
- 80 | 
+ 80 |
  81 |             // 2. Validate required fields for .roomodes
  82 |             if (!data.id || !data.name || !data.system_prompt) {
  83 |                 console.warn(`  WARN: Missing required fields (id, name, system_prompt) in TOML. Skipping.`);
@@ -4251,7 +4251,7 @@ Now I need to understand the existing build script to adapt it. I will read the 
  87 |                  console.warn(`  WARN: TOML id "${data.id}" does not match filename id "${modeId}". Skipping.`);
  88 |                  return; // Skip this file
  89 |             }
- 90 | 
+ 90 |
  91 |             // 3. Prepare .roomodes entry
  92 |             const roomodeEntry = {
  93 |                 slug: data.id,
@@ -4264,7 +4264,7 @@ Now I need to understand the existing build script to adapt it. I will read the 
 100 |             };
 101 |             roomodesArray.push(roomodeEntry);
 102 |             console.log(`  Added entry to .roomodes.`);
-103 | 
+103 |
 104 |             // 4. Handle .roo/rules-[id] directory
 105 |             console.log(`  Ensuring target rules directory: ${targetRulesDir}`);
 106 |             // Clean up existing directory
@@ -4275,7 +4275,7 @@ Now I need to understand the existing build script to adapt it. I will read the 
 111 |             // Create fresh directory
 112 |             fs.mkdirSync(targetRulesDir, { recursive: true });
 113 |             console.log(`    Created target directory.`);
-114 | 
+114 |
 115 |             // 5. Copy/Create subdirectories (context, custom-instructions, examples) - DISABLED
 116 |             // const subDirsToProcess = ['context', 'custom-instructions', 'examples'];
 117 |             // subDirsToProcess.forEach(subDir => {
@@ -4291,15 +4291,15 @@ Now I need to understand the existing build script to adapt it. I will read the 
 127 |             //         fs.mkdirSync(targetSubDirPath, { recursive: true });
 128 |             //     }
 129 |             // });
-130 | 
+130 |
 131 |             processedCount++; // Moved increment here as it was inside the loop before
-132 | 
+132 |
 133 |         } catch (err) {
 134 |             console.error(`  ERROR processing ${modeFileName}: ${err.message}`);
 135 |             errorCount++;
 136 |         }
 137 |     });
-138 | 
+138 |
 139 |     // 6. Write .roomodes file
 140 |     try {
 141 |         // Wrap the array in the desired object structure
@@ -4310,15 +4310,15 @@ Now I need to understand the existing build script to adapt it. I will read the 
 146 |         console.error(`\nFATAL ERROR writing ${roomodesFilePath}: ${writeErr.message}`);
 147 |         process.exit(1);
 148 |     }
-149 | 
+149 |
 150 |     console.log(`\nBuild process finished.`);
 151 |     console.log(`Successfully processed: ${processedCount} modes.`);
 152 |     console.log(`Skipped/Errors: ${modeFiles.length - processedCount}`);
-153 | 
+153 |
 154 |     if (errorCount > 0) {
 155 |         console.warn(`\nWARNING: Encountered ${errorCount} errors during processing. Check logs above.`);
 156 |     }
-157 | 
+157 |
 158 | } catch (error) {
 159 |     console.error(`\nFATAL ERROR during build process: ${error.message}`);
 160 |     process.exit(1);
@@ -5590,12 +5590,12 @@ I will now read this template to understand its structure before drafting the mi
   7 | updated_date = ""     # << YYYY-MM-DD >>
   8 | version = "1.0"       # << Workflow document version >>
   9 | tags = ["workflow", "sop"] # << Keywords >>
- 10 | 
+ 10 |
  11 | # --- Ownership & Context ---
  12 | owner = "Roo Commander" # Or relevant Lead Agent
  13 | related_docs = []     # << Paths/URLs to essential specs, guides, PAL doc >>
  14 | related_templates = [] # << Paths to data templates used/produced >>
- 15 | 
+ 15 |
  16 | # --- Workflow Specific Fields ---
  17 | objective = "" # << REQUIRED: Goal of this workflow >>
  18 | scope = ""     # << REQUIRED: Applicability and boundaries >>
@@ -5603,40 +5603,40 @@ I will now read this template to understand its structure before drafting the mi
  20 | trigger = ""   # << How is this workflow typically initiated? >>
  21 | success_criteria = [] # << Measurable conditions for successful completion >>
  22 | failure_criteria = [] # << Conditions indicating workflow failure >>
- 23 | 
+ 23 |
  24 | # --- Integration ---
  25 | acqa_applicable = true # Does the ACQA process apply to steps in this workflow?
  26 | pal_validated = false # Has this workflow been validated using PAL?
  27 | validation_notes = "" # Link to PAL validation records/notes
- 28 | 
+ 28 |
  29 | # --- AI Interaction Hints (Optional) ---
  30 | # context_type = "workflow_definition"
  31 | +++
- 32 | 
+ 32 |
  33 | # << WORKFLOW_TITLE >>
- 34 | 
+ 34 |
  35 | ## 1. Objective 🎯
  36 | *   << REQUIRED: Goal >>
- 37 | 
+ 37 |
  38 | ## 2. Scope ↔️
  39 | *   << REQUIRED: Applicability / Boundaries >>
- 40 | 
+ 40 |
  41 | ## 3. Roles & Responsibilities 👤
  42 | *   << REQUIRED: List roles from TOML and detail responsibilities *within this workflow* >>
- 43 | 
+ 43 |
  44 | ## 4. Preconditions🚦
  45 | *   What state/data/artifacts must exist before starting this workflow?
  46 | *   What context must the initiating agent (usually Coordinator) possess?
- 47 | 
+ 47 |
  48 | ## 5. Reference Documents & Tools 📚🛠️
  49 | *   List essential specifications, guides, rules (`.roo/rules/`).
  50 | *   List key tools expected to be used (`read_file`, `apply_diff`, `new_task`, specific MCP tools, etc.).
- 51 | 
+ 51 |
  52 | ## 6. Workflow Steps 🪜
- 53 | 
+ 53 |
  54 | *   Provide step-by-step details. Clearly distinguish between Coordinator actions and Delegated tasks. Use sub-numbering for clarity within steps.
  55 | *   **Example Structure for Steps:**
- 56 | 
+ 56 |
  57 |     *   **Step X: [Action Name] (Coordinator Task)**
  58 |         *   **Description:** What the Coordinator does in this step (e.g., analyze inputs, verify paths, prepare context).
  59 |         *   **Inputs:** Data/files needed by the Coordinator.
@@ -5644,7 +5644,7 @@ I will now read this template to understand its structure before drafting the mi
  61 |         *   **Outputs:** Information gathered or state prepared for the next step/delegation.
  62 |         *   **Error Handling:** How the Coordinator handles errors in this step.
  63 |         *   **Decision Point:** If [condition], go to Step Y, else go to Step Z.
- 64 | 
+ 64 |
  65 |     *   **Step Y: [Action Name] (Coordinator delegates to [Delegate Role])**
  66 |         *   **Description:** The overall goal of the delegated task.
  67 |         *   **Tool:** `new_task`
@@ -5659,9 +5659,9 @@ I will now read this template to understand its structure before drafting the mi
  76 |         *   **Coordinator Action (Post-Delegation):** What the Coordinator does upon receiving the delegate's response (e.g., Wait for confirmation, Handle errors reported by delegate, Analyze delegate output, Update Coordinator state, Proceed to next step).
  77 |         *   **Validation/QA:** Does ACQA apply to the delegate's output? If so, reference ACQA process execution here.
  78 |         *   **Error Handling:** How the Coordinator handles failure of the delegated task.
- 79 | 
+ 79 |
  80 | *   **Actual Workflow Steps:**
- 81 | 
+ 81 |
  82 |     *   **Step 1: [Action Name] (Responsible Role)**
  83 |     *   **Description:** Brief explanation of the step's purpose.
  84 |     *   **Inputs:** Specific data/files needed.
@@ -5671,22 +5671,22 @@ I will now read this template to understand its structure before drafting the mi
  88 |     *   **Validation/QA:** How is this step's output checked? Does ACQA apply? Refer to specific QA steps if applicable.
  89 |     *   **Error Handling:** Specific actions if this step fails (e.g., retry, log error, escalate to Coordinator, invoke Adaptive Failure Resolution).
  90 |     *   **Decision Point:** If [condition], go to Step Y, else go to Step Z.
- 91 | 
+ 91 |
  92 | ## 7. Postconditions ✅
  93 | *   What state/data/artifacts should exist after successful completion?
  94 | *   What constitutes successful completion (referencing `success_criteria`)?
- 95 | 
+ 95 |
  96 | ## 8. Error Handling & Escalation (Overall) ⚠️
  97 | *   General error handling principles for the workflow.
  98 | *   Overall escalation path if steps fail repeatedly or unexpected situations arise.
  99 | *   Reference the Adaptive Failure Resolution process (`.processes/afr-process.md`).
-100 | 
+100 |
 101 | ## 9. PAL Validation Record 🧪
 102 | *   Date Validated:
 103 | *   Method: (e.g., Conceptual Review, Simulation)
 104 | *   Test Case(s):
 105 | *   Findings/Refinements:
-106 | 
+106 |
 107 | ## 10. Revision History 📜
 108 | *   v1.0 (YYYY-MM-DD): Initial draft.
 </content>
@@ -6498,28 +6498,28 @@ Starting with the Automated Code Quality Assurance (ACQA) process.
 <file><path>.processes/acqa-process.md</path>
 <content lines="1-121">
   1 | # Process: Adaptive Confidence-based Quality Assurance (ACQA) v1.0
-  2 | 
+  2 |
   3 | **Date:** 2025-04-15
-  4 | 
+  4 |
   5 | **Authors:** Roo Commander, User (Jeremy), Gemini
-  6 | 
+  6 |
   7 | ---
-  8 | 
+  8 |
   9 | **1. Core Concept & Goals**
- 10 | 
+ 10 |
  11 | **Concept:** ACQA establishes a standard operational procedure where AI-generated artifacts (code, configuration, documentation) are assessed for potential risk (via an internal "Confidence Score"). This score, combined with a user-defined "Caution Level," dictates the level of automated Quality Assurance (QA) applied before the artifact is finalized or presented. This process applies recursively to delegated tasks within the Roo Code multi-agent system.
- 12 | 
+ 12 |
  13 | **Goals:**
  14 | *   **Improve Reliability:** Proactively catch errors, logical flaws, or specification deviations.
  15 | *   **Increase User Trust:** Provide transparency and configurable assurance levels.
  16 | *   **Manage Complexity:** Apply appropriate scrutiny based on task difficulty and assessed risk.
  17 | *   **Optimize Workflow:** Balance QA overhead with speed according to user preference.
  18 | *   **Standardize Process:** Create a consistent, teachable workflow for all participating agents.
- 19 | 
+ 19 |
  20 | **Analogy:** A dynamic, context-aware peer review system where the depth of review adapts based on the perceived risk of the work and the project's overall quality requirements.
- 21 | 
+ 21 |
  22 | **2. Core Components**
- 23 | 
+ 23 |
  24 | *   **Agent Roles (within ACQA):**
  25 |     *   **Roo Commander (Coordinator):**
  26 |         *   Receives user requests, performs initial assessment.
@@ -6545,18 +6545,18 @@ Starting with the Automated Code Quality Assurance (ACQA) process.
  46 |     *   **Tester Agent(s) (Optional/Advanced; e.g., `e2e-tester`, `integration-tester`):**
  47 |         *   Activated in low-confidence/high-caution scenarios.
  48 |         *   Focuses on identifying edge cases, suggesting test inputs/scenarios, potentially generating test stubs or using tools (`execute_command`) to run existing tests.
- 49 | 
+ 49 |
  50 | *   **Confidence Score:**
  51 |     *   **Nature:** Internal heuristic (Low, Medium, High) indicating estimated correctness/completeness risk. Generated by the Developer Agent.
  52 |     *   **Calculation Factors:** Task complexity/ambiguity/novelty, artifact length/complexity, error handling presence, risky patterns, dependencies touched, (optional) internal generation metrics.
- 53 | 
+ 53 |
  54 | *   **User Caution Level:**
  55 |     *   **Nature:** User-defined setting (`Minimal`, `Balanced`, `Thorough`) controlling QA overhead vs. speed.
  56 |     *   **Setting:**
  57 |         *   Default: `Balanced`.
  58 |         *   Configuration: Stored in a project configuration file (e.g., `.roo/project_config.toml`), potentially alongside user profile info (name, experience, preferred stack).
  59 |         *   Initial Setup: Commander can infer or ask during project onboarding.
- 60 | 
+ 60 |
  61 | *   **QA Actions (Triggered by Coordinator based on Confidence/Caution):**
  62 |     *   `None` (High Confidence / Minimal Caution)
  63 |     *   `Basic Linting/Formatting` (Potentially via `execute_command`)
@@ -6564,9 +6564,9 @@ Starting with the Automated Code Quality Assurance (ACQA) process.
  65 |     *   `Intensive AI Peer Review` (Reviewer Agent, Thorough Caution for Low Confidence)
  66 |     *   `Test Suggestion / Edge Case Analysis` (Tester Agent, Thorough Caution for Low Confidence)
  67 |     *   `Flag for Human Review` (Explicit message to user)
- 68 | 
+ 68 |
  69 | **3. The ACQA Workflow (Step-by-Step)**
- 70 | 
+ 70 |
  71 | 1.  **Request:** User -> Commander.
  72 | 2.  **Initial Assessment (Commander):** Analyze request, determine `User Caution Level` (from config).
  73 | 3.  **Task Assignment (Commander -> Developer):** Delegate task with prompt, context (files via `read_file`, specs), and `User Caution Level`.
@@ -6590,33 +6590,33 @@ Starting with the Automated Code Quality Assurance (ACQA) process.
  91 | 6.  **--- Finalization (Commander) ---**
  92 |     *   g. **Integrate & Finalize:** Once QA passed/skipped and revisions complete, finalize artifact.
  93 |     *   h. **Report to User:** Use `attempt_completion`. Present result, optionally summarizing confidence and QA steps (e.g., "Generated artifact with Medium confidence, reviewed against Spec X by AI.").
- 94 | 
+ 94 |
  95 | **4. Implementation Considerations**
- 96 | 
+ 96 |
  97 | *   **Confidence Scoring:** Develop as a core capability/prompt pattern for Developer Agents. Start simple, iterate.
  98 | *   **Agent Prompting:** Update base prompts for Commander, Developer, Reviewer, Tester roles to explicitly include ACQA responsibilities (self-assessment, context provision, structured feedback).
  99 | *   **Configuration:** Define `.roo/project_config.toml` schema for `User Caution Level` and other preferences. Implement reading this config.
 100 | *   **Context Passing:** Emphasize Commander's role in using `read_file` to fetch specs/context and passing them explicitly during QA delegation.
 101 | *   **Boomerang Tasks:** Leverage for efficient revision cycles.
 102 | *   **Transparency:** Design UI/reporting to clearly show ACQA status.
-103 | 
+103 |
 104 | **5. Benefits**
-105 | 
+105 |
 106 | *   Proactive, adaptive quality gate.
 107 | *   Balances speed and assurance via user control.
 108 | *   Improves reliability of complex, delegated tasks.
 109 | *   Formalizes context-aware review and critical feedback analysis.
 110 | *   Creates traceable QA record.
-111 | 
+111 |
 112 | **6. Next Steps (Conceptual)**
-113 | 
+113 |
 114 | 1.  Develop initial Confidence Scoring heuristics.
 115 | 2.  Define standard Reviewer Agent checks for `Balanced` caution.
 116 | 3.  Implement `User Caution Level` config reading.
 117 | 4.  Update core Agent prompts for ACQA roles.
 118 | 5.  Integrate basic ACQA loop (Confidence/Caution check -> QA Delegation with Context -> Feedback Analysis -> Revision Loop) into Commander logic.
 119 | 6.  Test and iterate.
-120 | 
+120 |
 121 | This refined ACQA proposal provides a robust framework for enhancing quality and reliability within the Roo Code multi-agent system.
 </content>
 </file>
@@ -6823,26 +6823,26 @@ I need to understand the other standard processes before revising the workflow. 
 <file><path>.processes/afr-process.md</path>
 <content lines="1-77">
  1 | # Process: Adaptive Failure Resolution (AFR) v1.0
- 2 | 
+ 2 |
  3 | **Date:** 2025-04-16
  4 | **Status:** Active
  5 | **Related Documents:** `.processes/acqa-process.md` (ACQA)
- 6 | 
+ 6 |
  7 | ---
- 8 | 
+ 8 |
  9 | **1. Objective:**
-10 | 
+10 |
 11 | To define a structured process for identifying, analyzing, and resolving **recurring failures or specification deviations** detected during the Quality Assurance (QA) phase of delegated tasks, particularly within the ACQA framework. This aims to move beyond repeatedly fixing symptoms and address potential root causes in agent capabilities, instructions, specifications, or SOPs.
-12 | 
+12 |
 13 | **2. Trigger:**
-14 | 
+14 |
 15 | This process is triggered by the **Coordinator** (e.g., Roo Commander) during the "Critically Analyze Feedback & Detect Patterns" step (ACQA Workflow Step 5.e) when:
-16 | 
+16 |
 17 | *   The *same type* of error or deviation from specification is identified by QA agents across multiple, independent task executions (e.g., > 2-3 times recently).
 18 | *   Examples: Consistent failure to use correct TOML format, repeated misinterpretation of a specific schema field, incorrect path formatting, failure to handle a specific edge case mentioned in instructions.
-19 | 
+19 |
 20 | **3. Process Steps:**
-21 | 
+21 |
 22 | 1.  **Identify & Log Pattern (Coordinator):**
 23 |     *   Recognize the recurring nature of a specific QA finding.
 24 |     *   Log the pattern, noting:
@@ -6850,10 +6850,10 @@ I need to understand the other standard processes before revising the workflow. 
 26 |         *   The tasks/modes affected.
 27 |         *   The relevant specification(s) or SOP step(s) being violated.
 28 |         *   Frequency/context of recurrence.
-29 | 
+29 |
 30 | 2.  **Pause Symptom Fixes (Coordinator):**
 31 |     *   Temporarily halt initiating further revision tasks (`new_task` or Boomerang) aimed *solely* at fixing the specific recurring error in new instances. (Other unrelated fixes can proceed).
-32 | 
+32 |
 33 | 3.  **Hypothesize Root Cause(s) (Coordinator):**
 34 |     *   Analyze the pattern and context. Potential root causes include:
 35 |         *   **Agent Capability/Instructions:** The delegate agent (e.g., `mode-maintainer`) lacks the necessary knowledge or explicit instruction in its core definition or custom instructions.
@@ -6861,7 +6861,7 @@ I need to understand the other standard processes before revising the workflow. 
 37 |         *   **SOP Flaw:** The SOP guiding the task execution or delegation is missing steps, providing insufficient context, or making incorrect assumptions.
 38 |         *   **Delegation Error:** The Coordinator's delegation message consistently lacks critical context or instruction, despite the SOP.
 39 |         *   **Tooling Issue:** (Less likely for format errors, but possible) A tool used in the process is introducing errors.
-40 | 
+40 |
 41 | 4.  **Initiate Meta-Review & Analysis (Coordinator):**
 42 |     *   **Action:** Escalate the identified pattern and hypothesized root cause(s) to the **User**.
 43 |     *   **Proposal:** Recommend a specific meta-review action based on the hypothesis:
@@ -6870,31 +6870,31 @@ I need to understand the other standard processes before revising the workflow. 
 46 |         *   *If SOP Flaw suspected:* Propose applying the Process Assurance Lifecycle (PAL) simulation to the relevant SOP section.
 47 |         *   *If Delegation Error suspected:* Propose reviewing the Coordinator's own delegation logic/templates.
 48 |     *   **Tool:** Use `ask_followup_question` to present the findings and proposed meta-review action(s) to the user for guidance/approval.
-49 | 
+49 |
 50 | 5.  **Execute Meta-Review (Delegated or Coordinated):**
 51 |     *   Based on user direction, execute the chosen meta-review action (e.g., delegate spec review to `technical-writer`, enhance agent definition, simulate SOP).
-52 | 
+52 |
 53 | 6.  **Implement Process/Agent Improvement:**
 54 |     *   Based on the meta-review findings, implement the necessary changes:
 55 |         *   Update agent definitions/instructions.
 56 |         *   Update specifications or rules.
 57 |         *   Update SOPs.
 58 |         *   Refine Coordinator delegation templates/logic.
-59 | 
+59 |
 60 | 7.  **Validate Improvement (Optional but Recommended):**
 61 |     *   Re-run a relevant test case (e.g., re-migrate a problematic mode) using the updated process/agent to confirm the recurring error is resolved. Apply ACQA.
-62 | 
+62 |
 63 | 8.  **Resume Normal Operations:**
 64 |     *   Remove the pause on fixing the specific error type.
 65 |     *   Continue processing tasks using the improved process/agents/specs.
-66 | 
+66 |
 67 | **4. Integration with ACQA:**
-68 | 
+68 |
 69 | *   AFR is triggered within ACQA's Step 5.e (Analyze Feedback).
 70 | *   It acts as an escalation path when simple revision cycles (ACQA Step 5.f) are insufficient due to recurring systemic issues.
-71 | 
+71 |
 72 | **5. Benefits:**
-73 | 
+73 |
 74 | *   Prevents wasted effort fixing recurring symptoms.
 75 | *   Drives improvement of underlying processes, specifications, and agent capabilities.
 76 | *   Leverages pattern detection for systemic quality control.
@@ -7104,50 +7104,50 @@ I have read the ACQA and AFR process documents. Now, I will read the Project Ass
 <file><path>.processes/pal-process.md</path>
 <content lines="1-84">
  1 | # Process: Process Assurance Lifecycle (PAL) v1.0
- 2 | 
+ 2 |
  3 | **Date:** 2025-04-16
- 4 | 
+ 4 |
  5 | **Authors:** Roo Commander, User (Jeremy)
- 6 | 
+ 6 |
  7 | **Status:** Active
- 8 | 
+ 8 |
  9 | ---
-10 | 
+10 |
 11 | **1. Goal & Scope**
-12 | 
+12 |
 13 | *   **Goal:** To establish a standard, iterative process for creating, validating, and maintaining clear, correct, robust, and effective Standard Operating Procedures (SOPs) or Workflow documents governing multi-agent activities within the Roo Code system.
 14 | *   **Scope:** This lifecycle applies to the creation of new SOPs/Workflows and significant revisions of existing ones, particularly those involving delegation, context management, and quality assurance steps like ACQA.
-15 | 
+15 |
 16 | **2. Core Principles**
-17 | 
+17 |
 18 | *   **Iteration:** SOPs/Workflows are developed through cycles of drafting, review, simulation, and refinement.
 19 | *   **Simulation:** Virtual test runs are used to proactively identify flaws before real-world execution.
 20 | *   **Clarity:** Documents must use unambiguous language and clearly define steps, roles, inputs, and outputs.
 21 | *   **Fault Tolerance:** Documents should anticipate potential failure points and include error handling or escalation paths.
 22 | *   **Context Awareness:** Documents must ensure necessary context (specifications, data, user intent) is available or explicitly passed at each relevant step, especially during delegation.
-23 | 
+23 |
 24 | **3. Agent Roles (within PAL)**
-25 | 
+25 |
 26 | *   **Author/Owner:** The agent primarily responsible for drafting and maintaining the SOP/Workflow (often Roo Commander or a lead specialist).
 27 | *   **Conceptual Reviewer:** An agent tasked with reviewing the draft for clarity, logic, and completeness (e.g., `technical-writer`, `second-opinion`).
 28 | *   **Simulator:** The agent performing the virtual test run (usually the Author/Owner).
 29 | *   **User:** Provides final approval and guidance on requirements.
-30 | 
+30 |
 31 | **4. The PAL Workflow**
-32 | 
+32 |
 33 | *   **Phase 1: Drafting**
 34 |     1.  **Define Objective & Scope:** Clearly state what process the SOP/Workflow covers and its intended outcome.
 35 |     2.  **Identify Actors & Roles:** List the primary agents involved and their responsibilities.
 36 |     3.  **Select Template:** Choose the appropriate template (`.templates/toml-md/15_sop.md` for simple processes, `.templates/workflows/00_workflow_boilerplate.md` for complex workflows).
 37 |     4.  **Outline Steps:** Draft the initial sequence of actions using the chosen template, including inputs, tools, decision points, outputs, and basic error handling.
 38 |     5.  **Store Draft:** Save the initial version in `.planning/` (e.g., `draft-my-process.md`).
-39 | 
+39 |
 40 | *   **Phase 2: Conceptual Review**
 41 |     1.  **Delegate Review:** Author delegates a review task (`new_task`) to a Conceptual Reviewer. Provide the draft path and objectives.
 42 |     2.  **Perform Review:** Reviewer analyzes the draft for clarity, logic, completeness, consistency, and potential contradictions.
 43 |     3.  **Provide Feedback:** Reviewer provides structured feedback.
 44 |     4.  **Incorporate Feedback:** Author updates the draft SOP/Workflow based on the review.
-45 | 
+45 |
 46 | *   **Phase 3: Simulated Execution (Virtual Test Run)**
 47 |     1.  **Select Test Case:** Simulator chooses a realistic scenario the SOP/Workflow should handle.
 48 |     2.  **Walk Through:** Simulator follows the steps sequentially for the test case.
@@ -7156,15 +7156,15 @@ I have read the ACQA and AFR process documents. Now, I will read the Project Ass
 51 |         *   Follow logic for decision points based on simulated conditions.
 52 |         *   For delegation steps (`new_task`): Formulate the message, critically assess if it includes *all necessary context*, and anticipate potential delegate failures/questions. Check if the SOP/Workflow handles these.
 53 |     4.  **Identify Gaps:** Document findings: ambiguities, missing steps, unhandled errors, insufficient context, incorrect assumptions, logical flaws.
-54 | 
+54 |
 55 | *   **Phase 4: Refinement**
 56 |     1.  **Update Draft:** Author revises the draft based on simulation findings.
 57 |     2.  **Iterate:** Repeat Phase 2 (Review) and/or Phase 3 (Simulation) if refinements are significant, until confident.
-58 | 
+58 |
 59 | *   **Phase 5: Integration Checks**
 60 |     1.  **Cross-Reference:** Ensure alignment with related processes (e.g., ACQA) and specifications.
 61 |     2.  **Verify Paths:** Double-check all document paths referenced are correct.
-62 | 
+62 |
 63 | *   **Phase 6: Finalization & Deployment**
 64 |     1.  **User Approval:** Present the refined SOP/Workflow to the user for final review and approval via `ask_followup_question`.
 65 |     2.  **Determine Final Location:** Based on the document type (SOP vs. Workflow) and content, confirm the correct final directory (e.g., `.processes/`, `.workflows/`, `.docs/standards/`).
@@ -7174,16 +7174,16 @@ I have read the ACQA and AFR process documents. Now, I will read the Project Ass
 69 |     4.  **Cleanup Draft:** Use `execute_command rm` to delete the draft version from `.planning/`.
 70 |     5.  **Update Related Docs:** Ensure any documents referencing the SOP/Workflow are updated with the new path if necessary.
 71 |     6.  **Internal Knowledge:** (Future) Update internal knowledge base for relevant agents about the new/updated SOP/Workflow.
-72 | 
+72 |
 73 | **5. Benefits**
-74 | 
+74 |
 75 | *   Reduces errors caused by flawed or ambiguous SOPs/Workflows.
 76 | *   Improves reliability by ensuring context is considered during delegation.
 77 | *   Builds more robust and fault-tolerant multi-agent workflows.
 78 | *   Provides a structured way to iteratively improve operational procedures.
-79 | 
+79 |
 80 | **6. Next Steps**
-81 | 
+81 |
 82 | *   Adopt PAL as the standard method for developing/refining SOPs/Workflows.
 83 | *   Apply PAL retrospectively to the Mode Creation SOP v2 draft.
 84 | *   Utilize PAL for developing future SOPs/Workflows.
@@ -7402,12 +7402,12 @@ First, I need to read the current content of the workflow file.
   7 | updated_date = "2025-04-18"
   8 | version = "1.0"
   9 | tags = ["workflow", "sop", "modes", "migration", "v7.1", "v7.2", "refactoring"]
- 10 | 
+ 10 |
  11 | # --- Ownership & Context ---
  12 | owner = "Roo Commander"
  13 | related_docs = [".decisions/ADR-001_mode_source_reorganisation.md", ".docs/roo-code/custom-modes.md", ".docs/roo-code/custom-instructions.md"]
  14 | related_templates = [".templates/toml-md/16_ai_rule.md"] # For the KB lookup rule
- 15 | 
+ 15 |
  16 | # --- Workflow Specific Fields ---
  17 | objective = "To manually migrate a single mode definition from the v7.1 directory structure to the new v7.2 structure, applying updated naming conventions, separating knowledge base (KB) content, creating mode-specific rules, and updating the v7.2 manifest."
  18 | scope = "This workflow applies to each individual mode located within the `v7.1/modes/` directory structure. It covers file copying, renaming, content modification (TOML ID), directory creation, and manifest updating. It assumes the naming prefixes and logic are defined (as per ADR-001)."
@@ -7426,73 +7426,73 @@ First, I need to read the current content of the workflow file.
  31 |   "KB content is missing or incomplete.",
  32 |   "Manifest file (`v7.2/manifest.toml`) is not updated or contains incorrect information for the mode."
  33 | ]
- 34 | 
+ 34 |
  35 | # --- Integration ---
  36 | acqa_applicable = false # Primarily file manipulation, ACQA less relevant here. Manual verification is key.
  37 | pal_validated = false
  38 | validation_notes = ""
- 39 | 
+ 39 |
  40 | # --- AI Interaction Hints (Optional) ---
  41 | # context_type = "workflow_definition"
  42 | +++
- 43 | 
+ 43 |
  44 | # Workflow: Migrate Mode from v7.1 to v7.2 Structure
- 45 | 
+ 45 |
  46 | ## 1. Objective 🎯
  47 | *   To manually migrate a single mode definition from the v7.1 directory structure to the new v7.2 structure, applying updated naming conventions, separating knowledge base (KB) content, creating mode-specific rules, and updating the v7.2 manifest.
- 48 | 
+ 48 |
  49 | ## 2. Scope ↔️
  50 | *   This workflow applies to each individual mode located within the `v7.1/modes/` directory structure.
  51 | *   It covers file copying, renaming, content modification (TOML ID), directory creation, and manifest updating.
  52 | *   It assumes the naming prefixes and logic are defined (as per ADR-001).
- 53 | 
+ 53 |
  54 | ## 3. Roles & Responsibilities 👤
  55 | *   **Roo Commander (or designated Migration Agent):** Responsible for executing all steps of this workflow accurately for each mode being migrated.
- 56 | 
+ 56 |
  57 | ## 4. Preconditions🚦
  58 | *   The v7.1 mode definition file (`v7.1/modes/.../<old-slug>.mode.md`) exists.
  59 | *   `ADR-001_mode_source_reorganisation.md` is approved or accepted as the guiding document.
  60 | *   The logic for determining new slugs and prefixes is defined and understood (can be derived from the `getNewSlugAndPrefix` function in the previously created script `.dev_tools/v7.2/build_dev_v7.2.js`).
  61 | *   The target root directories (`v7.2/` and `.roo/rules/`) exist.
  62 | *   The manifest file `v7.2/manifest.toml` exists (or will be created during the first mode migration).
- 63 | 
+ 63 |
  64 | ## 5. Reference Documents & Tools 📚🛠️
  65 | *   `.decisions/ADR-001_mode_source_reorganisation.md`
  66 | *   `.docs/roo-code/custom-modes.md`
  67 | *   `.docs/roo-code/custom-instructions.md`
  68 | *   Logic within `.dev_tools/v7.2/build_dev_v7.2.js` (specifically `getNewSlugAndPrefix` function) for naming conventions.
  69 | *   **Tools:** `list_files`, `read_file`, `write_to_file`, `apply_diff` (optional, for manifest update).
- 70 | 
+ 70 |
  71 | ## 6. Workflow Steps 🪜
- 72 | 
+ 72 |
  73 | *   **Step 1: Select Mode & Identify Paths (Coordinator Task)**
  74 |     *   **Description:** Choose the next v7.1 mode to migrate. Identify its source `.mode.md` file path and the path to its `custom-instructions` directory (if it exists).
  75 |     *   **Inputs:** Knowledge of which modes in `v7.1/modes/` need migration.
  76 |     *   **Procedure:** Use `list_files` on `v7.1/modes/` (recursively if needed) to locate the mode. Note the full path to `<old-slug>.mode.md` and `custom-instructions/`.
  77 |     *   **Outputs:** `source_mode_file_path`, `source_ci_dir_path` (can be null).
  78 |     *   **Error Handling:** If source file not found, stop workflow for this mode and log error.
- 79 | 
+ 79 |
  80 | *   **Step 2: Read Source Mode Definition (Coordinator Task)**
  81 |     *   **Description:** Read the content of the source `.mode.md` file.
  82 |     *   **Inputs:** `source_mode_file_path`.
  83 |     *   **Procedure:** Use `read_file` tool.
  84 |     *   **Outputs:** `source_mode_content`.
  85 |     *   **Error Handling:** If read fails, stop workflow for this mode and log error.
- 86 | 
+ 86 |
  87 | *   **Step 3: Extract TOML & Validate (Coordinator Task)**
  88 |     *   **Description:** Extract the TOML frontmatter from the source content and validate required fields (`id`, `name`, `system_prompt`). Verify `id` matches the old slug derived from the filename.
  89 |     *   **Inputs:** `source_mode_content`.
  90 |     *   **Procedure:** Parse TOML (internal logic). Check for required fields. Compare `id` with filename slug.
  91 |     *   **Outputs:** Parsed `toml_data`, `old_slug`.
  92 |     *   **Error Handling:** If TOML is missing, invalid, or validation fails, stop workflow for this mode and log error.
- 93 | 
+ 93 |
  94 | *   **Step 4: Determine New Slug & Paths (Coordinator Task)**
  95 |     *   **Description:** Apply the defined naming logic (based on source path and old slug) to determine the `new_slug` and `prefix`. Define all target paths.
  96 |     *   **Inputs:** `source_mode_file_path`, `old_slug`.
  97 |     *   **Procedure:** Apply naming logic (referencing `getNewSlugAndPrefix` concept). Construct target paths: `target_v72_mode_dir`, `target_mode_file_path`, `target_kb_dir`, `target_rules_dir`, `target_kb_rule_file`.
  98 |     *   **Outputs:** `new_slug`, `prefix`, all target paths.
  99 |     *   **Error Handling:** If new slug cannot be determined, stop workflow for this mode and log error.
-100 | 
+100 |
 101 | *   **Step 5: Create Target Directories (Coordinator Task)**
 102 |     *   **Description:** Create the necessary target directories for the mode in `v7.2/` and `.roo/rules/`.
 103 |     *   **Inputs:** `target_v72_mode_dir`, `target_kb_dir`, `target_rules_dir`.
@@ -7502,7 +7502,7 @@ First, I need to read the current content of the workflow file.
 107 |         *   `write_to_file` path=`${target_rules_dir}/.placeholder` content="" line_count=0
 108 |     *   **Outputs:** Confirmation of directory creation (implicit via tool success).
 109 |     *   **Error Handling:** If directory creation fails, stop workflow and log error.
-110 | 
+110 |
 111 | *   **Step 6: Copy & Modify Mode Definition (Coordinator Task)**
 112 |     *   **Description:** Copy the source mode content to the new location, renaming the file and updating the `id` field within the TOML frontmatter.
 113 |     *   **Inputs:** `source_mode_content`, `old_slug`, `new_slug`, `target_mode_file_path`.
@@ -7511,7 +7511,7 @@ First, I need to read the current content of the workflow file.
 116 |         2.  Use `write_to_file` with the modified content and `target_mode_file_path`.
 117 |     *   **Outputs:** New mode definition file created at `target_mode_file_path`.
 118 |     *   **Error Handling:** If write fails, stop workflow and log error. Verify the `id` was actually changed by reading the new file back.
-119 | 
+119 |
 120 | *   **Step 7: Migrate KB Content (Coordinator Task)**
 121 |     *   **Description:** Copy all files and subdirectories from the source `custom-instructions` directory (if it exists) to the target `kb` directory.
 122 |     *   **Inputs:** `source_ci_dir_path`, `target_kb_dir`.
@@ -7525,7 +7525,7 @@ First, I need to read the current content of the workflow file.
 130 |         4.  If `source_ci_dir_path` does not exist, skip this step.
 131 |     *   **Outputs:** KB content replicated in `target_kb_dir`.
 132 |     *   **Error Handling:** Log errors if reading or writing individual KB files fails, but attempt to continue with other files.
-133 | 
+133 |
 134 | *   **Step 8: Create KB Lookup Rule (Coordinator Task)**
 135 |     *   **Description:** Create the standard KB lookup rule file within the mode's specific rules directory.
 136 |     *   **Inputs:** `target_kb_rule_file`, `new_slug`.
@@ -7534,7 +7534,7 @@ First, I need to read the current content of the workflow file.
 139 |         2.  Use `write_to_file` to create `target_kb_rule_file` with the prepared content.
 140 |     *   **Outputs:** KB lookup rule file created.
 141 |     *   **Error Handling:** If write fails, stop workflow and log error.
-142 | 
+142 |
 143 | *   **Step 9: Update Manifest File (Coordinator Task)**
 144 |     *   **Description:** Add or update the entry for the migrated mode in `v7.2/manifest.toml`.
 145 |     *   **Inputs:** `new_slug`, `prefix`, `toml_data.name`, `toml_data.system_prompt`, `source_mode_file_path`, `target_mode_file_path`, `target_rules_dir`, `toml_data.tags` (optional).
@@ -7546,7 +7546,7 @@ First, I need to read the current content of the workflow file.
 151 |         5.  Use `write_to_file` to save the updated content back to `v7.2/manifest.toml`.
 152 |     *   **Outputs:** Updated `v7.2/manifest.toml`.
 153 |     *   **Error Handling:** If reading, parsing, stringifying, or writing the manifest fails, stop workflow and log error. Consider backup/restore mechanisms for the manifest.
-154 | 
+154 |
 155 | *   **Step 10: Verification (Coordinator Task)**
 156 |     *   **Description:** Perform basic checks to verify the migration steps were successful.
 157 |     *   **Inputs:** All target paths, `new_slug`.
@@ -7556,26 +7556,26 @@ First, I need to read the current content of the workflow file.
 161 |         *   Use `read_file` on `v7.2/manifest.toml` and verify the entry for `new_slug` exists and is correct.
 162 |     *   **Outputs:** Confirmation of successful migration for this mode or list of verification failures.
 163 |     *   **Error Handling:** Log any verification failures. Manual intervention may be required.
-164 | 
+164 |
 165 | ## 7. Postconditions ✅
 166 | *   The migrated mode exists in the `v7.2/` directory with the new naming convention and structure.
 167 | *   The mode's KB content is located in `v7.2/<new-slug>/kb/`.
 168 | *   The mode definition file (`.mode.md`) has its internal TOML `id` updated to `new_slug`.
 169 | *   The mode-specific rules directory (`.roo/rules/<new-slug>/`) exists and contains the KB lookup rule.
 170 | *   The `v7.2/manifest.toml` file accurately reflects the migrated mode's details.
-171 | 
+171 |
 172 | ## 8. Error Handling & Escalation (Overall) ⚠️
 173 | *   Log all errors encountered during the process for a specific mode.
 174 | *   If a critical step (e.g., creating directories, writing core files, updating manifest) fails, stop the workflow for that specific mode and report the failure.
 175 | *   Minor errors (e.g., failure to copy one KB file) should be logged, but the workflow may attempt to continue for the rest of the mode's migration, reporting the partial success/failure at the end.
 176 | *   Persistent or critical failures should be escalated to the user for manual investigation.
-177 | 
+177 |
 178 | ## 9. PAL Validation Record 🧪
 179 | *   Date Validated: (Not yet validated)
 180 | *   Method:
 181 | *   Test Case(s):
 182 | *   Findings/Refinements:
-183 | 
+183 |
 184 | ## 10. Revision History 📜
 185 | *   v1.0 (2025-04-18): Initial draft.
 </content>
@@ -8453,7 +8453,7 @@ I will now read the current workflow file again to apply these revisions.
   7 | updated_date = "2025-04-18" # Date updated
   8 | version = "1.1" # Version incremented
   9 | tags = ["workflow", "sop", "modes", "migration", "v7.1", "v7.2", "refactoring", "delegation"]
- 10 | 
+ 10 |
  11 | # --- Ownership & Context ---
  12 | owner = "Roo Commander"
  13 | related_docs = [
@@ -8465,7 +8465,7 @@ I will now read the current workflow file again to apply these revisions.
  19 |   ".processes/pal-process.md"  # Added
  20 | ]
  21 | related_templates = [".templates/toml-md/16_ai_rule.md"] # For the KB lookup rule
- 22 | 
+ 22 |
  23 | # --- Workflow Specific Fields ---
  24 | objective = "To migrate a single mode definition from the v7.1 directory structure to the new v7.2 structure, applying updated naming conventions, separating knowledge base (KB) content, creating mode-specific rules, and updating the v7.2 manifest, utilizing delegation for file operations and verification." # Revised objective
  25 | scope = "This workflow applies to each individual mode located within the `v7.1/modes/` directory structure. It covers identifying source files, determining new structure/naming, delegating file creation/modification/copying tasks, delegating verification, and updating the central manifest. It assumes the naming prefixes and logic are defined (as per ADR-001)." # Revised scope
@@ -8490,31 +8490,31 @@ I will now read the current workflow file again to apply these revisions.
  44 |   "Manifest file (`v7.2/manifest.toml`) is not updated or contains incorrect information for the mode.",
  45 |   "Verification Agent reports failures." # Added verification failure
  46 | ]
- 47 | 
+ 47 |
  48 | # --- Integration ---
  49 | acqa_applicable = true # Verification step aligns with ACQA principles.
  50 | pal_validated = false # This workflow itself needs PAL validation.
  51 | validation_notes = ""
- 52 | 
+ 52 |
  53 | # --- AI Interaction Hints (Optional) ---
  54 | # context_type = "workflow_definition"
  55 | +++
- 56 | 
+ 56 |
  57 | # Workflow: Migrate Mode from v7.1 to v7.2 Structure (v1.1)
- 58 | 
+ 58 |
  59 | ## 1. Objective 🎯
  60 | *   To migrate a single mode definition from the v7.1 directory structure to the new v7.2 structure, applying updated naming conventions, separating knowledge base (KB) content, creating mode-specific rules, and updating the v7.2 manifest, utilizing delegation for file operations and verification.
- 61 | 
+ 61 |
  62 | ## 2. Scope ↔️
  63 | *   This workflow applies to each individual mode located within the `v7.1/modes/` directory structure.
  64 | *   It covers identifying source files, determining new structure/naming, delegating file creation/modification/copying tasks, delegating verification, and updating the central manifest.
  65 | *   It assumes the naming prefixes and logic are defined (as per ADR-001).
- 66 | 
+ 66 |
  67 | ## 3. Roles & Responsibilities 👤
  68 | *   **Coordinator (Roo Commander):** Orchestrates the workflow, selects modes, gathers initial info, determines naming/paths, delegates tasks, handles manifest updates, manages errors, and reports final status.
  69 | *   **Worker Agent (e.g., `mode-maintainer`):** Executes delegated tasks involving file/directory creation, copying, and modification using tools like `write_to_file`, `read_file`, `list_files`. Reports success or failure.
  70 | *   **Verification Agent (e.g., `code-reviewer`):** Executes delegated verification tasks using tools like `read_file`, `list_files` to check if the migration steps were performed correctly. Reports findings.
- 71 | 
+ 71 |
  72 | ## 4. Preconditions🚦
  73 | *   The v7.1 mode definition file (`v7.1/modes/.../<old-slug>.mode.md`) exists.
  74 | *   `ADR-001_mode_source_reorganisation.md` is approved or accepted.
@@ -8522,7 +8522,7 @@ I will now read the current workflow file again to apply these revisions.
  76 | *   Target root directories (`v7.2/` and `.roo/rules/`) exist.
  77 | *   Manifest file `v7.2/manifest.toml` exists (or will be created/handled in Step 9).
  78 | *   Appropriate Worker and Verification agents are available.
- 79 | 
+ 79 |
  80 | ## 5. Reference Documents & Tools 📚🛠️
  81 | *   `.decisions/ADR-001_mode_source_reorganisation.md`
  82 | *   `.docs/roo-code/custom-modes.md`
@@ -8534,37 +8534,37 @@ I will now read the current workflow file again to apply these revisions.
  88 | *   **Coordinator Tools:** `list_files`, `read_file`, `new_task`, `write_to_file` (for manifest), `apply_diff` (optional for manifest).
  89 | *   **Worker Agent Tools:** `write_to_file`, `read_file`, `list_files`.
  90 | *   **Verification Agent Tools:** `read_file`, `list_files`.
- 91 | 
+ 91 |
  92 | ## 6. Workflow Steps 🪜
- 93 | 
+ 93 |
  94 | *   **Step 1: Select Mode & Identify Paths (Coordinator Task)**
  95 |     *   **Description:** Choose the next v7.1 mode to migrate. Identify its source `.mode.md` file path and the path to its `custom-instructions` directory (if it exists).
  96 |     *   **Inputs:** List of modes in `v7.1/modes/` needing migration.
  97 |     *   **Procedure:** Use `list_files` on `v7.1/modes/` (recursively) to locate the mode. Note the full path to `<old-slug>.mode.md` and `custom-instructions/`.
  98 |     *   **Outputs:** `source_mode_file_path`, `source_ci_dir_path` (can be null).
  99 |     *   **Error Handling:** If source file not found, stop workflow for this mode and log error.
-100 | 
+100 |
 101 | *   **Step 2: Read Source Mode Definition (Coordinator Task)**
 102 |     *   **Description:** Read the content of the source `.mode.md` file.
 103 |     *   **Inputs:** `source_mode_file_path`.
 104 |     *   **Procedure:** Use `read_file` tool.
 105 |     *   **Outputs:** `source_mode_content`.
 106 |     *   **Error Handling:** If read fails, stop workflow for this mode and log error.
-107 | 
+107 |
 108 | *   **Step 3: Extract TOML & Validate (Coordinator Task)**
 109 |     *   **Description:** Extract the TOML frontmatter from the source content and validate required fields (`id`, `name`, `system_prompt`). Verify `id` matches the old slug derived from the filename.
 110 |     *   **Inputs:** `source_mode_content`.
 111 |     *   **Procedure:** Parse TOML (internal logic). Check for required fields. Compare `id` with filename slug.
 112 |     *   **Outputs:** Parsed `toml_data`, `old_slug`.
 113 |     *   **Error Handling:** If TOML is missing, invalid, or validation fails, stop workflow for this mode and log error.
-114 | 
+114 |
 115 | *   **Step 4: Determine New Slug & Paths (Coordinator Task)**
 116 |     *   **Description:** Apply the defined naming logic (based on source path and old slug) to determine the `new_slug` and `prefix`. Define all target paths.
 117 |     *   **Inputs:** `source_mode_file_path`, `old_slug`.
 118 |     *   **Procedure:** Apply naming logic (referencing `getNewSlugAndPrefix` concept). Construct target paths: `target_v72_mode_dir`, `target_mode_file_path`, `target_kb_dir`, `target_rules_dir`, `target_kb_rule_file`.
 119 |     *   **Outputs:** `new_slug`, `prefix`, all target paths.
 120 |     *   **Error Handling:** If new slug cannot be determined or is invalid, stop workflow for this mode and log error.
-121 | 
+121 |
 122 | *   **Step 5: Delegate Directory Creation (Coordinator delegates to Worker Agent)**
 123 |     *   **Description:** Ensure the necessary target directories for the mode exist in `v7.2/` and `.roo/rules/`.
 124 |     *   **Tool:** `new_task`
@@ -8578,7 +8578,7 @@ I will now read the current workflow file again to apply these revisions.
 132 |     *   **Expected Output from Delegate:** Confirmation of success or list of errors.
 133 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. If errors, stop workflow and log. If successful, proceed to Step 6.
 134 |     *   **Error Handling:** Coordinator logs errors reported by delegate. May trigger AFR if this step fails repeatedly across modes.
-135 | 
+135 |
 136 | *   **Step 6: Delegate Mode Definition Migration (Coordinator delegates to Worker Agent)**
 137 |     *   **Description:** Copy the source mode content to the new location, renaming the file and updating the `id` field within the TOML frontmatter.
 138 |     *   **Tool:** `new_task`
@@ -8591,7 +8591,7 @@ I will now read the current workflow file again to apply these revisions.
 145 |     *   **Expected Output from Delegate:** Confirmation of success or list of errors.
 146 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. If errors, stop workflow and log. If successful, proceed to Step 7.
 147 |     *   **Error Handling:** Coordinator logs errors. Failure here is critical. May trigger AFR.
-148 | 
+148 |
 149 | *   **Step 7: Delegate KB Content Migration (Coordinator delegates to Worker Agent)**
 150 |     *   **Description:** Copy all files and subdirectories from the source `custom-instructions` directory (if it exists) to the target `kb` directory.
 151 |     *   **Tool:** `new_task`
@@ -8608,7 +8608,7 @@ I will now read the current workflow file again to apply these revisions.
 162 |     *   **Expected Output from Delegate:** Confirmation of success or list of file copy errors.
 163 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. Log any reported file copy errors (non-critical). Proceed to Step 8.
 164 |     *   **Error Handling:** Coordinator logs errors. Failure to copy individual KB files is usually non-critical but should be noted.
-165 | 
+165 |
 166 | *   **Step 8: Delegate KB Rule Creation (Coordinator delegates to Worker Agent)**
 167 |     *   **Description:** Create the standard KB lookup rule file within the mode's specific rules directory.
 168 |     *   **Tool:** `new_task`
@@ -8621,7 +8621,7 @@ I will now read the current workflow file again to apply these revisions.
 175 |     *   **Expected Output from Delegate:** Confirmation of success or list of errors.
 176 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. If errors, stop workflow and log. If successful, proceed to Step 9.
 177 |     *   **Error Handling:** Coordinator logs errors. Failure here is critical.
-178 | 
+178 |
 179 | *   **Step 9: Update Manifest File (Coordinator Task)**
 180 |     *   **Description:** Add or update the entry for the migrated mode in `v7.2/manifest.toml`.
 181 |     *   **Inputs:** `new_slug`, `prefix`, `toml_data.name`, `toml_data.system_prompt`, `source_mode_file_path`, `target_mode_file_path`, `target_rules_dir`, `toml_data.tags` (optional).
@@ -8633,7 +8633,7 @@ I will now read the current workflow file again to apply these revisions.
 187 |         5.  Use `write_to_file` to save back to `v7.2/manifest.toml`.
 188 |     *   **Outputs:** Updated `v7.2/manifest.toml`.
 189 |     *   **Error Handling:** If any part fails, stop workflow, log error. Consider manual recovery or backup/restore for the manifest. Failure here is critical.
-190 | 
+190 |
 191 | *   **Step 10: Delegate Verification (Coordinator delegates to Verification Agent)**
 192 |     *   **Description:** Perform checks to verify the migration steps were successful. Aligns with ACQA principles.
 193 |     *   **Tool:** `new_task`
@@ -8649,13 +8649,13 @@ I will now read the current workflow file again to apply these revisions.
 203 |     *   **Expected Output from Delegate:** Verification result (Success/Failure) and details of any failures.
 204 |     *   **Coordinator Action (Post-Delegation):** Wait for verification report. If Success, proceed to Step 11. If Failure, log details, stop workflow for this mode, and potentially initiate manual review or rollback.
 205 |     *   **Error Handling:** Coordinator logs verification failures. May trigger AFR if verification fails consistently in the same way across modes.
-206 | 
+206 |
 207 | *   **Step 11: Final Report (Coordinator Task)**
 208 |     *   **Description:** Report the final status of the migration for this mode to the user.
 209 |     *   **Inputs:** Outcome of Step 10.
 210 |     *   **Procedure:** Use `attempt_completion` (if this is the only mode) or log status (if part of a larger batch) indicating success or failure for the specific mode migration.
 211 |     *   **Outputs:** User informed of migration status for the mode.
-212 | 
+212 |
 213 | ## 7. Postconditions ✅
 214 | *   The migrated mode exists in the `v7.2/` directory with the new naming convention and structure.
 215 | *   The mode's KB content is located in `v7.2/<new-slug>/kb/`.
@@ -8663,20 +8663,20 @@ I will now read the current workflow file again to apply these revisions.
 217 | *   The mode-specific rules directory (`.roo/rules/<new-slug>/`) exists and contains the KB lookup rule.
 218 | *   The `v7.2/manifest.toml` file accurately reflects the migrated mode's details.
 219 | *   Verification Agent has confirmed the successful execution of migration steps.
-220 | 
+220 |
 221 | ## 8. Error Handling & Escalation (Overall) ⚠️
 222 | *   Log all errors encountered during the process for a specific mode.
 223 | *   If a critical step delegated to a Worker Agent fails, the Coordinator should log the failure and stop the workflow for that mode.
 224 | *   If the Verification Agent reports failures, the Coordinator should log the details and stop the workflow for that mode.
 225 | *   **AFR Trigger:** If the *same type* of failure (e.g., Worker failing to update TOML ID, Verification failing the same check) occurs repeatedly across *multiple mode migrations*, the Coordinator should trigger the Adaptive Failure Resolution process (`.processes/afr-process.md`) by pausing the migration for that error type and escalating to the user to investigate the root cause (e.g., flaw in this workflow, issue with worker agent capability, problem with naming logic).
 226 | *   Persistent or critical failures should be escalated to the user for manual investigation.
-227 | 
+227 |
 228 | ## 9. PAL Validation Record 🧪
 229 | *   Date Validated: (Not yet validated)
 230 | *   Method: (To be determined - likely Conceptual Review and Simulation as per `.processes/pal-process.md`)
 231 | *   Test Case(s): (e.g., Migrate `core-code`, Migrate `dev-fastapi`, Migrate a mode with no `custom-instructions`)
 232 | *   Findings/Refinements: (To be added after PAL execution)
-233 | 
+233 |
 234 | ## 10. Revision History 📜
 235 | *   v1.1 (2025-04-18): Revised to incorporate delegation to Worker and Verification Agents, added references to ACQA, AFR, PAL processes. Clarified roles and error handling.
 236 | *   v1.0 (2025-04-18): Initial draft (Coordinator-centric).
@@ -10026,7 +10026,7 @@ First, I need to read the current content of the workflow file (v1.2).
   7 | updated_date = "2025-04-18" # Date updated
   8 | version = "1.2" # Version incremented
   9 | tags = ["workflow", "sop", "modes", "migration", "v7.1", "v7.2", "refactoring", "delegation", "context-optimization"]
- 10 | 
+ 10 |
  11 | # --- Ownership & Context ---
  12 | owner = "Roo Commander"
  13 | related_docs = [
@@ -10038,7 +10038,7 @@ First, I need to read the current content of the workflow file (v1.2).
  19 |   ".processes/pal-process.md"
  20 | ]
  21 | related_templates = [".templates/toml-md/16_ai_rule.md"] # For the KB lookup rule
- 22 | 
+ 22 |
  23 | # --- Workflow Specific Fields ---
  24 | objective = "To migrate a single mode definition from the v7.1 directory structure to the new v7.2 structure, applying updated naming conventions, separating knowledge base (KB) content, creating mode-specific rules, and updating the v7.2 manifest, maximizing delegation of file operations to minimize Coordinator context usage." # Revised objective
  25 | scope = "This workflow applies to each individual mode located within the `v7.1/modes/` directory structure. It covers identifying source files, determining new structure/naming, delegating file reading, validation, creation/modification/copying tasks, delegating verification, and delegating manifest updates. It assumes the naming prefixes and logic are defined (as per ADR-001)." # Revised scope
@@ -10064,31 +10064,31 @@ First, I need to read the current content of the workflow file (v1.2).
  45 |   "KB content is missing or incomplete after migration attempt.",
  46 |   "Verification Agent reports failures."
  47 | ]
- 48 | 
+ 48 |
  49 | # --- Integration ---
  50 | acqa_applicable = true # Verification step aligns with ACQA principles.
  51 | pal_validated = false # This workflow itself needs PAL validation.
  52 | validation_notes = ""
- 53 | 
+ 53 |
  54 | # --- AI Interaction Hints (Optional) ---
  55 | # context_type = "workflow_definition"
  56 | +++
- 57 | 
+ 57 |
  58 | # Workflow: Migrate Mode from v7.1 to v7.2 Structure (v1.2)
- 59 | 
+ 59 |
  60 | ## 1. Objective 🎯
  61 | *   To migrate a single mode definition from the v7.1 directory structure to the new v7.2 structure, applying updated naming conventions, separating knowledge base (KB) content, creating mode-specific rules, and updating the v7.2 manifest, maximizing delegation of file operations to minimize Coordinator context usage.
- 62 | 
+ 62 |
  63 | ## 2. Scope ↔️
  64 | *   This workflow applies to each individual mode located within the `v7.1/modes/` directory structure.
  65 | *   It covers identifying source files, determining new structure/naming, delegating file reading, validation, creation/modification/copying tasks, delegating verification, and delegating manifest updates.
  66 | *   It assumes the naming prefixes and logic are defined (as per ADR-001).
- 67 | 
+ 67 |
  68 | ## 3. Roles & Responsibilities 👤
  69 | *   **Coordinator (Roo Commander):** Orchestrates the workflow, selects modes, determines naming/paths, delegates tasks with necessary inputs, manages errors, and reports final status. Avoids direct file reading/writing where possible.
  70 | *   **Worker Agent (e.g., `mode-maintainer`, `toml-specialist`):** Executes delegated tasks involving file/directory I/O, TOML parsing/manipulation, and content modification. Requires tools like `write_to_file`, `read_file`, `list_files`. Reports success, failure, or extracted data.
  71 | *   **Verification Agent (e.g., `code-reviewer`):** Executes delegated verification tasks using tools like `read_file`, `list_files`. Reports findings.
- 72 | 
+ 72 |
  73 | ## 4. Preconditions🚦
  74 | *   The v7.1 mode definition file (`v7.1/modes/.../<old-slug>.mode.md`) exists.
  75 | *   `ADR-001_mode_source_reorganisation.md` is approved or accepted.
@@ -10096,7 +10096,7 @@ First, I need to read the current content of the workflow file (v1.2).
  77 | *   Target root directories (`v7.2/` and `.roo/rules/`) exist.
  78 | *   Manifest file `v7.2/manifest.toml` exists (or will be created/handled by the Worker Agent in Step 9).
  79 | *   Appropriate Worker and Verification agents are available.
- 80 | 
+ 80 |
  81 | ## 5. Reference Documents & Tools 📚🛠️
  82 | *   `.decisions/ADR-001_mode_source_reorganisation.md`
  83 | *   `.docs/roo-code/custom-modes.md`
@@ -10108,16 +10108,16 @@ First, I need to read the current content of the workflow file (v1.2).
  89 | *   **Coordinator Tools:** `list_files`, `new_task`.
  90 | *   **Worker Agent Tools:** `write_to_file`, `read_file`, `list_files`. (Potentially needs internal TOML parsing capability or access to a TOML tool/library if handling Step 9).
  91 | *   **Verification Agent Tools:** `read_file`, `list_files`.
- 92 | 
+ 92 |
  93 | ## 6. Workflow Steps 🪜
- 94 | 
+ 94 |
  95 | *   **Step 1: Select Mode & Identify Paths (Coordinator Task)**
  96 |     *   **Description:** Choose the next v7.1 mode to migrate. Identify its source `.mode.md` file path and the path to its `custom-instructions` directory (if it exists).
  97 |     *   **Inputs:** List of modes in `v7.1/modes/` needing migration.
  98 |     *   **Procedure:** Use `list_files` on `v7.1/modes/` (recursively) to locate the mode. Note the full path to `<old-slug>.mode.md` and `custom-instructions/`. Determine the `old_slug` from the filename.
  99 |     *   **Outputs:** `source_mode_file_path`, `source_ci_dir_path` (can be null), `old_slug`.
 100 |     *   **Error Handling:** If source file not found, stop workflow for this mode and log error.
-101 | 
+101 |
 102 | *   **Step 2: Delegate Source Read & Validation (Coordinator delegates to Worker Agent)**
 103 |     *   **Description:** Read the source mode file, extract TOML, validate required fields, and return key data. Combines previous Steps 2 & 3.
 104 |     *   **Tool:** `new_task`
@@ -10134,14 +10134,14 @@ First, I need to read the current content of the workflow file (v1.2).
 115 |     *   **Expected Output from Delegate:** Success: `{ file_content: "...", name: "...", system_prompt: "...", tags: [...] }` OR Failure: `{ error: "Reason..." }`.
 116 |     *   **Coordinator Action (Post-Delegation):** Wait for response. If Failure, stop workflow and log error. If Success, store `source_mode_content`, `toml_name`, `toml_system_prompt`, `toml_tags`. Proceed to Step 3.
 117 |     *   **Error Handling:** Coordinator logs errors reported by delegate. Failure here is critical.
-118 | 
+118 |
 119 | *   **Step 3: Determine New Slug & Paths (Coordinator Task)**
 120 |     *   **Description:** Apply the defined naming logic to determine the `new_slug` and `prefix`. Define all target paths. (Formerly Step 4).
 121 |     *   **Inputs:** `source_mode_file_path`, `old_slug`.
 122 |     *   **Procedure:** Apply naming logic (referencing `getNewSlugAndPrefix` concept). Construct target paths: `target_v72_mode_dir`, `target_mode_file_path`, `target_kb_dir`, `target_rules_dir`, `target_kb_rule_file`.
 123 |     *   **Outputs:** `new_slug`, `prefix`, all target paths.
 124 |     *   **Error Handling:** If new slug cannot be determined or is invalid, stop workflow for this mode and log error.
-125 | 
+125 |
 126 | *   **Step 4: Delegate Directory Creation (Coordinator delegates to Worker Agent)**
 127 |     *   **Description:** Ensure the necessary target directories exist. (Formerly Step 5).
 128 |     *   **Tool:** `new_task`
@@ -10155,7 +10155,7 @@ First, I need to read the current content of the workflow file (v1.2).
 136 |     *   **Expected Output from Delegate:** Confirmation of success or list of errors.
 137 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. If errors, stop workflow and log. If successful, proceed to Step 5.
 138 |     *   **Error Handling:** Coordinator logs errors. May trigger AFR if this step fails repeatedly.
-139 | 
+139 |
 140 | *   **Step 5: Delegate Mode Definition Migration (Coordinator delegates to Worker Agent)**
 141 |     *   **Description:** Copy the source mode content (provided by Coordinator from Step 2's output) to the new location, renaming the file and updating the `id` field within the TOML frontmatter. (Formerly Step 6).
 142 |     *   **Tool:** `new_task`
@@ -10168,7 +10168,7 @@ First, I need to read the current content of the workflow file (v1.2).
 149 |     *   **Expected Output from Delegate:** Confirmation of success or list of errors.
 150 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. If errors, stop workflow and log. If successful, proceed to Step 6.
 151 |     *   **Error Handling:** Coordinator logs errors. Failure here is critical. May trigger AFR.
-152 | 
+152 |
 153 | *   **Step 6: Delegate KB Content Migration (Coordinator delegates to Worker Agent)**
 154 |     *   **Description:** Copy all files and subdirectories from the source `custom-instructions` directory (if it exists) to the target `kb` directory. (Formerly Step 7).
 155 |     *   **Tool:** `new_task`
@@ -10185,7 +10185,7 @@ First, I need to read the current content of the workflow file (v1.2).
 166 |     *   **Expected Output from Delegate:** Confirmation of success or list of file copy errors.
 167 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. Log any reported file copy errors (non-critical). Proceed to Step 7.
 168 |     *   **Error Handling:** Coordinator logs errors.
-169 | 
+169 |
 170 | *   **Step 7: Delegate KB Rule Creation (Coordinator delegates to Worker Agent)**
 171 |     *   **Description:** Create the standard KB lookup rule file within the mode's specific rules directory. (Formerly Step 8).
 172 |     *   **Tool:** `new_task`
@@ -10198,7 +10198,7 @@ First, I need to read the current content of the workflow file (v1.2).
 179 |     *   **Expected Output from Delegate:** Confirmation of success or list of errors.
 180 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. If errors, stop workflow and log. If successful, proceed to Step 8.
 181 |     *   **Error Handling:** Coordinator logs errors. Failure here is critical.
-182 | 
+182 |
 183 | *   **Step 8: Delegate Manifest Update (Coordinator delegates to Worker Agent)**
 184 |     *   **Description:** Add or update the entry for the migrated mode in `v7.2/manifest.toml`. Handles file I/O and TOML manipulation. (Formerly Step 9, now delegated).
 185 |     *   **Tool:** `new_task`
@@ -10217,7 +10217,7 @@ First, I need to read the current content of the workflow file (v1.2).
 198 |     *   **Expected Output from Delegate:** Confirmation of success or list of errors.
 199 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. If errors, stop workflow, log error, and consider manual recovery for the manifest. If successful, proceed to Step 9.
 200 |     *   **Error Handling:** Coordinator logs errors. Failure here is critical. May trigger AFR if manifest updates fail consistently.
-201 | 
+201 |
 202 | *   **Step 9: Delegate Verification (Coordinator delegates to Verification Agent)**
 203 |     *   **Description:** Perform checks to verify the migration steps were successful. (Formerly Step 10).
 204 |     *   **Tool:** `new_task`
@@ -10234,25 +10234,25 @@ First, I need to read the current content of the workflow file (v1.2).
 215 |     *   **Expected Output from Delegate:** Verification result (Success/Failure) and details of any failures.
 216 |     *   **Coordinator Action (Post-Delegation):** Wait for verification report. If Success, proceed to Step 10. If Failure, log details, stop workflow for this mode, and potentially initiate manual review or rollback.
 217 |     *   **Error Handling:** Coordinator logs verification failures. May trigger AFR if verification fails consistently.
-218 | 
+218 |
 219 | *   **Step 10: Final Report (Coordinator Task)**
 220 |     *   **Description:** Report the final status of the migration for this mode to the user. (Formerly Step 11).
 221 |     *   **Inputs:** Outcome of Step 9.
 222 |     *   **Procedure:** Use `attempt_completion` (if this is the only mode) or log status (if part of a larger batch) indicating success or failure for the specific mode migration.
 223 |     *   **Outputs:** User informed of migration status for the mode.
-224 | 
+224 |
 225 | ## 7. Postconditions ✅
 226 | *   (Same as v1.1)
-227 | 
+227 |
 228 | ## 8. Error Handling & Escalation (Overall) ⚠️
 229 | *   (Same as v1.1, but emphasizing delegation failures)
 230 | *   If a critical step delegated to a Worker Agent fails (e.g., reading source, writing target, updating manifest), the Coordinator should log the failure and stop the workflow for that mode.
 231 | *   If the Verification Agent reports failures, the Coordinator should log the details and stop the workflow for that mode.
 232 | *   **AFR Trigger:** If the *same type* of failure (e.g., Worker failing to update TOML ID, Worker failing manifest update, Verification failing the same check) occurs repeatedly across *multiple mode migrations*, the Coordinator should trigger the Adaptive Failure Resolution process (`.processes/afr-process.md`).
-233 | 
+233 |
 234 | ## 9. PAL Validation Record 🧪
 235 | *   (Same as v1.1)
-236 | 
+236 |
 237 | ## 10. Revision History 📜
 238 | *   v1.2 (2025-04-18): Further refined delegation. Delegated source file reading/validation and manifest update to Worker Agent to minimize Coordinator context usage. Renumbered steps.
 239 | *   v1.1 (2025-04-18): Revised to incorporate delegation to Worker and Verification Agents, added references to ACQA, AFR, PAL processes. Clarified roles and error handling.
@@ -12194,7 +12194,7 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
   7 | updated_date = "2025-04-18" # Status updated to active after validation
   8 | version = "1.2" # Version incremented
   9 | tags = ["workflow", "sop", "modes", "migration", "v7.1", "v7.2", "refactoring", "delegation", "context-optimization"]
- 10 | 
+ 10 |
  11 | # --- Ownership & Context ---
  12 | owner = "Roo Commander"
  13 | related_docs = [
@@ -12206,7 +12206,7 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
  19 |   ".processes/pal-process.md"
  20 | ]
  21 | related_templates = [".templates/toml-md/16_ai_rule.md"] # For the KB lookup rule
- 22 | 
+ 22 |
  23 | # --- Workflow Specific Fields ---
  24 | objective = "To migrate a single mode definition from the v7.1 directory structure to the new v7.2 structure, applying updated naming conventions, separating knowledge base (KB) content, creating mode-specific rules, and updating the v7.2 manifest, maximizing delegation of file operations to minimize Coordinator context usage." # Revised objective
  25 | scope = "This workflow applies to each individual mode located within the `v7.1/modes/` directory structure. It covers identifying source files, determining new structure/naming, delegating file reading, validation, creation/modification/copying tasks, delegating verification, and delegating manifest updates. It assumes the naming prefixes and logic are defined (as per ADR-001)." # Revised scope
@@ -12232,31 +12232,31 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
  45 |   "KB content is missing or incomplete after migration attempt.",
  46 |   "Verification Agent reports failures."
  47 | ]
- 48 | 
+ 48 |
  49 | # --- Integration ---
  50 | acqa_applicable = true # Verification step aligns with ACQA principles.
  51 | pal_validated = false # This workflow itself needs PAL validation.
  52 | validation_notes = ""
- 53 | 
+ 53 |
  54 | # --- AI Interaction Hints (Optional) ---
  55 | # context_type = "workflow_definition"
  56 | +++
- 57 | 
+ 57 |
  58 | # Workflow: Migrate Mode from v7.1 to v7.2 Structure (v1.2)
- 59 | 
+ 59 |
  60 | ## 1. Objective 🎯
  61 | *   To migrate a single mode definition from the v7.1 directory structure to the new v7.2 structure, applying updated naming conventions, separating knowledge base (KB) content, creating mode-specific rules, and updating the v7.2 manifest, maximizing delegation of file operations to minimize Coordinator context usage.
- 62 | 
+ 62 |
  63 | ## 2. Scope ↔️
  64 | *   This workflow applies to each individual mode located within the `v7.1/modes/` directory structure.
  65 | *   It covers identifying source files, determining new structure/naming, delegating file reading, validation, creation/modification/copying tasks, delegating verification, and delegating manifest updates.
  66 | *   It assumes the naming prefixes and logic are defined (as per ADR-001).
- 67 | 
+ 67 |
  68 | ## 3. Roles & Responsibilities 👤
  69 | *   **Coordinator (Roo Commander):** Orchestrates the workflow, selects modes, determines naming/paths, delegates tasks with necessary inputs, manages errors, and reports final status. Avoids direct file reading/writing where possible.
  70 | *   **Worker Agent (e.g., `mode-maintainer`, `toml-specialist`):** Executes delegated tasks involving file/directory I/O, TOML parsing/manipulation, and content modification. Requires tools like `write_to_file`, `read_file`, `list_files`. Reports success, failure, or extracted data.
  71 | *   **Verification Agent (e.g., `code-reviewer`):** Executes delegated verification tasks using tools like `read_file`, `list_files`. Reports findings.
- 72 | 
+ 72 |
  73 | ## 4. Preconditions🚦
  74 | *   The v7.1 mode definition file (`v7.1/modes/.../<old-slug>.mode.md`) exists.
  75 | *   `ADR-001_mode_source_reorganisation.md` is approved or accepted.
@@ -12264,7 +12264,7 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
  77 | *   Target root directories (`v7.2/` and `.roo/rules/`) exist.
  78 | *   Manifest file `v7.2/manifest.toml` exists (or will be created/handled by the Worker Agent in Step 8).
  79 | *   Appropriate Worker and Verification agents are available.
- 80 | 
+ 80 |
  81 | ## 5. Reference Documents & Tools 📚🛠️
  82 | *   `.decisions/ADR-001_mode_source_reorganisation.md`
  83 | *   `.docs/roo-code/custom-modes.md`
@@ -12276,16 +12276,16 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
  89 | *   **Coordinator Tools:** `list_files`, `new_task`.
  90 | *   **Worker Agent Tools:** `write_to_file`, `read_file`, `list_files`. (Potentially needs internal TOML parsing capability or access to a TOML tool/library if handling Step 8).
  91 | *   **Verification Agent Tools:** `read_file`, `list_files`.
- 92 | 
+ 92 |
  93 | ## 6. Workflow Steps 🪜
- 94 | 
+ 94 |
  95 | *   **Step 1: Select Mode & Identify Paths (Coordinator Task)**
  96 |     *   **Description:** Choose the next v7.1 mode to migrate. Identify its source `.mode.md` file path and the path to its `custom-instructions` directory (if it exists).
  97 |     *   **Inputs:** List of modes in `v7.1/modes/` needing migration.
  98 |     *   **Procedure:** Use `list_files` on `v7.1/modes/` (recursively) to locate the mode. Note the full path to `<old-slug>.mode.md` and `custom-instructions/`. Determine the `old_slug` from the filename.
  99 |     *   **Outputs:** `source_mode_file_path`, `source_ci_dir_path` (can be null), `old_slug`.
 100 |     *   **Error Handling:** If source file not found, stop workflow for this mode and log error.
-101 | 
+101 |
 102 | *   **Step 2: Delegate Source Read & Validation (Coordinator delegates to Worker Agent)**
 103 |     *   **Description:** Read the source mode file, extract TOML, validate required fields, and return key data.
 104 |     *   **Tool:** `new_task`
@@ -12302,14 +12302,14 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
 115 |     *   **Expected Output from Delegate:** JSON object indicating success (with data) or failure (with reason).
 116 |     *   **Coordinator Action (Post-Delegation):** Wait for JSON response. If status is "failure", stop workflow and log the error. If status is "success", store `source_mode_content`, `toml_name`, `toml_system_prompt`, `toml_tags`. Proceed to Step 3.
 117 |     *   **Error Handling:** Coordinator logs errors reported by delegate. Failure here is critical.
-118 | 
+118 |
 119 | *   **Step 3: Determine New Slug & Paths (Coordinator Task)**
 120 |     *   **Description:** Apply the defined naming logic to determine the `new_slug` and `prefix`. Define all target paths.
 121 |     *   **Inputs:** `source_mode_file_path`, `old_slug`.
 122 |     *   **Procedure:** Apply naming logic (referencing `getNewSlugAndPrefix` concept). Construct target paths: `target_v72_mode_dir`, `target_mode_file_path`, `target_kb_dir`, `target_rules_dir`, `target_kb_rule_file`. Calculate relative paths for manifest entry: `relative_source_path`, `relative_target_mode_path`, `relative_target_rules_path`.
 123 |     *   **Outputs:** `new_slug`, `prefix`, all target paths, relative paths for manifest.
 124 |     *   **Error Handling:** If new slug cannot be determined or is invalid, stop workflow for this mode and log error.
-125 | 
+125 |
 126 | *   **Step 4: Delegate Directory Creation (Coordinator delegates to Worker Agent)**
 127 |     *   **Description:** Ensure the necessary target directories exist.
 128 |     *   **Tool:** `new_task`
@@ -12323,7 +12323,7 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
 136 |     *   **Expected Output from Delegate:** Confirmation of success or list of errors.
 137 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. If errors, stop workflow and log. If successful, proceed to Step 5.
 138 |     *   **Error Handling:** Coordinator logs errors. May trigger AFR if this step fails repeatedly.
-139 | 
+139 |
 140 | *   **Step 5: Delegate Mode Definition Migration (Coordinator delegates to Worker Agent)**
 141 |     *   **Description:** Write the modified mode definition content (with updated TOML `id`) to the new target file path.
 142 |     *   **Tool:** `new_task`
@@ -12336,7 +12336,7 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
 149 |     *   **Expected Output from Delegate:** Confirmation of success or list of errors.
 150 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. If errors, stop workflow and log. If successful, proceed to Step 6.
 151 |     *   **Error Handling:** Coordinator logs errors. Failure here is critical. May trigger AFR.
-152 | 
+152 |
 153 | *   **Step 6: Delegate KB Content Migration (Coordinator delegates to Worker Agent)**
 154 |     *   **Description:** Copy all files and subdirectories from the source `custom-instructions` directory (if it exists) to the target `kb` directory.
 155 |     *   **Tool:** `new_task`
@@ -12353,7 +12353,7 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
 166 |     *   **Expected Output from Delegate:** Confirmation of success or list of file copy errors.
 167 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. Log any reported file copy errors (non-critical). Proceed to Step 7.
 168 |     *   **Error Handling:** Coordinator logs errors.
-169 | 
+169 |
 170 | *   **Step 7: Delegate KB Rule Creation (Coordinator delegates to Worker Agent)**
 171 |     *   **Description:** Create the standard KB lookup rule file within the mode's specific rules directory.
 172 |     *   **Tool:** `new_task`
@@ -12361,7 +12361,7 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
 174 |     *   **Rule Template Content:**
 175 |         ```markdown
 176 |         # Rule: Consult Knowledge Base
-177 | 
+177 |
 178 |         Before proceeding with the task, review the contents of your Knowledge Base (KB) located in your mode's source directory (`v7.2/<your-mode-slug>/kb/`).
 179 |         Assess if any documents within the KB are relevant to the current task.
 180 |         If relevant documents are found, incorporate their information into your response or actions.
@@ -12375,7 +12375,7 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
 188 |     *   **Expected Output from Delegate:** Confirmation of success or list of errors.
 189 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. If errors, stop workflow and log. If successful, proceed to Step 8.
 190 |     *   **Error Handling:** Coordinator logs errors. Failure here is critical.
-191 | 
+191 |
 192 | *   **Step 8: Delegate Manifest Update (Coordinator delegates to Worker Agent)**
 193 |     *   **Description:** Add or update the entry for the migrated mode in `v7.2/manifest.toml`. Handles file I/O and TOML manipulation.
 194 |     *   **Tool:** `new_task`
@@ -12394,7 +12394,7 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
 207 |     *   **Expected Output from Delegate:** Confirmation of success or list of errors.
 208 |     *   **Coordinator Action (Post-Delegation):** Wait for confirmation. If errors, stop workflow, log error, and consider manual recovery for the manifest. If successful, proceed to Step 9.
 209 |     *   **Error Handling:** Coordinator logs errors. Failure here is critical. May trigger AFR if manifest updates fail consistently.
-210 | 
+210 |
 211 | *   **Step 9: Delegate Verification (Coordinator delegates to Verification Agent)**
 212 |     *   **Description:** Perform checks to verify the migration steps were successful.
 213 |     *   **Tool:** `new_task`
@@ -12411,22 +12411,22 @@ As instructed, I will first re-read the file `.workflows/mode-migration-v71-to-v
 224 |     *   **Expected Output from Delegate:** Verification result (Success/Failure) and details of any failures.
 225 |     *   **Coordinator Action (Post-Delegation):** Wait for verification report. If Success, proceed to Step 10. If Failure, log details, stop workflow for this mode, and potentially initiate manual review or rollback.
 226 |     *   **Error Handling:** Coordinator logs verification failures. May trigger AFR if verification fails consistently.
-227 | 
+227 |
 228 | *   **Step 10: Final Report (Coordinator Task)**
 229 |     *   **Description:** Report the final status of the migration for this mode to the user.
 230 |     *   **Inputs:** Outcome of Step 9.
 231 |     *   **Procedure:** Use `attempt_completion` (if this is the only mode) or log status (if part of a larger batch) indicating success or failure for the specific mode migration.
 232 |     *   **Outputs:** User informed of migration status for the mode.
-233 | 
+233 |
 234 | ## 7. Postconditions ✅
 235 | *   (Same as v1.1)
-236 | 
+236 |
 237 | ## 8. Error Handling & Escalation (Overall) ⚠️
 238 | *   (Same as v1.1, emphasizing delegation failures)
-239 | 
+239 |
 240 | ## 9. PAL Validation Record 🧪
 241 | *   (Same as v1.1)
-242 | 
+242 |
 243 | ## 10. Revision History 📜
 244 | *   v1.2 (2025-04-18): Further refined delegation. Delegated source file reading/validation and manifest update to Worker Agent to minimize Coordinator context usage. Renumbered steps. Added KB rule template content.
 245 | *   v1.1 (2025-04-18): Revised to incorporate delegation to Worker and Verification Agents, added references to ACQA, AFR, PAL processes. Clarified roles and error handling.
@@ -12846,4 +12846,3 @@ The workflow document `.workflows/mode-migration-v71-to-v72.md` now reflects its
 The mode migration workflow at `.workflows/mode-migration-v71-to-v72.md` has been updated to `active` status, incorporating feedback on delegation and completing the Process Assurance Lifecycle (PAL) validation steps (Conceptual Review and Simulated Execution). This workflow is now finalized and ready to guide the manual migration of modes from the v7.1 to the v7.2 structure.
 </result>
 </attempt_completion>
-

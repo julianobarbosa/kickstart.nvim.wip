@@ -127,4 +127,3 @@ import MyComponent from './App.vue'
 
 app.component('MyComponent', MyComponent)
 ```
-

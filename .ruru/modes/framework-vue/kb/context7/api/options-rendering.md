@@ -57,4 +57,3 @@ interface ComponentOptions {
   template?: string
 }
 ```
-

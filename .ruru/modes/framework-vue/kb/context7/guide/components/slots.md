@@ -263,11 +263,11 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/components/slots.md#_s
     <div v-if="$slots.header" class="card-header">
       <slot name="header" />
     </div>
-    
+
     <div v-if="$slots.default" class="card-content">
       <slot />
     </div>
-    
+
     <div v-if="$slots.footer" class="card-footer">
       <slot name="footer" />
     </div>
@@ -418,4 +418,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/components/slots.md#_s
 ```html
 <button type="submit">Save</button>
 ```
-

@@ -9,4 +9,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/tutorial/src/step-3/descript
 ```vue-html
 <div v-bind:id="dynamicId"></div>
 ```
-

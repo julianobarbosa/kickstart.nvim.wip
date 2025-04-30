@@ -156,4 +156,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/essentials/template-sy
 <!-- shorthand -->
 <a @[eventName]="doSomething"> ... </a>
 ```
-

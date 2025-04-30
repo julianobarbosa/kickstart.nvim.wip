@@ -124,4 +124,3 @@ declare module 'vue' {
 ```typescript
 <div :style="{ '--bg-color': 'blue' }"></div>
 ```
-

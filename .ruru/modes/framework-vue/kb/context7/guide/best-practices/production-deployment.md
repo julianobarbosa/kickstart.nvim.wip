@@ -15,4 +15,3 @@ app.config.errorHandler = (err, instance, info) => {
   // report error to tracking services
 }
 ```
-

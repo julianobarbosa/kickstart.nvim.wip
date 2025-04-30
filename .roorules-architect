@@ -14,9 +14,9 @@ memory_bank_strategy:
         * If memory-bank DOES exist, skip immediately to `if_memory_bank_exists`.
           </thinking>
   if_no_memory_bank: |
-      1. **Inform the User:**  
+      1. **Inform the User:**
           "No Memory Bank was found. I recommend creating one to  maintain project context.
-      2. **Offer Initialization:** 
+      2. **Offer Initialization:**
           Ask the user if they would like to initialize the Memory Bank.
       3. **Conditional Actions:**
          * If the user declines:
@@ -50,23 +50,23 @@ memory_bank_strategy:
   initial_content:
     productContext.md: |
       # Product Context
-      
+
       This file provides a high-level overview of the project and the expected product that will be created. Initially it is based upon projectBrief.md (if provided) and all other available project-related information in the working directory. This file is intended to be updated as the project evolves, and should be used to inform all other modes of the project's goals and context.
       YYYY-MM-DD HH:MM:SS - Log of updates made will be appended as footnotes to the end of this file.
-      
+
       *
 
       ## Project Goal
 
-      *   
+      *
 
       ## Key Features
 
-      *   
+      *
 
       ## Overall Architecture
 
-      *   
+      *
     activeContext.md: |
       # Active Context
 
@@ -77,16 +77,16 @@ memory_bank_strategy:
 
       ## Current Focus
 
-      *   
+      *
 
       ## Recent Changes
 
-      *   
+      *
 
       ## Open Questions/Issues
 
-      *   
-    
+      *
+
     progress.md: |
       # Progress
 
@@ -97,11 +97,11 @@ memory_bank_strategy:
 
       ## Completed Tasks
 
-      *   
+      *
 
       ## Current Tasks
 
-      *   
+      *
 
       ## Next Steps
 
@@ -113,19 +113,19 @@ memory_bank_strategy:
       YYYY-MM-DD HH:MM:SS - Log of updates made.
 
       *
-      
+
       ## Decision
 
       *
-      
-      ## Rationale 
+
+      ## Rationale
 
       *
 
       ## Implementation Details
 
       *
-      
+
     systemPatterns.md: |
       # System Patterns *Optional*
 
@@ -137,11 +137,11 @@ memory_bank_strategy:
 
       ## Coding Patterns
 
-      *   
+      *
 
       ## Architectural Patterns
 
-      *   
+      *
 
       ## Testing Patterns
 
@@ -153,13 +153,13 @@ memory_bank_strategy:
         </thinking>
         Plan: Read all mandatory files sequentially.
         1. Read `productContext.md`
-        2. Read `activeContext.md` 
-        3. Read `systemPatterns.md` 
-        4. Read `decisionLog.md` 
-        5. Read `progress.md` 
+        2. Read `activeContext.md`
+        3. Read `systemPatterns.md`
+        4. Read `decisionLog.md`
+        5. Read `progress.md`
         6. Set status to [MEMORY BANK: ACTIVE] and inform user.
         7. Proceed with the task using the context from the Memory Bank or if no task is provided, use the `ask_followup_question` tool.
-      
+
 general:
   status_prefix: "Begin EVERY response with either '[MEMORY BANK: ACTIVE]' or '[MEMORY BANK: INACTIVE]', according to the current state of the Memory Bank."
 
@@ -209,11 +209,11 @@ memory_bank_updates:
 
 umb:
   trigger: "^(Update Memory Bank|UMB)$"
-  instructions: 
+  instructions:
     - "Halt Current Task: Stop current activity"
-    - "Acknowledge Command: '[MEMORY BANK: UPDATING]'" 
+    - "Acknowledge Command: '[MEMORY BANK: UPDATING]'"
     - "Review Chat History"
-  user_acknowledgement_text: "[MEMORY BANK: UPDATING]" 
+  user_acknowledgement_text: "[MEMORY BANK: UPDATING]"
   core_update_process: |
       1. Current Session Review:
           - Analyze complete chat history

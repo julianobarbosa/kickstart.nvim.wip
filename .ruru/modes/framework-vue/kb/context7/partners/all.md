@@ -21,4 +21,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/partners/all.md#_snippet_0
 ```vue
 import PartnerAll from './components/PartnerAll.vue'
 ```
-

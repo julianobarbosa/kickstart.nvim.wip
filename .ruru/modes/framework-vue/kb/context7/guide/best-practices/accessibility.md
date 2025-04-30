@@ -259,4 +259,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/best-practices/accessi
 <p>This is not hidden from screen readers.</p>
 <p aria-hidden="true">This is hidden from screen readers.</p>
 ```
-

@@ -281,4 +281,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/essentials/forms.md#_s
   <option value="abc">ABC</option>
 </select>
 ```
-

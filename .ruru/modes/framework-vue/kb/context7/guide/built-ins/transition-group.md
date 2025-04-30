@@ -86,4 +86,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/built-ins/transition-g
   position: absolute;
 }
 ```
-

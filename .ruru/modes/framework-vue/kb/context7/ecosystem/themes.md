@@ -9,4 +9,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/ecosystem/themes.md#_snippet
 ```Vue
 <ThemePage />
 ```
-

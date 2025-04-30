@@ -92,7 +92,7 @@ export default {
   data() {
     return {
       count: 1,
-      interval: null 
+      interval: null
     }
   },
   mounted() {
@@ -338,4 +338,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/built-ins/transition.m
   }
 }
 ```
-

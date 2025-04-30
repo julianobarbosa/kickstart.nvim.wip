@@ -67,4 +67,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/api/composition-api-dependen
 ```typescript
 function provide<T>(key: InjectionKey<T> | string, value: T): void
 ```
-

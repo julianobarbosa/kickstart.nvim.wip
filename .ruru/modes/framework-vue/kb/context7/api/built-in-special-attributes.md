@@ -70,4 +70,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/api/built-in-special-attribu
 ```vue-html
 <ChildComponent :ref="(el) => child = el" />
 ```
-

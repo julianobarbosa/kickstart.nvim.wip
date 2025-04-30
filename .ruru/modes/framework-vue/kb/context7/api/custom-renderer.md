@@ -52,4 +52,3 @@ function createRenderer<HostNode, HostElement>(
     ): [HostNode, HostNode]
   }
 ```
-

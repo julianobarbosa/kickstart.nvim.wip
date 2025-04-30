@@ -362,4 +362,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/essentials/reactivity-
   {{ count }}
 </button>
 ```
-

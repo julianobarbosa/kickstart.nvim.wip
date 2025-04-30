@@ -115,4 +115,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/introduction.md#_snipp
   </button>
 </div>
 ```
-

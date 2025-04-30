@@ -105,4 +105,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/extras/animation.md#_s
 Type a number: <input v-model.number="number" />
 <p>{{ tweened.toFixed(0) }}</p>
 ```
-

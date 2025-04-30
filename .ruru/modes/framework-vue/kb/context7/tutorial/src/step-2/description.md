@@ -41,4 +41,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/tutorial/src/step-2/descript
 <h1>{{ message }}</h1>
 <p>Count is: {{ counter.count }}</p>
 ```
-

@@ -105,4 +105,3 @@ const vnode = withDirectives(h('div'), [
   [pin, 200, 'top', { animate: true }]
 ])
 ```
-

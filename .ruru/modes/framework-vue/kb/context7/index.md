@@ -9,4 +9,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/index.md#_snippet_1
 ```Vue.js
 <Home />
 ```
-

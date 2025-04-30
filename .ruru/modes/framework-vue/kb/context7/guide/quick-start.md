@@ -175,4 +175,3 @@ export default {
   template: `<div>Count is: {{ count }}</div>`
 }
 ```
-

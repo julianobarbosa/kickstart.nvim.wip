@@ -659,4 +659,3 @@ h('div', {
   onClick: withModifiers(() => {}, ['self'])
 })
 ```
-

@@ -103,4 +103,3 @@ interface ComponentPublicInstance {
   $props: object
 }
 ```
-

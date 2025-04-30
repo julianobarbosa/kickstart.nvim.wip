@@ -47,4 +47,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/scaling-up/tooling.md#
 # For Yarn Modern (v2+)
 $ yarn create vue@latest
 ```
-

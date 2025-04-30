@@ -110,4 +110,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/best-practices/securit
 ```HTML
 <h1>{{ userProvidedString }}</h1>
 ```
-

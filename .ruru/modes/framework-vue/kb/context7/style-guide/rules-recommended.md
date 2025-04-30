@@ -84,4 +84,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/style-guide/rules-recommende
 <script>/* ... */</script>
 <style>/* ... */</style>
 ```
-

@@ -14,7 +14,7 @@ return {
     config = function()
       -- Initialize LSP components
       local lspconfig = require('lspconfig')
-      
+
       -- Set up Mason package manager
       require('mason').setup(servers.mason_config)
 

@@ -185,4 +185,3 @@ const AsyncComp = defineAsyncComponent({
   hydrate: myStrategy
 })
 ```
-

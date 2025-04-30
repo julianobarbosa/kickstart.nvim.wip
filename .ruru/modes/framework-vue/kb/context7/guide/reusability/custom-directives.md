@@ -174,4 +174,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/guide/reusability/custom-dir
 ```vue-html
 <input v-focus />
 ```
-

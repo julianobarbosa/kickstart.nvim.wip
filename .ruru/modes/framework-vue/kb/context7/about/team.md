@@ -13,4 +13,3 @@ import TeamPage from './team/TeamPage.vue'
 
 <TeamPage />
 ```
-

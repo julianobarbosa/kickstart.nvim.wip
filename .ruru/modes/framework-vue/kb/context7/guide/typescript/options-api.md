@@ -296,4 +296,3 @@ declare module 'vue' {
   }
 }
 ```
-

@@ -207,4 +207,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/api/reactivity-utilities.md#
 ```typescript
 function isReactive(value: unknown): boolean
 ```
-

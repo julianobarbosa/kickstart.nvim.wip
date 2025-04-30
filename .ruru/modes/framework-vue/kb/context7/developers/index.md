@@ -9,4 +9,3 @@ Source: https://github.com/vuejs/docs/blob/main/src/developers/index.md#_snippet
 ```Vue
 <DeveloperLanding />
 ```
-
