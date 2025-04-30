@@ -1,32 +1,46 @@
 {
-  "name": "My Dev Container",
-  "dockerFile": "Dockerfile",
+  "name": "DevOps Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "1.17"
+    }
+  },
+  "runArgs": [
+    "--cap-add=SYS_PTRACE",
+    "--security-opt",
+    "seccomp=unconfined"
+  ],
   "customizations": {
     "vscode": {
       "extensions": [
         "GitHub.copilot",
         "GitHub.copilot-chat",
-        "github.vscode-github-actions",
-        "elagil.pre-commit-helper",
-        "saoudrizwan.claude-dev",
-        "sumneko.lua",
         "actboy168.lua-debug",
-        "yinfei.luahelper",
-        "keyring.Lua",
-        "trixnz.vscode-lua",
-        "eamodio.gitlens",
-        "mhutchie.git-graph",
         "donjayamanne.githistory",
+        "eamodio.gitlens",
+        "editorconfig.editorconfig",
+        "elagil.pre-commit-helper",
         "fabiospampinato.vscode-git-history",
+        "github.vscode-github-actions",
+        "golang.go",
+        "huizhou.githd",
+        "keyring.Lua",
+        "mhutchie.git-graph",
+        "moshfeu.compare-folders",
+        "ms-vscode.vs-gitlense-compare",
         "pprice.better-merge",
         "ryu1kn.partial-diff",
-        "moshfeu.compare-folders",
-        "editorconfig.editorconfig",
-        "ms-vscode.vs-gitlense-compare",
+        "saoudrizwan.claude-dev",
+        "sumneko.lua",
+        "trixnz.vscode-lua",
         "vsls-contrib.gitdoc",
-        "huizhou.githd"
+        "yinfei.luahelper",
       ],
       "settings": {
+        "go.toolsManagement.checkForUpdates": "local",
+        "go.useLanguageServer": true,
+        "go.gopath": "/go",
         "Lua.telemetry.enable": false,
         "Lua.diagnostics.globals": ["vim"],
         "Lua.workspace.library": ["${3rd}/love2d/library"],
@@ -35,7 +49,6 @@
       }
     }
   },
-  "runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
   "postCreateCommand": {
     "update": "sudo apt-get update",
     "install-deps": "sudo apt-get install -y build-essential lua5.3 lua5.3-dev luarocks ripgrep fd-find curl git python3 python3-pip python3-venv",
@@ -45,5 +58,10 @@
     "install-python-tools": "sudo pip3 install pynvim",
     "configure-python": "sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1"
   },
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "containerUser": "vscode",
+  "features": {
+    "terraform": "latest",
+    "azure-cli": "latest"
+  }
 }
