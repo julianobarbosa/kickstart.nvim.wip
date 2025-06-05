@@ -8,6 +8,7 @@
     "Ecommerce",
     "Morganz",
     "Munif",
+    "NMAC",
     "Nambi",
     "PYENV",
     "Primeagen",
@@ -29,8 +30,8 @@
     "chrisgrieser",
     "clangd",
     "cmap",
-    "ction",
     "commitizen",
+    "ction",
     "danymat",
     "dapui",
     "debugpy",
@@ -58,6 +59,7 @@
     "fabiospampinato",
     "fnamemodify",
     "folke",
+    "fonts-noto-color-emoji",
     "getfenv",
     "githd",
     "gofumpt",
@@ -165,14 +167,9 @@
     "yamlls",
     "yinfei",
     "yinq",
-    "ymbols",
-    "fonts-noto-color-emoji"
+    "ymbols"
   ],
   "ignoreWords": [],
   "allowCompoundWords": true,
-  "ignorePaths": [
-    "node_modules/**",
-    "lazy-lock.json",
-    ".git/**"
-  ]
+  "ignorePaths": ["node_modules/**", "lazy-lock.json", ".git/**"]
 }

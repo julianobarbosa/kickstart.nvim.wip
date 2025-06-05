@@ -86,50 +86,6 @@ P.S. You can delete this when you're done too. It's your config now! :)
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
-
--- Ensure proper runtime paths
--- Cache runtime paths for better performance
-local rtp_cache_file = vim.fn.stdpath('cache') .. '/rtp_cache.lua'
-local rtp
-
-if vim.fn.filereadable(rtp_cache_file) == 1 then
-  rtp = loadfile(rtp_cache_file)()
-else
-  rtp = vim.opt.runtimepath:get()
-  local nvim_share_path = '/usr/share/nvim'
-  if vim.fn.isdirectory(nvim_share_path) == 1 and not vim.tbl_contains(rtp, nvim_share_path) then
-    rtp[#rtp + 1] = nvim_share_path
-  end
-  -- Save cache
-  local file = io.open(rtp_cache_file, 'w')
-  if file then
-    file:write('return ' .. vim.inspect(rtp))
-    file:close()
-  end
-end
-vim.opt.runtimepath = rtp
-
--- Defer directory creation to VimEnter
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    -- Create syntax directory if it doesn't exist
-    local syntax_dir = vim.fn.stdpath('config') .. '/syntax'
-    if vim.fn.isdirectory(syntax_dir) == 0 then
-      vim.fn.mkdir(syntax_dir, 'p')
-      -- Create minimal syntax.vim if it doesn't exist
-      local syntax_file = syntax_dir .. '/syntax.vim'
-      if vim.fn.filereadable(syntax_file) == 0 then
-        local file = io.open(syntax_file, 'w')
-        if file then
-          file:write('" Base syntax file\n')
-          file:close()
-        end
-      end
-    end
-  end,
-  once = true
-})
-
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -145,83 +101,76 @@ vim.g.python3_host_prog = vim.fn.exepath('python3')
 vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
--- See `:help vim.opt`
+-- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 -- Make line numbers default
-vim.opt.number = true
+vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+vim.o.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
+vim.o.showmode = false
 
 -- Sync clipboard between OS and Neovim.
--- Defer clipboard sync to after first buffer load
-vim.api.nvim_create_autocmd('BufRead', {
-  callback = function()
-    vim.schedule(function()
-      vim.opt.clipboard = 'unnamedplus'
-    end)
-  end,
-  once = true
-})
+--  Schedule the setting after `UiEnter` because it can increase startup-time.
+--  Remove this option if you want your OS clipboard to remain independent.
+--  See `:help 'clipboard'`
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
 
 -- Enable break indent
-vim.opt.breakindent = true
+vim.o.breakindent = true
 
--- Configure swapfile and undo history
--- Set swapfile directory and options
-vim.opt.directory = vim.fn.stdpath('data') .. '/swap//'
-vim.opt.swapfile = true
--- Create swap directory if it doesn't exist
-local swap_dir = vim.fn.stdpath('data') .. '/swap'
-if vim.fn.isdirectory(swap_dir) == 0 then
-  vim.fn.mkdir(swap_dir, 'p')
-end
-
-vim.opt.undofile = true
+-- Save undo history
+vim.o.undofile = true
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
+vim.o.signcolumn = 'yes'
 
 -- Decrease update time
-vim.opt.updatetime = 250
+vim.o.updatetime = 250
 
 -- Decrease mapped sequence wait time
-vim.opt.timeoutlen = 300
+vim.o.timeoutlen = 300
 
 -- Configure how new splits should be opened
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+vim.o.splitright = true
+vim.o.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
-vim.opt.list = true
+--
+--  Notice listchars is set using `vim.opt` instead of `vim.o`.
+--  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
+--   See `:help lua-options`
+--   and `:help lua-options-guide`
+vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
+vim.o.inccommand = 'split'
 
 -- Show which line your cursor is on
-vim.opt.cursorline = true
+vim.o.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.o.scrolloff = 10
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
-vim.opt.confirm = true
+vim.o.confirm = true
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -272,12 +221,12 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
+--  See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
@@ -345,29 +294,18 @@ end
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
-local function bootstrap_lazy()
-  local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-  if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    vim.notify('Installing lazy.nvim...', vim.log.levels.INFO)
-    local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-    local out = vim.fn.system({
-      'git',
-      'clone',
-      '--filter=blob:none',
-      '--branch=stable',
-      lazyrepo,
-      lazypath,
-    })
-    if vim.v.shell_error ~= 0 then
-      error('Error cloning lazy.nvim:\n' .. out)
-    end
-    vim.notify('lazy.nvim installed successfully!', vim.log.levels.INFO)
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    error('Error cloning lazy.nvim:\n' .. out)
   end
-  vim.opt.rtp:prepend(lazypath)
 end
 
--- Bootstrap lazy.nvim
-bootstrap_lazy()
+---@type vim.Option
+local rtp = vim.opt.rtp
+rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
 --
@@ -382,28 +320,7 @@ bootstrap_lazy()
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  { 'tpope/vim-sleuth', version = '1.*' }, -- Detect tabstop and shiftwidth automatically
-
-  -- Git related plugins with version pinning
-  { 'tpope/vim-fugitive', version = '3.*' },
-  { 'tpope/vim-rhubarb', version = '1.*' },
-
-  -- Security settings for lazy.nvim
-  {
-    'folke/lazy.nvim',
-    version = '10.*',
-    priority = 1000,
-    opts = {
-      security = {
-        checksum_validate = true,  -- Validate plugin checksums
-        disable_builtin = true,    -- Disable potentially dangerous builtin modules
-        trust_only = {            -- Only trust specific sources
-          'github.com',
-          'raw.githubusercontent.com'
-        },
-      },
-    },
-  },
+  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -452,7 +369,7 @@ require('lazy').setup({
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
       -- delay between pressing a key and opening which-key (milliseconds)
-      -- this setting is independent of vim.opt.timeoutlen
+      -- this setting is independent of vim.o.timeoutlen
       delay = 0,
       icons = {
         -- set icon mappings to true if you have a Nerd Font
@@ -627,8 +544,8 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'williamboman/mason.nvim', opts = {} },
-      'williamboman/mason-lspconfig.nvim',
+      { 'mason-org/mason.nvim', opts = {} },
+      'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
@@ -1116,10 +1033,7 @@ require('lazy').setup({
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
-    opts = function()
-      local cmp = require('cmp')
-      local luasnip = require('luasnip')
-      return {
+    opts = {
       keymap = {
         -- 'default' (recommended) for mappings similar to built-in completions
         --   <c-y> to accept ([y]es) the completion.
@@ -1133,53 +1047,19 @@ require('lazy').setup({
         -- you will need to read `:help ins-completion`
         --
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
-        mapping = cmp.mapping.preset.insert({
-          -- Select the [n]ext item
-          ['<C-n>'] = cmp.mapping.select_next_item(),
-          -- Select the [p]revious item
-          ['<C-p>'] = cmp.mapping.select_prev_item(),
+        --
+        -- All presets have the following mappings:
+        -- <tab>/<s-tab>: move to right/left of your snippet expansion
+        -- <c-space>: Open menu or open docs if already open
+        -- <c-n>/<c-p> or <up>/<down>: Select next/previous item
+        -- <c-e>: Hide menu
+        -- <c-k>: Toggle signature help
+        --
+        -- See :h blink-cmp-config-keymap for defining your own keymap
+        preset = 'default',
 
-          -- Scroll the documentation window [b]ack / [f]orward
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-
-          -- Accept ([y]es) the completion.
-          --  This will auto-import if your LSP supports it.
-          --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-
-          -- If you prefer more traditional completion keymaps,
-          -- you can uncomment the following lines
-          --['<CR>'] = cmp.mapping.confirm { select = true },
-          --['<Tab>'] = cmp.mapping.select_next_item(),
-          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
-
-          -- Manually trigger a completion from nvim-cmp.
-          --  Generally you don't need this, because nvim-cmp will display
-          --  completions whenever it has completion options available.
-          ['<C-Space>'] = cmp.mapping.complete({}),
-
-          -- Think of <c-l> as moving to the right of your snippet expansion.
-          --  So if you have a snippet that's like:
-          --  function $name($args)
-          --    $body
-          --  end
-          --
-          -- <c-l> will move you to the right of each of the expansion locations.
-          -- <c-h> is similar, except moving you backwards.
-          ['<C-l>'] = cmp.mapping(function()
-            if luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            end
-          end, { 'i', 's' }),
-          ['<C-h>'] = cmp.mapping(function()
-            if luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-            end
-          end, { 'i', 's' }),
--- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
---    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
-        })
+        -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
+        --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
       },
 
       appearance = {
@@ -1193,18 +1073,28 @@ require('lazy').setup({
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
       },
+
       sources = {
         default = { 'lsp', 'path', 'snippets', 'lazydev' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
       },
+
       snippets = { preset = 'luasnip' },
+
+      -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
+      -- which automatically downloads a prebuilt binary when enabled.
+      --
+      -- By default, we use the Lua implementation instead, but you may enable
+      -- the rust implementation via `'prefer_rust_with_warning'`
+      --
+      -- See :h blink-cmp-config-fuzzy for more information
       fuzzy = { implementation = 'lua' },
+
       -- Shows a signature help window while you type arguments for a function
-      signature = { enabled = true }
-    }
-  end
+      signature = { enabled = true },
+    },
   },
 
   { -- You can easily change to a different colorscheme.
