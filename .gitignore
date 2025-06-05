@@ -9,3 +9,4 @@ lazy-lock.json
 .aider*
 node_modules
 .venv
+.roo
